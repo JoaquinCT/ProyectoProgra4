@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html xml=th="http://www.thymeleaf.org">
+    <head>
+        <title>Barra de Navegación Principal</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preload" href="css/styles.css" as="style">
+        <link th:href="@{/css/styles.css}" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="nav-bg">
+            <img class="img" src="/imagenes/tecsolve.jpg" />
+            <nav class="navegacion-principal contenedor">
+                
+                <a href="/">Inicio</a>
+                <a href="/empleados/listarEmpleados">Empleados</a>
+                <a href="/gastos/listaGastos">Gastos</a>
+                <a href="#">Cientes</a>
+                <a href="#">Contacto</a>
+            </nav>
+        </div>
+        <br>
+    </body>
+</html>
