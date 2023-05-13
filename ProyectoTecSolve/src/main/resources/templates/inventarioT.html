@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xml:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Control de Empresas</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
+    </head>
+    <body>
+        <h1>Control de Inventario</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                      <a href="./"><button type="button">Ir al Menu</button></a>
+                     <a href="./insertarInventario"><button type="button">Insertar Nuevo Producto</button></a>
+
+                     
+                </div>
+               
+            </div>
+        </div>
+         
+             <table border="2">
+                <tr>
+                    
+                    <th>Categor&iacute;a</th>
+                    <th>Clasificaci&oacute;n</th>
+                    <th>Nombre Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+                <tr th:each="temp:${inventario}"> 
+                    <td th:text="${temp.id}" style="display:none;"></td>
+                    <td th:text="${temp.categoria}"></td>
+                    <td th:text="${temp.clasificacion}"></td>
+                    <td th:text="${temp.nombreProducto}"></td>
+                    <td th:text="${temp.cantidad}"></td>
+                    <td th:text="${temp.precio}"></td>
+                    <td>
+                        
+                        <a th:href="@{./actualizarInventario/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
+                        <a th:href="@{./eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
+
+                    </td>
+                </tr>
+            </table>
+    </body>
+</html>
