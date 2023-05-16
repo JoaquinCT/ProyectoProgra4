@@ -24,8 +24,6 @@ public class ControllerServicios {
         
          LinkedList<Servicios> espacios = new ServiciosData().getEspacios();
         
-        //model.addAttribute("titulo","Servicios");
-        //model.addAttribute("nombre",espacios.getFirst());
         model.addAttribute("servicios",espacios);
              
         return "Servicios";
