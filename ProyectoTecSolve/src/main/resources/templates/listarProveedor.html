@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lista Proveedores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preload" href="css/styles.css" as="style">
+        <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
+        <!-- Sección de agrupación -->
+        <div class="contAgrupar">
+            <form>
+                <label class="labelAgrupar">Agrupar de </label>
+                <input type="number" class="inputAgrupar" name="pageSize" min="1" value="1">
+                <button type="submit" class="buttonAgrupar">Mostrar</button>
+            </form>
+        </div>
+            <br>
+
+    <a th:href="@{/proveedores/formGuardarProveedor}" class="btn btn-primary">Nuevo</a>
+    <div th:if="${!#lists.isEmpty(proveedores)}">
+        <div class="contLista">
+            <table class="tbMode" >
+                <thead>
+                    <tr class="trHead">
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="trLista" th:each="proveedor:${proveedores}">
+                        <td th:text="${proveedor.nombre}"></td>
+                        <td th:text="${proveedor.direccion}"></td>
+                        <td th:text="${proveedor.telefono}"></td>
+                        <td th:text="${proveedor.email}"></td>
+                        <td>
+                            <a th:href="@{/proveedores/editar/}+${proveedor.id}" class="btn btn-warning">Editar</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/proveedores/eliminar/}+${proveedor.id}" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(proveedores)}">
+        <h2>No hay proveedores registrados actualmente.</h2>
+    </div>
+    <div class="pagination">
+        <ul>
+            <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
+                <a th:href="@{/proveedores/listarProveedores?pageNumber=1&pageSize=}+${pageSize}">First Page</a>
+            </li>
+            <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
+                <a th:href="@{/proveedores/listarProveedores?pageNumber=}+${pageNumber - 1}+'&pageSize='+${pageSize}">Previous</a>
+            </li>
+            <li th:each="page : ${#numbers.sequence(1, totalPages)}" th:class="${page == pageNumber ? 'active' : ''}">
+                <a th:href="@{/proveedores/listarProveedores?pageNumber=}+${page}+'&pageSize='+${pageSize}" th:text="${page}"></a>
+            </li>
+            <li th:if="${pageNumber < totalPages}" th:class="${pageNumber == totalPages ? 'disabled' : ''}">
+                <a th:href="@{/proveedores/listarProveedores?pageNumber=}+${pageNumber + 1}+'&pageSize='+${pageSize}">Next</a>
+            </li>
+            <li th:if="${pageNumber < totalPages}" th:class="${pageNumber == totalPages ? 'disabled' : ''}">
+                <a th:href="@{/proveedores/listarProveedores?pageNumber=}+${totalPages}+'&pageSize='+${pageSize}">Last Page</a>
+            </li>
+        </ul>
+        <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
+    </div>
+</body>
+</html>
