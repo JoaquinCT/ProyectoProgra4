@@ -9,6 +9,11 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author kinco
+ */
+
 public class DataProveedor extends BaseData {
 
     public final static String ID = "id";
