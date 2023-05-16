@@ -7,73 +7,79 @@
         <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
     </head>
     <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
         <h1>Control de Inventario</h1>
-        <!-- Sección de agrupación -->
-        <div class="contAgrupar">
-            <form>
-                <label class="labelAgrupar">Agrupar de </label>
-                <input type="number" class="inputAgrupar" name="pageSize" min="1" value="1">
-                <button type="submit" class="buttonAgrupar">Mostrar</button>
-            </form>
+        <div th:if="${#lists.isEmpty(inventario)}">
+            <h2>La Empresa no posee inventario actualmente!!</h2>
         </div>
-        <br>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <!--<a href="./"><button type="button">Ir al Menu</button></a>-->
-                    <a href="/Inventario/insertarInventario"><button type="button">Insertar Nuevo Producto</button></a>
+        <div th:if="${!#lists.isEmpty(inventario)}">
+            <!-- Sección de agrupación -->
+            <div class="contAgrupar">
+                <form>
+                    <label class="labelAgrupar">Agrupar de </label>
+                    <input type="number" class="inputAgrupar" name="pageSize" min="1" value="1">
+                    <button type="submit" class="buttonAgrupar">Mostrar</button>
+                </form>
+            </div>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <!--<a href="./"><button type="button">Ir al Menu</button></a>-->
+                        <a href="/Inventario/insertarInventario"><button type="button">Insertar Nuevo Producto</button></a>
 
+
+                    </div>
 
                 </div>
+            </div>
+
+            <table border="2">
+                <tr>
+
+                    <th>Categor&iacute;a</th>
+                    <th>Clasificaci&oacute;n</th>
+                    <th>Nombre Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+                <tr th:each="temp:${inventario}"> 
+                    <td th:text="${temp.id}" style="display:none;"></td>
+                    <td th:text="${temp.categoria}"></td>
+                    <td th:text="${temp.clasificacion}"></td>
+                    <td th:text="${temp.nombreProducto}"></td>
+                    <td th:text="${temp.cantidad}"></td>
+                    <td th:text="${temp.precio}"></td>
+                    <td>
+
+                        <a th:href="@{/Inventario/actualizarInventario/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
+                        <a th:href="@{/Inventario/eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
+
+                    </td>
+                </tr>
+            </table>
+            <div class="pagination">
+                <ul>
+                    <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
+                        <a th:href="@{/Inventario?pageNumber=1&pageSize=}+${pageSize}">First Page</a>
+                    </li>
+                    <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
+                        <a th:href="@{/Inventario?pageNumber=}+${pageNumber - 1}+'&pageSize='+${pageSize}">Previous</a>
+                    </li>
+                    <li th:each="page : ${#numbers.sequence(1, totalPages)}" th:class="${page == pageNumber ? 'active' : ''}">
+                        <a th:href="@{/Inventario?pageNumber=}+${page}+'&pageSize='+${pageSize}" th:text="${page}"></a>
+                    </li>
+                    <li th:if="${pageNumber < totalPages}" th:class="${pageNumber == totalPages ? 'disabled' : ''}">
+                        <a th:href="@{/Inventario?pageNumber=}+${pageNumber + 1}+'&pageSize='+${pageSize}">Next</a>
+                    </li>
+                    <li th:if="${pageNumber < totalPages}" th:class="${pageNumber == totalPages ? 'disabled' : ''}">
+                        <a th:href="@{/Inventario?pageNumber=}+${totalPages}+'&pageSize='+${pageSize}">Last Page</a>
+                    </li>
+                </ul>
+                <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
 
             </div>
-        </div>
-
-        <table border="2">
-            <tr>
-
-                <th>Categor&iacute;a</th>
-                <th>Clasificaci&oacute;n</th>
-                <th>Nombre Producto</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Acciones</th>
-            </tr>
-            <tr th:each="temp:${inventario}"> 
-                <td th:text="${temp.id}" style="display:none;"></td>
-                <td th:text="${temp.categoria}"></td>
-                <td th:text="${temp.clasificacion}"></td>
-                <td th:text="${temp.nombreProducto}"></td>
-                <td th:text="${temp.cantidad}"></td>
-                <td th:text="${temp.precio}"></td>
-                <td>
-
-                    <a th:href="@{/Inventario/actualizarInventario/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
-                    <a th:href="@{/Inventario/eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
-
-                </td>
-            </tr>
-        </table>
-        <div class="pagination">
-            <ul>
-                <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
-                    <a th:href="@{/Inventario?pageNumber=1&pageSize=}+${pageSize}">First Page</a>
-                </li>
-                <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
-                    <a th:href="@{/Inventario?pageNumber=}+${pageNumber - 1}+'&pageSize='+${pageSize}">Previous</a>
-                </li>
-                <li th:each="page : ${#numbers.sequence(1, totalPages)}" th:class="${page == pageNumber ? 'active' : ''}">
-                    <a th:href="@{/Inventario?pageNumber=}+${page}+'&pageSize='+${pageSize}" th:text="${page}"></a>
-                </li>
-                <li th:if="${pageNumber < totalPages}" th:class="${pageNumber == totalPages ? 'disabled' : ''}">
-                    <a th:href="@{/Inventario?pageNumber=}+${pageNumber + 1}+'&pageSize='+${pageSize}">Next</a>
-                </li>
-                <li th:if="${pageNumber < totalPages}" th:class="${pageNumber == totalPages ? 'disabled' : ''}">
-                    <a th:href="@{/Inventario?pageNumber=}+${totalPages}+'&pageSize='+${pageSize}">Last Page</a>
-                </li>
-            </ul>
-            <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
-
         </div>
     </body>
 </html>

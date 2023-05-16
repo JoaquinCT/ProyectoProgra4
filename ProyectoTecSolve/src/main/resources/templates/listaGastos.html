@@ -20,7 +20,9 @@
         </div>
         <br>
         <a th:href="@{/gastos/formGuardarGasto}" class="btn btn-primary">Nuevo Gasto</a>
-
+        <div th:if="${#lists.isEmpty(gastos)}">
+            <h2>La Empresa no posee gastos actualmente!!</h2>
+        </div>
         <div th:if="${!#lists.isEmpty(gastos)}">
             <div class="contLista">
                 <table class="tbMode" >
@@ -54,9 +56,7 @@
                 <br>
             </div>
         </div>
-        <div th:if="${#lists.isEmpty(gastos)}">
-            <h2>La Empresa no posee gastos actualmente!!</h2>
-        </div>
+        
         <div class="pagination">
             <ul>
                 <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">

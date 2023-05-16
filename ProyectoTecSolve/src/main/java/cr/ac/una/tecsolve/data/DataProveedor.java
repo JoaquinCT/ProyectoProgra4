@@ -45,7 +45,7 @@ public class DataProveedor extends BaseData {
 
     public LinkedList<Proveedor> getListaProveedoresPorPaginacion(int numPage, int pageSize) {
         LinkedList<Proveedor> lista = new LinkedList<>();
-        int offset = (numPage - 1) * pageSize;
+        int offset = (numPage-1) * pageSize;
         String query = "SELECT * FROM " + TBPROVEEDORES + " LIMIT ? OFFSET ?;";
 
         try {

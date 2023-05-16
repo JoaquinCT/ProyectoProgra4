@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
     </head>
     <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
         <h1>Insertar Servicio Brindado</h1>
         <a href="./"><button type="button">Ir al Menu</button></a>
         <form action="/servicios/guardarServicio" method="get"> 

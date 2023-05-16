@@ -36,4 +36,12 @@ public class LogicaProveedor {
     public LinkedList<Proveedor> getListaProveedores() {
         return data.getListaProveedores();
     }
+    
+    public LinkedList<Proveedor> getListaProveedoresPorPaginacion(int page, int pageSize) {
+        return data.getListaProveedoresPorPaginacion(page, pageSize);
+    }
+    
+    public int getTotalProveedores() {
+        return data.getNumeroTotalProveedores();
+    }
 }

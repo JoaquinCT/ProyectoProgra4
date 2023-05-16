@@ -14,7 +14,7 @@
             }
             form{
                 border-color: #212121;
-              
+
                 border-radius: 3px;
                 color: #999;
                 font-size: 12px;
@@ -40,35 +40,35 @@
         </style>
     </head>
     <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
+        <!--
+                <div class="nav-bag">
         
-
-        <div class="nav-bag">
-
-            <nav class="navegacionPrincipal contenedor">
-                <a href="/home">Inicio</a>
-                <a href="/listar">Clientes</a>
-                <a href="/insertar">Registrar Clientes</a>
-            </nav>
-        </div>
-        
+                    <nav class="navegacionPrincipal contenedor">
+                        <a href="/home">Inicio</a>
+                        <a href="/listar">Clientes</a>
+                        <a href="/insertar">Registrar Clientes</a>
+                    </nav>
+                </div>
+        -->
         <h1>Editar Datos del Cliente</h1>
         <form th:action="@{/guardarEdit}"  method="get">
-            
+
             <input th:value="${id}" type="hidden" name="id" class="field" readonly="readonly"/><br />
             <c>Nombre:</p>
-            <input th:value="${nombre}" type="text" name="nombre" class="field" required/><br />
-            <c>Apellido:</p>
-            <input th:value="${apellido}" type="text" name="apellido" class="field" required/><br />
-            <c>Cedula:</p>
-            <input th:value="${cedula}" type="number" name="cedula" class="field" required/><br />
-            <c>Telefono:</p>
-            <input th:value="${telefono}" type="number" name="telefono" class="field" required/><br />
-            <c>Correo</p>
-            <input th:value="${correo}" type="email" name="correo" class="field" required/><br />
-             <br />
-            <input type="submit" value="Editar" class="btn btn-green"/><br />
-        </form>
+                <input th:value="${nombre}" type="text" name="nombre" class="field" required/><br />
+                <c>Apellido:</p>
+                    <input th:value="${apellido}" type="text" name="apellido" class="field" required/><br />
+                    <c>Cedula:</p>
+                        <input th:value="${cedula}" type="number" name="cedula" class="field" required/><br />
+                        <c>Telefono:</p>
+                            <input th:value="${telefono}" type="number" name="telefono" class="field" required/><br />
+                            <c>Correo</p>
+                                <input th:value="${correo}" type="email" name="correo" class="field" required/><br />
+                                <br />
+                                <input type="submit" value="Editar" class="btn btn-green"/><br />
+                                </form>
 
 
-    </body>
-</html>
+                                </body>
+                                </html>
