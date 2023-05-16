@@ -10,33 +10,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <a href="./"><button type="button">Ir al Menu</button></a>
-                    <a href="./insertarServicios"><button type="button">Insertar Nuevo Servicio</button></a>
-                    
-    <form id="myForm" action="/BuscarServicio/{nombre}" method="get">
-    <input type="text" name="nombre" id="nombreInput">
-    <button type="submit" id="submitButton">Buscar Por Nombre de Servicio</button>
-</form>
+                    <!--<a href="./"><button type="button">Ir al Menu</button></a>-->
+                    <a href="/servicios/insertarServicios"><button type="button">Insertar Nuevo Servicio</button></a>
 
-<script>
-    const form = document.getElementById('myForm');
-    const nombreInput = document.getElementById('nombreInput');
-    const submitButton = document.getElementById('submitButton');
-    
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault();
+                    <form id="myForm" action="/BuscarServicio/{nombre}" method="get">
+                        <input type="text" name="nombre" id="nombreInput">
+                        <button type="submit" id="submitButton">Buscar Por Nombre de Servicio</button>
+                    </form>
 
-        const nombre = nombreInput.value;
+                    <script>
+                        const form = document.getElementById('myForm');
+                        const nombreInput = document.getElementById('nombreInput');
+                        const submitButton = document.getElementById('submitButton');
 
-        form.action = "/BuscarServicio/" + nombre;
+                        submitButton.addEventListener('click', function (event) {
+                            event.preventDefault();
 
-        form.submit();
-    });
-</script>
+                            const nombre = nombreInput.value;
 
-</form>
+                            form.action = "/BuscarServicio/" + nombre;
 
-</form>
+                            form.submit();
+                        });
+                    </script>
+
+                    </form>
+
+                    </form>
 
                 </div>
             </div>
@@ -45,6 +45,15 @@
             <p>No hay datos disponibles.</p>
         </div>
         <div th:if="${not #lists.isEmpty(servicios)}">
+            <!-- Sección de agrupación -->
+            <div class="contAgrupar">
+                <form>
+                    <label class="labelAgrupar">Agrupar de </label>
+                    <input type="number" class="inputAgrupar" name="pageSize" min="1" value="1">
+                    <button type="submit" class="buttonAgrupar">Mostrar</button>
+                </form>
+            </div>
+            <br>
             <table border="2">
                 <tr>
                     <th>Nombre Servicio</th>
@@ -62,11 +71,32 @@
                     <td th:text="${temp.precio}"></td>
                     <td th:text="${temp.encargado}"></td>
                     <td>
-                        <a th:href="@{./actualizarServicio/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
-                        <a th:href="@{./eliminarServicio?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
+                        <a th:href="@{/servicios/actualizarServicio/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
+                        <a th:href="@{/servicios/eliminarServicio?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
                     </td>
                 </tr>
             </table>
+            <div class="pagination">
+                <ul>
+                    <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
+                        <a th:href="@{/servicios?pageNumber=1&pageSize=}+${pageSize}">First Page</a>
+                    </li>
+                    <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
+                        <a th:href="@{/servicios?pageNumber=}+${pageNumber - 1}+'&pageSize='+${pageSize}">Previous</a>
+                    </li>
+                    <li th:each="page : ${#numbers.sequence(1, totalPages)}" th:class="${page == pageNumber ? 'active' : ''}">
+                        <a th:href="@{/servicios?pageNumber=}+${page}+'&pageSize='+${pageSize}" th:text="${page}"></a>
+                    </li>
+                    <li th:if="${pageNumber < totalPages}" th:class="${pageNumber == totalPages ? 'disabled' : ''}">
+                        <a th:href="@{/servicios?pageNumber=}+${pageNumber + 1}+'&pageSize='+${pageSize}">Next</a>
+                    </li>
+                    <li th:if="${pageNumber < totalPages}" th:class="${pageNumber == totalPages ? 'disabled' : ''}">
+                        <a th:href="@{/servicios?pageNumber=}+${totalPages}+'&pageSize='+${pageSize}">Last Page</a>
+                    </li>
+                </ul>
+                <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
+
+            </div>
         </div>
     </body>
 </html>
