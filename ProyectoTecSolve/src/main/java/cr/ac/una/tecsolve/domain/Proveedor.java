@@ -8,17 +8,30 @@ package cr.ac.una.tecsolve.domain;
  *
  * @author kinco
  */
-public class Proveedor {
+public class Proveedor{
+    private int id;
     private String nombre;
     private String direccion;
     private String telefono;
     private String email;
 
-    public Proveedor(String nombre, String direccion, String telefono, String email) {
+    public Proveedor() {
+    }
+
+    public Proveedor(int id,String nombre, String direccion, String telefono, String email) {
+        this.id=id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -52,5 +65,7 @@ public class Proveedor {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    
 }
 
