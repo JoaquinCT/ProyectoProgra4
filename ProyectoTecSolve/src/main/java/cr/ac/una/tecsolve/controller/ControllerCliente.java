@@ -21,12 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/clientes")
 public class ControllerCliente {
-/*
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String home() {
 
-        return "indexCliente";
-    }*/
 
     @GetMapping("/menuCliente")
     public String inicio() {
