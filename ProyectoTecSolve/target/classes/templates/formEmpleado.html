@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xml:th="http://www.thymeleaf.org">
+    <head>
+        <title>Guardar Empleado</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
+        <div class="mt-4">
+            <form th:action="@{/empleados/saveEmpleado}" th:object="${empleado}" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Módulo de Guardar Empleado</h3>
+                        <br>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label>CÉDULA</label>
+                            <input th:field="*{cedula}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>NOMBRE</label>
+                            <input th:field="*{nombre}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>APELLIDO</label>
+                            <input th:field="*{apellido}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>NÚMERO DE TELÉFONO</label>
+                            <input th:field="*{numeroTelefono}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>CONTRASEÑA</label>
+                            <input th:field="*{contrasenia}" type="password" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>PUESTO</label>
+                            <input th:field="*{puesto}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>SALARIO</label>
+                            <input th:field="*{salario}" min="0" type="number" class="form-control" required>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Guardar" class="btn btn-success">
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="window.location.href='./listarEmpleados';" class="btn btn-danger">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

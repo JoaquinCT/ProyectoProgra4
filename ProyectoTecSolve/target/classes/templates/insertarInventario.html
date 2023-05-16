@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xml:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
+</head>
+<body>
+<h1>Insertar Inventario</h1>
+ <a href="./"><button type="button">Ir al Menu</button></a>
+<form action="./guardarInventario" method="get">
+    <table>
+        <tr>
+            <td><input type="text" name="id" style="display:none;"/></td>
+        </tr>
+
+        <tr>
+            <td>Seleccionar una Categor&iacute;a:</td>
+            <td>
+                <select id="listaInventario" onchange="seleccionarEmpresa()" required>
+                    <option value="">Seleccionar una opción</option>
+                    <option value="computadoras">Computadoras</option>
+                    <option value="componentes">Componentes</option>
+                    <option value="celulares">Celulares</option>
+                    <option value="perif&eacute;ricos">Perif&eacute;ricos</option>
+                    <option value="imagen-sonido">Imag&eacute;n y sonido</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input type="text" name="categoria" id="categoriaId" style="display:none;" required/></td>
+        </tr>
+        <tr>
+            <td>Clasificaci&oacute;n:</td>
+            <td><input type="text" name="clasificacion" required/></td>
+        </tr>
+        <tr>
+            <td>Nombre Producto:</td>
+            <td><input type="text" name="nombreProducto" required/></td>
+        </tr>
+        <tr>
+            <td>Cantidad:</td>
+            <td><input type="text" name="cantidad" required/></td>
+        </tr>
+        <tr>
+            <td>Precio:</td>
+            <td><input type="text" name="precio" required/></td>
+        </tr>
+    </table>
+    <input type="submit" value="Guardar"/>
+</form>
+
+
+<script>
+    function seleccionarEmpresa() {
+        let listaInventario = document.getElementById('listaInventario');
+        let categoriaId = listaInventario.options[listaInventario.selectedIndex].text;
+
+        document.getElementById('categoriaId').value = categoriaId;
+    }
+</script>
+</body>
+</html>
+
+
+

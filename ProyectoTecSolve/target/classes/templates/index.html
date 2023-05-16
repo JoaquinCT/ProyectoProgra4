@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html xml=th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Form Login TecSolve</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/login.css">
+
+    </head>
+    <body>
+        <!-- <header th:replace="BarraNavPrincipal.html"></header>-->
+
+        <div class="container">
+            <img src="imagenes/tecsolve.jpg" class="avatar" alt="Avatar TecSolve">
+            <h1>Login Here</h1>
+
+            <form th:action="@{/empleados/showMenuEmpleado}" method="POST">
+                <label>Select the type of user</label>
+                <select name="tipoUsuario" required>
+                    <option value="">Type of User</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="empleado">Empleado</option>
+                </select>
+                <br><br>
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Enter Username" required>
+                <br>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+
+                <br>
+                <input type="submit" value="Login">
+                <a href="#">Lost your password?</a><br>
+                <a href="#">Don´t have an account?</a>
+            </form>
+        </div>
+    </body>
+</html>

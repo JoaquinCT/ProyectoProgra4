@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html xml:th="http://www.thymeleaf.org">
+    <head>
+        <title>Form Gastos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
+        <div class="mt-4">
+            <form th:action="@{/gastos/saveGasto}" th:object="${gasto}" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Módulo de Gastos</h3>
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <input th:field="*{id}" type="number" style="display: none">
+                        <div class="form-group">
+                            <label>FECHA</label>
+                            <input th:field="*{fecha}" type="date" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>DESCRIPCIÓN</label>
+                            <input th:field="*{descripcion}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <select name="categorias" required>
+                                <option value="">Selecciones una categoría</option>
+                                <option value="Servicios básicos">Servicios básicos</option>
+                                <option value="Alimentación">Alimentación</option>
+                                <option value="Gastos de papelería y oficina">Gastos de papelería y oficina</option>
+                                <option value="Marketing y publicidad">Marketing y publicidad</option>
+                                <option value="Impuestos y tasas">Impuestos y tasas</option>
+                                <option value="Beneficios para empleados">Beneficios para empleados</option>
+                                <option value="Gastos de transporte">Gastos de transporte</option>
+                            </select>
+
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>MONTO</label>
+                            <input th:field="*{monto}" min="0" type="number" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>DETALLE</label>
+                            <input th:field="*{detalle}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Guardar" class="btn btn-success">
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="window.location.href = '/gastos/listaGastos';" class="btn btn-danger">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
