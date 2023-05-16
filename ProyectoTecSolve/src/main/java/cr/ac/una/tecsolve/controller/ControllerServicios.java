@@ -22,7 +22,7 @@ public class ControllerServicios {
     public String Servicios(Model model, @RequestParam(name="pageNumber",defaultValue = "1") int numeroPagina, @RequestParam(name="pageSize", defaultValue = "1") int pageSize) {
         int numeroTotalGastos = new ServiciosData().getNumeroTotalServicios();
         int numeroTotalPaginas = (int) Math.ceil((double) numeroTotalGastos / pageSize);
-        LinkedList<Servicios> espacios = new ServiciosData().getEspacios();
+        LinkedList<Servicios> espacios = new ServiciosData().getListaServiciosPorPaginacion(numeroPagina, pageSize);
         model.addAttribute("pageNumber", numeroPagina);
         model.addAttribute("totalPages", numeroTotalPaginas);
         model.addAttribute("pageSize", pageSize);
@@ -48,8 +48,7 @@ public class ControllerServicios {
 
     @GetMapping("/eliminarServicio")
     public String eliminarServicio(@RequestParam int id, Model model) {
-        System.out.println("Eliminar id " + id);
-
+        
         new ServiciosData().eliminar(id);
         return "redirect:/servicios";
     }
