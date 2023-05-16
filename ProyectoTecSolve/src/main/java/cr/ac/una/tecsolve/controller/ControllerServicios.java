@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.example.proyecto.controller;
 
-import com.example.proyecto.data.ServiciosData;
-import com.example.proyecto.domain.Servicios;
+package cr.ac.una.tecsolve.controller;
+
+import cr.ac.una.tecsolve.data.ServiciosData;
+import cr.ac.una.tecsolve.domain.Servicios;
 import java.util.LinkedList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,16 +15,17 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author Usuario
  */
+
 @Controller 
-@RequestMapping("/Servicios")
+@RequestMapping("/servicios")
 public class ControllerServicios {
        @GetMapping 
     public String Servicios(Model model){
         
          LinkedList<Servicios> espacios = new ServiciosData().getEspacios();
         
-        model.addAttribute("titulo","Servicios");
-        model.addAttribute("nombre",espacios.getFirst());
+        //model.addAttribute("titulo","Servicios");
+        //model.addAttribute("nombre",espacios.getFirst());
         model.addAttribute("servicios",espacios);
              
         return "Servicios";

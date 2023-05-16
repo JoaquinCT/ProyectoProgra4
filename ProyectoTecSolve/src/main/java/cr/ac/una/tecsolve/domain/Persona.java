@@ -23,6 +23,15 @@ public class Persona {
         this.numeroTelefono = numeroTelefono;
     }
 
+    public Persona(String nombre, String apellido, String cedula, String numeroTelefono) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cedula = cedula;
+        this.numeroTelefono = numeroTelefono;
+    }
+    
+    
+
     public int getId() {
         return id;
     }

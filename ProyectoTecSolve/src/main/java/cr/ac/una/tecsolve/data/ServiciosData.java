@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.example.proyecto.data;
 
-import com.example.proyecto.domain.Inventario;
-import com.example.proyecto.domain.Servicios;
+package cr.ac.una.tecsolve.data;
+
+
+import cr.ac.una.tecsolve.domain.Servicios;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +15,8 @@ import java.util.logging.Logger;
  *
  * @author Usuario
  */
-public class ServiciosData extends DataBase{
+
+public class ServiciosData extends BaseData{
         public final static String TBINVENTARIO = "tbservicios";
     public final static String ID = "id";
     public final static String NOMBRE = "nombre";
@@ -32,7 +30,7 @@ public class ServiciosData extends DataBase{
     public LinkedList<Servicios> getEspacios(){
         LinkedList<Servicios> inventario = new LinkedList<Servicios>();
         String query = "SELECT * FROM " +TBINVENTARIO + ";" ;
-        Connection con = getConexion();
+        Connection con = getConnection();
         try {
             PreparedStatement prepared = con.prepareStatement(query);
             
@@ -66,7 +64,7 @@ public class ServiciosData extends DataBase{
         String query = "INSERT INTO "+ TBINVENTARIO+ "("+NOMBRE+","+DESCRIPCION+","+HORARIO+", "+PRECIO+","+ENCARGADO+") VALUES (?,?,?,?,?)";
         
         //Conexion a la base de datos.
-        Connection conexion = this.getConexion();
+        Connection conexion = this.getConnection();
         try {
             PreparedStatement prepared = conexion.prepareStatement(query);
             //Seteo los datos en los valores respectivos de mi base de datos.
@@ -96,7 +94,7 @@ public class ServiciosData extends DataBase{
         String query = "DELETE FROM "+ TBINVENTARIO+ " WHERE id=?" ;
         
         //Conexion a la base de datos.
-        Connection conexion = getConexion();
+        Connection conexion = getConnection();
         try {
             PreparedStatement prepared = conexion.prepareStatement(query);
             //Seteo los datos en los valores respectivos de mi base de datos.
@@ -119,7 +117,7 @@ public class ServiciosData extends DataBase{
    public LinkedList<Servicios> mostrarDatos(int id) {
   LinkedList<Servicios> inventario = new LinkedList<Servicios>();
         String query = "SELECT * FROM " +TBINVENTARIO + " WHERE id=?" ;
-        Connection con = getConexion();
+        Connection con = getConnection();
         try {
             PreparedStatement prepared = con.prepareStatement(query);
              prepared.setInt(1, id);
@@ -151,7 +149,7 @@ public class ServiciosData extends DataBase{
     PreparedStatement prepared = null;
     
     try {
-        conexion = getConexion();
+        conexion = getConnection();
         String query = "UPDATE " + TBINVENTARIO + " SET nombre=?, descripcion=?,horario=?, precio=?, encargado=? WHERE id=?";
         prepared = conexion.prepareStatement(query);
         
@@ -190,7 +188,7 @@ public class ServiciosData extends DataBase{
    public LinkedList<Servicios> BuscarDatos(String nombre) {
   LinkedList<Servicios> inventario = new LinkedList<Servicios>();
         String query = "SELECT * FROM " +TBINVENTARIO + " WHERE nombre=?" ;
-        Connection con = getConexion();
+        Connection con = getConnection();
         try {
             PreparedStatement prepared = con.prepareStatement(query);
              prepared.setString(1, nombre);

@@ -76,19 +76,7 @@
                 </li>
             </ul>
             <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
-            <!-- 
-            <ul>
-                <li th:if="${numeroPagina > 1}">
-                    <a th:href="@{/gastos/listaGastos(numeroPagina=${numeroPagina - 1})}">Anterior</a>
-                </li>
-                <li th:each="pagina : ${#numbers.sequence(1, numeroTotalPaginas)}" th:class="${numeroPagina == pagina ? 'active' : ''}">
-                    <a th:href="@{/gastos/listaGastos(numeroPagina=${pagina})}" th:text="${pagina}"></a>
-                </li>
-                <li th:if="${numeroPagina < numeroTotalPaginas}">
-                    <a th:href="@{/gastos/listaGastos(numeroPagina=${numeroPagina + 1})}">Siguiente</a>
-                </li>
-            </ul>
-            -->
+            
         </div>
 
     </body>

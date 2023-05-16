@@ -46,13 +46,13 @@
         <div class="nav-bag">
 
             <nav class="navegacionPrincipal contenedor">
-                <a href="/home">Inicio</a>
-                <a href="/listar">Clientes</a>
-                <a href="/insertar">Registrar Clientes</a>
+                <a href="/clientes/menuCliente">Inicio</a>
+                <a href="/clientes/listar">Clientes</a>
+                <a href="/clientes/insertar">Registrar Clientes</a>
             </nav>
         </div>
         <h1>Insertar Cliente</h1>
-        <form th:action="@{/guardar}" th:object="${cliente}" method="post">
+        <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
 
             <c>Nombre:</p>
             <input type="text" th:field="*{nombre}" name="nombre" class="field" required/><br />
@@ -61,7 +61,7 @@
             <c>Cedula:</p>
             <input type="number" th:field="*{cedula}" name="cedula" class="field" required/><br />
             <c>Numero de Teléfono</p>
-            <input type="number" th:field="*{telefono}" name="numero" class="field" required/><br />
+            <input type="number" th:field="*{numeroTelefono}" name="numero" class="field" required/><br />
             <c>Correo Electronico</p>
             <input type="email" th:field="*{correo}" name="correo" class="field" required/><br />
             <!--<input type="date" name="date" class="field" required/><br />  --> 

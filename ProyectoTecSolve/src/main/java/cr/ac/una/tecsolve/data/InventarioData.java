@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.example.proyecto.data;
 
-import com.example.proyecto.domain.Inventario;
+package cr.ac.una.tecsolve.data;
+
+import cr.ac.una.tecsolve.domain.Inventario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,12 +15,13 @@ import java.util.logging.Logger;
  *
  * @author Usuario
  */
-public class InventarioData extends DataBase {
+
+public class InventarioData extends BaseData {
     public final static String TBINVENTARIO = "tbinventario";
     public final static String ID = "id";
     public final static String CATEGORIA = "categoria";
     public final static String CLASIFICACION = "clasificacion";
-    public final static String NOMBRE = "nombreProducto";
+    public final static String NOMBRE = "nombre";
     public final static String CANTIDAD = "cantidad";
     public final static String PRECIO = "precio";
     
@@ -32,7 +30,7 @@ public class InventarioData extends DataBase {
     public LinkedList<Inventario> getEspacios(){
         LinkedList<Inventario> inventario = new LinkedList<Inventario>();
         String query = "SELECT * FROM " +TBINVENTARIO + ";" ;
-        Connection con = getConexion();
+        Connection con = getConnection();
         try {
             PreparedStatement prepared = con.prepareStatement(query);
             
@@ -57,26 +55,72 @@ public class InventarioData extends DataBase {
         }
         return inventario;
     }
+    
+        public LinkedList<Inventario> getListaInventariosPorPaginacion(int numPage, int pageSize) {
+        LinkedList<Inventario> lista = new LinkedList<>();
+        int offset = (numPage-1) * pageSize;
+        String query = "SELECT * FROM tbinventario LIMIT ? OFFSET ?;";
+
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(query);
+            pr.setInt(1, pageSize);
+            pr.setInt(2, offset);
+            ResultSet result = pr.executeQuery();
+            Inventario i = null;
+            while (result.next()) {
+                i = new Inventario();
+                i.setId(result.getInt(ID));
+                i.setCategoria(result.getString(CATEGORIA));
+                i.setClasificacion(result.getString(CLASIFICACION));
+                i.setNombreProducto(result.getString(NOMBRE));
+                i.setCantidad(result.getInt(CANTIDAD));
+                i.setPrecio(result.getFloat(PRECIO));
+                
+                
+                lista.add(i);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+
+    public int getNumeroTotalInventarios() {
+        int numeroTotal = 0;
+
+        String sql = "SELECT COUNT(*) FROM tbinventario;";
+
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(sql);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                numeroTotal = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return numeroTotal;
+    }
     //---------------------------------Metodo de insertar a la base de datos---------------------------
     
     public boolean insertar(Inventario inventario){
         boolean inserto = false;
         
         //Sentencia query de la base de datos.
-        String query = "INSERT INTO "+ TBINVENTARIO+ "("+CATEGORIA+","+CLASIFICACION+","+NOMBRE+", "+CANTIDAD+","+PRECIO+") VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO "+ TBINVENTARIO+ "("+CATEGORIA+","+NOMBRE+","+PRECIO+", "+CANTIDAD+","+CLASIFICACION+") VALUES (?,?,?,?,?)";
         
         //Conexion a la base de datos.
-        Connection conexion = this.getConexion();
+        Connection conexion = getConnection();
         try {
             PreparedStatement prepared = conexion.prepareStatement(query);
             //Seteo los datos en los valores respectivos de mi base de datos.
             //Con las posiciones respectivas.
             prepared.setString(1, inventario.getCategoria());
-            prepared.setString(2, inventario.getClasificacion());
-            prepared.setString(3, inventario.getNombreProducto());
+            prepared.setString(2, inventario.getNombreProducto());
+            prepared.setFloat(3, inventario.getPrecio());
             prepared.setInt(4, inventario.getCantidad());
-            prepared.setFloat(5, inventario.getPrecio());
-            
+            prepared.setString(5, inventario.getClasificacion());
            
             prepared.executeUpdate(); //Envia la sentencia a la base de datos. -->Sentencia de insertar(insercion)
             inserto = true;           //Para cambiar el valor del inserto a true, para saber si se realizo o no el insert
@@ -96,7 +140,7 @@ public class InventarioData extends DataBase {
         String query = "DELETE FROM "+ TBINVENTARIO+ " WHERE id=?" ;
         
         //Conexion a la base de datos.
-        Connection conexion = getConexion();
+        Connection conexion = getConnection();
         try {
             PreparedStatement prepared = conexion.prepareStatement(query);
             //Seteo los datos en los valores respectivos de mi base de datos.
@@ -119,7 +163,7 @@ public class InventarioData extends DataBase {
    public LinkedList<Inventario> mostrarDatos(int id) {
   LinkedList<Inventario> inventario = new LinkedList<Inventario>();
         String query = "SELECT * FROM " +TBINVENTARIO + " WHERE id=?" ;
-        Connection con = getConexion();
+        Connection con = getConnection();
         try {
             PreparedStatement prepared = con.prepareStatement(query);
              prepared.setInt(1, id);
@@ -151,8 +195,8 @@ public class InventarioData extends DataBase {
     PreparedStatement prepared = null;
     
     try {
-        conexion = getConexion();
-        String query = "UPDATE " + TBINVENTARIO + " SET categoria=?, clasificacion=?,nombreProducto=?, cantidad=?, precio=? WHERE id=?";
+        conexion = getConnection();
+        String query = "UPDATE " + TBINVENTARIO + " SET categoria=?, clasificacion=?,nombre=?, cantidad=?, precio=? WHERE id=?";
         prepared = conexion.prepareStatement(query);
         
         prepared.setString(1, inventario.getCategoria());

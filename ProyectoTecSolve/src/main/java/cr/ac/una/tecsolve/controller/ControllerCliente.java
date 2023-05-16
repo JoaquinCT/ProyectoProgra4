@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package cr.ac.una.proyecto.controller;
 
-import cr.ac.una.proyecto.data.DataCliente;
-import cr.ac.una.proyecto.domain.Cliente;
+package cr.ac.una.tecsolve.controller;
+
+
+import cr.ac.una.tecsolve.data.DataCliente;
+import cr.ac.una.tecsolve.domain.Cliente;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.Map;
@@ -18,27 +16,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/clientes")
 public class ControllerCliente {
-
+/*
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home() {
 
         return "indexCliente";
-    }
+    }*/
 
-    @GetMapping("/")
+    @GetMapping("/menuCliente")
     public String inicio() {
 
         return "indexCliente";
     }
 
     @GetMapping("/listar")
-    public String getCliente(Model model) {
+    public String getCliente(Model model, @RequestParam(name="pageNumber",defaultValue = "1") int numeroPagina, @RequestParam(name="pageSize", defaultValue = "1") int pageSize) {
         DataCliente dataC = new DataCliente();
-        model.addAttribute("lista", dataC.listarClientes());
+        int numeroTotalClientes = dataC.getNumeroTotalclientes();
+        int numeroTotalPaginas = (int) Math.ceil((double) numeroTotalClientes / pageSize);
+        model.addAttribute("lista", dataC.getListaClientesPorPaginacion(numeroPagina, pageSize));
+        model.addAttribute("pageNumber", numeroPagina);
+        model.addAttribute("totalPages", numeroTotalPaginas);
+        model.addAttribute("pageSize", pageSize);
         return "listacliente";
 
     }
@@ -55,7 +59,7 @@ public class ControllerCliente {
         DataCliente dataC = new DataCliente();
        // System.out.println(cliente.getNombre());
         dataC.insertarCliente(cliente);
-        return "redirect:/listar";
+        return "redirect:/clientes/listar";
     }
 
 //    @PostMapping(value="/guardar", params={"nombre","apellido","cedula","numero","correo"})
@@ -77,7 +81,7 @@ public class ControllerCliente {
         Cliente c = new Cliente(id, nombre, apellido, cedula, telefono, correo);
         dataC.editarDatosCliente(c);
 
-        return "redirect:/listar";
+        return "redirect:/clientes/listar";
     }
 
     @GetMapping("/eliminar/{numero}")
@@ -86,7 +90,7 @@ public class ControllerCliente {
         DataCliente dataC = new DataCliente();
         dataC.eliminarNumero(numero);
 
-        return "redirect:/listar";
+        return "redirect:/clientes/listar";
 
     }
 

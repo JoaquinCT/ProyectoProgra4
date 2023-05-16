@@ -1,6 +1,6 @@
-package cr.ac.una.proyecto.data;
+package cr.ac.una.tecsolve.data;
 
-import cr.ac.una.proyecto.domain.Cliente;
+import cr.ac.una.tecsolve.domain.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  *
  * @author Maizeth Cisneros
  */
-public class DataCliente extends DataBase {
+public class DataCliente extends BaseData {
 
     public static final String TBCLIENTE = "tbcliente";
 
@@ -22,7 +22,7 @@ public class DataCliente extends DataBase {
         String query = "INSERT INTO " + TBCLIENTE
                 + " (nombre,apellido,cedula,numeroTelefono,correo) VALUES (?,?,?,?,?);";
 
-        Connection conexion = getConexion();
+        Connection conexion = getConnection();
         try {
 
             PreparedStatement statement = conexion.prepareStatement(query);
@@ -30,7 +30,7 @@ public class DataCliente extends DataBase {
             statement.setString(1, cliente.getNombre());
             statement.setString(2, cliente.getApellido());
             statement.setString(3, cliente.getCedula());
-            statement.setString(4, cliente.getTelefono());
+            statement.setString(4, cliente.getNumeroTelefono());
             statement.setString(5, cliente.getCorreo());
 
             statement.executeUpdate();
@@ -43,7 +43,7 @@ public class DataCliente extends DataBase {
 
     public LinkedList<Cliente> listarClientes() {
         String sql = "SELECT * FROM " + TBCLIENTE + ";";
-        Connection conexion = getConexion();
+        Connection conexion = getConnection();
         LinkedList<Cliente> clientes = new LinkedList<>();
         try {
             PreparedStatement prepared = conexion.prepareStatement(sql);
@@ -55,7 +55,7 @@ public class DataCliente extends DataBase {
                 temp.setNombre(rs.getString("nombre"));
                 temp.setApellido(rs.getString("apellido"));
                 temp.setCedula(rs.getString("cedula"));
-                temp.setTelefono(rs.getString("numeroTelefono"));
+                temp.setNumeroTelefono(rs.getString("numeroTelefono"));
                 temp.setCorreo(rs.getString("correo"));
                 clientes.add(temp);
             }
@@ -67,19 +67,63 @@ public class DataCliente extends DataBase {
         return clientes;
 
     }
+    
+     public LinkedList<Cliente> getListaClientesPorPaginacion(int numPage, int pageSize) {
+        LinkedList<Cliente> lista = new LinkedList<>();
+        int offset = (numPage-1) * pageSize;
+        String query = "SELECT * FROM tbcliente LIMIT ? OFFSET ?;";
+
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(query);
+            pr.setInt(1, pageSize);
+            pr.setInt(2, offset);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                Cliente temp = new Cliente();
+                temp.setId_cliente(rs.getInt("id"));
+                temp.setNombre(rs.getString("nombre"));
+                temp.setApellido(rs.getString("apellido"));
+                temp.setCedula(rs.getString("cedula"));
+                temp.setNumeroTelefono(rs.getString("numeroTelefono"));
+                temp.setCorreo(rs.getString("correo"));
+                lista.add(temp);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+
+    public int getNumeroTotalclientes() {
+        int numeroTotal = 0;
+
+        String sql = "SELECT COUNT(*) FROM tbcliente;";
+
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(sql);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                numeroTotal = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return numeroTotal;
+    }
 
     public void editarDatosCliente(Cliente cliente) {
 
-        System.out.println(cliente.getCorreo());
+        //System.out.println(cliente.getCorreo());
         String sql = "UPDATE tbcliente SET nombre=?, apellido=?, cedula=?, numeroTelefono=?, correo=? WHERE id=" + cliente.getId_cliente() + ";";
-        Connection conexion = getConexion();
+        Connection conexion = getConnection();
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, cliente.getNombre());
             ps.setString(2, cliente.getApellido());
             ps.setString(3, cliente.getCedula());
-            ps.setString(4, cliente.getTelefono());
+            ps.setString(4, cliente.getNumeroTelefono());
             ps.setString(5, cliente.getCorreo());
             ps.executeUpdate();
             ps.close();
@@ -91,7 +135,7 @@ public class DataCliente extends DataBase {
     public void eliminarNumero(int codigo) {
 
         String sql = "DELETE FROM tbcliente WHERE id=" + codigo + ";";
-        Connection conexion = this.getConexion();
+        Connection conexion = this.getConnection();
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
