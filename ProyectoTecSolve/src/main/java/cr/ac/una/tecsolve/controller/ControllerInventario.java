@@ -70,7 +70,7 @@ public class ControllerInventario {
         return "./editarInventario";
     }
 
-    @GetMapping("/actualizarInventario/ActualizarInventario")
+    @GetMapping("/ActualizarInventario")
     public String actualizarInventario(@RequestParam("id") int id, @RequestParam("clasificacion") String clasificacion, @RequestParam("categoria") String categoria, @RequestParam("nombreProducto") String nombreProducto, @RequestParam("cantidad") int cantidad, @RequestParam("precio") float precio) {
         Inventario inventario = new Inventario(categoria, clasificacion, nombreProducto, cantidad, precio);
 
