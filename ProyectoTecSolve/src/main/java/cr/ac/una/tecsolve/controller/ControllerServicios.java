@@ -65,7 +65,7 @@ public class ControllerServicios {
         return "./editarServicios";
     }
 
-    @GetMapping("/actualizarServicio/ActualizarSer")
+    @GetMapping("/ActualizarSer")
     public String actualizarServicio(@RequestParam("id") int id, @RequestParam("nombreServicio") String nombreServicio, @RequestParam("descripcion") String descripcion, @RequestParam("horario") String horario, @RequestParam("precio") float precio, @RequestParam("encargado") String encargado) {
         Servicios servicio = new Servicios(nombreServicio, descripcion, horario, precio, encargado);
 
@@ -74,7 +74,7 @@ public class ControllerServicios {
     }
 
 ///FILTRO PRUEBA 
-    @GetMapping("/BuscarServicio/{nombre}")
+    /*@GetMapping("/BuscarServicio/{nombre}")
     public String buscarSER(@PathVariable String nombre, Model model) {
 
         LinkedList<Servicios> con = new LinkedList<Servicios>();
@@ -84,5 +84,5 @@ public class ControllerServicios {
 
         return "./BuscarServicios";
     }
-
+*/
 }
