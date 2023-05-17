@@ -165,10 +165,10 @@ h2{
     margin-top: 20px;
 }
 .tbMode .trHead{
-     border-bottom: 10px solid transparent;
+    border-bottom: 10px solid transparent;
     background-color: #343a40;
     color: #fff;
-    
+
 }
 
 .trHead th{
@@ -179,10 +179,12 @@ h2{
 
 tr{
     border-bottom: 4px solid transparent;
-     padding-right: 10px;
+    padding-right: 10px;
 }
 td{
     border-bottom: 4px solid transparent;
+    border: 1px solid black;
+    padding: 8px;
 }
 
 
@@ -207,8 +209,9 @@ td{
 }
 
 .btn-primary {
-    place-content: end;
-    text-align: center;
+    margin-left: 50%;
+    place-content: center;
+    text-align: right;
     width: max-content;
     background-color: #0d6efd;
     cursor: pointer;
@@ -237,7 +240,8 @@ td{
     text-align: center;
     margin-top: 1.5rem;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: #fff1f1;
+    border: 2px solid black;
     border: 3px solid transparent;
 }
 
@@ -258,7 +262,7 @@ td{
     font-size: 16px;
     width: auto;
     border-radius: 5px;
-    border: 1px solid lightblue;
+    border: 2px solid lightblue;
     margin: 2px;
 }
 

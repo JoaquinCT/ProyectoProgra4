@@ -10,6 +10,7 @@
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
+        <a th:href="@{/gastos/formGuardarGasto}" class="btn btn-primary">Registrar Gasto</a>
         <!-- Sección de agrupación -->
         <div class="contAgrupar">
             <form>
@@ -19,7 +20,7 @@
             </form>
         </div>
         <br>
-        <a th:href="@{/gastos/formGuardarGasto}" class="btn btn-primary">Nuevo Gasto</a>
+        
         <div th:if="${#lists.isEmpty(gastos)}">
             <h2>La Empresa no posee gastos actualmente!!</h2>
         </div>
@@ -78,6 +79,6 @@
             <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
             
         </div>
-
+        
     </body>
 </html>

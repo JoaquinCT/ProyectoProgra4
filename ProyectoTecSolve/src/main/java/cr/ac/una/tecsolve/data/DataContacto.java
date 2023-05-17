@@ -1,5 +1,5 @@
 package cr.ac.una.tecsolve.data;
-
+/*
 import cr.ac.una.proyecto.domain.Contacto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  *
  * @author Maizeth Cisneros
  */
+/*
 public class DataContactoextends DataBase {
 
     public static final String TBCONTACTO = "tbcontacto";
@@ -111,3 +112,4 @@ public class DataContactoextends DataBase {
     }
 
 }
+*/

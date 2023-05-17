@@ -25,17 +25,17 @@ public class DataEmpleado extends BaseData {
 
     public String buscarCredenciales(String username, String password, String tipoUser) {
         String typeUserfound = "error";
-        String query = "SELECT " + NOMBRE + "," + CONTRASENIA +","+PUESTO+ " FROM tbusuario";
+        String query = "SELECT " + CEDULA + "," + CONTRASENIA +","+PUESTO+ " FROM tbusuario";
 
         try {
             PreparedStatement pr = getConnection().prepareStatement(query);
             ResultSet rs = pr.executeQuery();
             while (rs.next()) {
-                if(rs.getString(NOMBRE).equals(username) && rs.getString(CONTRASENIA).equals(password) && rs.getString(PUESTO).equalsIgnoreCase(tipoUser)){
+                if(rs.getString(CEDULA).equals(username) && rs.getString(CONTRASENIA).equals(password) && rs.getString(PUESTO).equalsIgnoreCase(tipoUser)){
                     typeUserfound = "admin";
                     break;
                 }else{
-                    if(rs.getString(NOMBRE).equals(username) && rs.getString(CONTRASENIA).equals(password) && tipoUser.equalsIgnoreCase("Empleado")){
+                    if(rs.getString(CEDULA).equals(username) && rs.getString(CONTRASENIA).equals(password) && tipoUser.equalsIgnoreCase("Empleado")){
                         typeUserfound = "empleado";
                         break;
                     }
