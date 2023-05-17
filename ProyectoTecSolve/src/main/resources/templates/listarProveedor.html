@@ -12,7 +12,7 @@
         <header th:replace="BarraNavPrincipal.html"></header>
 
 
-        <a th:href="@{/proveedores/formGuardarProveedor}" class="btn btn-primary">Nuevo</a>
+        <a th:href="@{/proveedores/formGuardarProveedor}" class="btn btn-primary">Registrar proveedor</a>
         <div th:if="${#lists.isEmpty(proveedores)}">
             <h2>No hay proveedores registrados actualmente.</h2>
         </div>

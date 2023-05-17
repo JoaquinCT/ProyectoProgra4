@@ -207,8 +207,9 @@ td{
 }
 
 .btn-primary {
-    place-content: end;
-    text-align: center;
+    margin-left: 50%;
+    place-content: center;
+    text-align: right;
     width: max-content;
     background-color: #0d6efd;
     cursor: pointer;
