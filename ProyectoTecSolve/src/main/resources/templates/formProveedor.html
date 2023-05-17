@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xml:th="http://www.thymeleaf.org">
+    <head>
+        <title>Guardar Proveedor</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
+        <div class="mt-4">
+            <form th:action="@{/proveedores/saveProveedor}" th:object="${proveedor}" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Módulo de Guardar Proveedor</h3>
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>NOMBRE</label>
+                            <input th:field="*{nombre}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>DIRECCIÓN</label>
+                            <input th:field="*{direccion}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>TELÉFONO</label>
+                            <input th:field="*{telefono}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>EMAIL</label>
+                            <input th:field="*{email}" type="email" class="form-control" required>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Guardar" class="btn btn-success">
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="window.location.href='./listarProveedores';" class="btn btn-danger">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

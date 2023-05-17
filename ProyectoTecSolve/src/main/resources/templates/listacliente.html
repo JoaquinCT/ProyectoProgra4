@@ -1,19 +1,61 @@
-
+<!DOCTYPE html>
 <html xml:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+
+        <link rel="preload" href="css/styles.css" as="style">
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
         <script src="funcionesCliente.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        
+        <style>
+
+            .btn{
+                border-radius: 3px;
+                display: inline-block;
+                padding: 5px 5px;
+                text-decoration: none;
+                text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+                box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+            }
+
+            .btn-green{
+                color: white;
+                background-color: #3CC93F;
+            }
+            .btn-green:hover{
+                background-color: #37B839;
+            }
+            .btn-green:active{
+                background-color: #29962A;
+            }
+
+            .btn-red{
+                color: white;
+                background-color: #E34242;
+            }
+            .btn-red:hover{
+                background-color: #C43535;
+            }
+            .btn-red:active{
+                background-color: #A62828;
+            }
+        </style>
+        <!--
+        <div class="nav-bag">
+
+            <nav class="navegacionPrincipal contenedor">
+                <a href="/clientes/menuCliente">Inicio</a>
+                <a href="/clientes/listar">Cliente</a>
+                
+            </nav>
+        </div>
+        -->
         <h1>Lista de Clientes</h1>
-        <a class="btn btn-primary" href="/clientes/insertar">Registrar Clientes</a>
-        <br>
+        <a href="/clientes/insertar">Registrar Clientes</a>
         <form>
             <input class="form-control col-md-3 light-table-filter" data-table="order-table" ytpe="text" placeholder="Filtrar..">
             <button type="submit" onclick="limpiar();">Limpiar</button>
@@ -29,37 +71,37 @@
                     <button type="submit" class="buttonAgrupar">Mostrar</button>
                 </form>
             </div>
+
             <br>
-            <div class="contLista">
-                <table border="1" class="tbMode">
-                    <thead>  
-                        <tr class="trHead"> 
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Cedula</th>
-                            <th>Telefono</th>
-                            <th>Correo</th>
-                            <th>Acciones</th>
-
-
-                        </tr>
-                    </thead>
-
-                    <tr class="trLista" th:each="temp :${lista}"> 
-                        <td th:text="${temp.id_cliente}" type="hidden" name="id" class="field" readonly="readonly"/></td>
-                        <td th:text="${temp.nombre}"></td>
-                        <td th:text="${temp.apellido}"></td>
-                        <td th:text="${temp.cedula}"></td>
-                        <td th:text="${temp.numeroTelefono}"></td>
-                        <td th:text="${temp.correo}"></td>
-                        <td><a class ="btn btn-warning" th:onclick="/clientes/eliminar([[${temp.id_cliente}]])">Eliminar</a>
-                            <a class ="btn btn-danger" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}">Editar</a></td>
+            <table border="1" class="order-table">
+                <thead>  
+                    <tr> 
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Cedula</th>
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>Acciones</th>
 
 
                     </tr>
-                </table>
-            </div>
+                </thead>
+
+                <tr th:each="temp :${lista}"> 
+                    <td th:text="${temp.id_cliente}" type="hidden" name="id" class="field" readonly="readonly"/></td>
+                    <td th:text="${temp.nombre}"></td>
+                    <td th:text="${temp.apellido}"></td>
+                    <td th:text="${temp.cedula}"></td>
+                    <td th:text="${temp.numeroTelefono}"></td>
+                    <td th:text="${temp.correo}"></td>
+                    <td><a class ="btn btn-red" th:onclick="/clientes/eliminar([[${temp.id_cliente}]])">Eliminar</a>
+                        <a class ="btn btn-green" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}">Editar</a></td>
+
+
+                </tr>
+            </table>
+
             <div class="pagination">
                 <ul>
                     <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
