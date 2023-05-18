@@ -1,55 +1,58 @@
 <!DOCTYPE html>
 <html xml:th="http://www.thymeleaf.org">
     <head>
-        <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <h1>Insertar Inventario</h1>
-        <a href="./"><button type="button">Ir al Menu</button></a>
-        <form action="/Inventario/guardarInventario" method="get">
-            <table>
-                <tr>
-                    <td><input type="text" name="id" style="display:none;"/></td>
-                </tr>
 
-                <tr>
-                    <td>Seleccionar una Categor&iacute;a:</td>
-                    <td>
-                        <select id="listaInventario" onchange="seleccionarEmpresa()" required>
-                            <option value="">Seleccionar una opción</option>
-                            <option value="computadoras">Computadoras</option>
-                            <option value="componentes">Componentes</option>
-                            <option value="celulares">Celulares</option>
-                            <option value="perif&eacute;ricos">Perif&eacute;ricos</option>
-                            <option value="imagen-sonido">Imag&eacute;n y sonido</option>
-                        </select>
-                    </td>
-                </tr>
+        <div class="mt-4">
+            <form action="/Inventario/guardarInventario" method="get">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Módulo de Registro Inventario</h3>
+                        <br>
+                    </div>
+                    <div class="card-body">
+                        <input type="text" name="id" style="display:none;"/>
 
-                <tr>
-                    <td><input type="text" name="categoria" id="categoriaId" style="display:none;" required/></td>
-                </tr>
-                <tr>
-                    <td>Clasificaci&oacute;n:</td>
-                    <td><input type="text" name="clasificacion" required/></td>
-                </tr>
-                <tr>
-                    <td>Nombre Producto:</td>
-                    <td><input type="text" name="nombreProducto" required/></td>
-                </tr>
-                <tr>
-                    <td>Cantidad:</td>
-                    <td><input type="text" name="cantidad" required/></td>
-                </tr>
-                <tr>
-                    <td>Precio:</td>
-                    <td><input type="text" name="precio" required/></td>
-                </tr>
-            </table>
-            <input type="submit" value="Guardar"/>
-        </form>
-
+                        <div class="form-group">
+                            <select id="listaInventario" onchange="seleccionarEmpresa()" required>
+                                <option value="">Seleccionar una opción</option>
+                                <option value="computadoras">Computadoras</option>
+                                <option value="componentes">Componentes</option>
+                                <option value="celulares">Celulares</option>
+                                <option value="perif&eacute;ricos">Perif&eacute;ricos</option>
+                                <option value="imagen-sonido">Imag&eacute;n y sonido</option>
+                            </select>
+                        </div>
+                        <input type="text" name="categoria" id="categoriaId" style="display:none;" required/>
+                        <br>
+                        <div class="form-group">
+                            <label>CLASIFICACIÓN</label>
+                            <input type="text" name="clasificacion" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>PRODUCTO</label>
+                            <input type="text" name="nombreProducto" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>CANTIDAD</label>
+                            <input type="text" name="cantidad" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>PRECIO</label>
+                            <input type="text" name="precio" class="form-control" required>
+                        </div>
+                        <br>
+                    </div>
+                    <input class="btn btn-success" type="submit" value="Guardar"/>
+                </div>
+            </form>
+        </div>
 
         <script>
             function seleccionarEmpresa() {

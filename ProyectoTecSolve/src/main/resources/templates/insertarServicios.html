@@ -3,11 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>Insertar Servicio Brindado</title>
-         
+
         <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
+<<<<<<< HEAD
         <h1>Insertar Servicio Brindado</h1>
         <a href="./"><button type="button">Ir al Menu</button></a>
         <form action="/servicios/guardarServicio" method="get"> 
@@ -39,6 +40,53 @@
             <input type="submit" value="Guardar" />
         </form>
                             <!--PIE DE PAGINA-->
+
+                <footer>
+                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+                </footer>
+=======
+        <div class="mt-4">
+            <form action="/servicios/guardarServicio" method="get">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Módulo de Registro Servicio</h3>
+                        <br>
+                    </div>
+                    <input type="hidden" name="id" required/>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label>NOMBRE DEL SERVICIO</label>
+                            <input type="text" name="nombreServicio" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>DESCRIPCIÓN</label>
+                            <input type="text" name="descripcion" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>HORARIO</label>
+                            <input type="text" name="horario" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>PRECIO</label>
+                            <input type="text" name="precio" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>ENCARGADO</label>
+                            <input type="text" name="encargado" class="form-control" required>
+                        </div>
+                        <br>
+                    </div>
+                    <input class="btn btn-success" type="submit" value="Guardar" />
+                </div>
+            </form>
+        </div>
+>>>>>>> 502663ce78f0e5f6464a67639305feaba2b8c800
+                    <!--PIE DE PAGINA-->
 
                 <footer>
                 Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
