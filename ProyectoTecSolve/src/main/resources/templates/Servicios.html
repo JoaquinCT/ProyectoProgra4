@@ -3,17 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
     </head>
     <script src="funciones.js"></script>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <h1>Control de Servicios Brindados</h1>
-        <a href="/servicios/insertarServicios" class="btn btn-primary">Registrar servicio</a>
+
+        <a class="btn btn-primary" href="/servicios/insertarServicios">Registrar Servicio</a>
+
 
         <div th:if="${#lists.isEmpty(servicios)}">
-            <p>No hay servicios disponibles en la empresa!.</p>
+            <p>No hay datos disponibles.</p>
         </div>
         <div th:if="${not #lists.isEmpty(servicios)}">
             <input class="form-control col-md-3 light-table-filter" data-table="order-table" ytpe="text" placeholder="Filtrar..">
@@ -73,11 +74,11 @@
 
             </div>
         </div>
-                            <!--PIE DE PAGINA-->
+        <!--PIE DE PAGINA-->
 
-                <footer>
-                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
-                </footer>
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
 
     </body>
 </html>

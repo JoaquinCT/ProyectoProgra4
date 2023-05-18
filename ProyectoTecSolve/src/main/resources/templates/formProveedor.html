@@ -12,9 +12,10 @@
             <form th:action="@{/proveedores/saveProveedor}" th:object="${proveedor}" method="POST">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Módulo de Registro Proveedor</h3>
+                        <h3>Módulo de Guardar Proveedor</h3>
                         <br>
                     </div>
+                    <input th:field="*{id}" type="number" style="display: none">
                     <div class="card-body">
                         <div class="form-group">
                             <label>NOMBRE</label>
@@ -41,7 +42,7 @@
                         <input type="submit" value="Guardar" class="btn btn-success">
                     </div>
                     <div class="card-footer">
-                        <input type="button" value="Cancelar" onclick="window.location.href='./listaProveedores';" class="btn btn-danger">
+                        <input type="button" value="Cancelar" onclick="window.location.href='./listarProveedores';" class="btn btn-danger">
                     </div>
                 </div>
             </form>

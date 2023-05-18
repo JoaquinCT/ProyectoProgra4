@@ -42,12 +42,15 @@ public class ControllerProveedor {
 
     @PostMapping("/saveProveedor")
     public String guardarProveedor(@ModelAttribute Proveedor proveedor) {
+        
         if (proveedor.getId() == 0) {
             logicaProveedor.insertarProveedor(proveedor);
+            return "redirect:/proveedores/listaProveedores";
         } else {
             logicaProveedor.actualizarProveedor(proveedor);
+            return "redirect:/proveedores/listaProveedores";
         }
-        return "redirect:/proveedores/listaProveedores";
+        
     }
 
     @GetMapping("/editar/{id}")

@@ -4,17 +4,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Control de Empresas</title>
-        <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        
-        
+        <a class="btn btn-primary" href="/Inventario/insertarInventario">Insertar Nuevo Producto</a>
         <div th:if="${#lists.isEmpty(inventario)}">
             <h2>La Empresa no posee inventario actualmente!!</h2>
         </div>
-        <a href="/Inventario/insertarInventario" class="btn btn-primary">Registrar producto</a>
         <div th:if="${!#lists.isEmpty(inventario)}">
             <!-- Sección de agrupación -->
             <div class="contAgrupar">
@@ -26,7 +24,7 @@
             </div>
             <br>
             <div class="contLista">
-                <table class="tbMode" >
+                <table class="tbMode">
                     <tr class="trHead">
 
                         <th>Categor&iacute;a</th>
@@ -74,11 +72,11 @@
 
             </div>
         </div>
-                            <!--PIE DE PAGINA-->
+        <!--PIE DE PAGINA-->
 
-                <footer>
-                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
-                </footer>
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
 
     </body>
 </html>

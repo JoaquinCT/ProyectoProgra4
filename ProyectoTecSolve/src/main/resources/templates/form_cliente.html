@@ -1,18 +1,19 @@
+<!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Módulo Cliente</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
-        
+
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
 
         <div class="mt-4">
-            <form th:action="@{/clientes/insertar}" th:object="${cliente}" method="get">
+            <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="get">
                 <div class="card">
                     <div class="card-header">
                         <h3>Módulo de Registro Cliente</h3>
@@ -48,14 +49,13 @@
                         <br>
                     </div>
                     <input type="submit" value="Guardar" class="btn btn-success"/><br />
-
+                </div>
             </form> 
         </div>
-                                    <!--PIE DE PAGINA-->
+        <!--PIE DE PAGINA-->
 
-                <footer>
-                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
-                </footer>
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
     </body>
 </html>
->>>>>>> 502663ce78f0e5f6464a67639305feaba2b8c800

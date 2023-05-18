@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xml:th="http://www.thymeleaf.org">
     <head>
-        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-
         <div class="mt-4">
             <form action="/Inventario/guardarInventario" method="get">
                 <div class="card">
@@ -53,7 +52,6 @@
                 </div>
             </form>
         </div>
-
         <script>
             function seleccionarEmpresa() {
                 let listaInventario = document.getElementById('listaInventario');
@@ -62,11 +60,11 @@
                 document.getElementById('categoriaId').value = categoriaId;
             }
         </script>
-                            <!--PIE DE PAGINA-->
+        <!--PIE DE PAGINA-->
 
-                <footer>
-                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
-                </footer>
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
     </body>
 </html>
 
