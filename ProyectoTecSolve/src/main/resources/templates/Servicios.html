@@ -3,37 +3,21 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
     </head>
     <script src="funciones.js"></script>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
         <h1>Control de Servicios Brindados</h1>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <!--<a href="./"><button type="button">Ir al Menu</button></a>-->
-                    <a href="/servicios/insertarServicios"><button type="button">Insertar Nuevo Servicio</button></a>
+        <a href="/servicios/insertarServicios" class="btn btn-primary">Registrar servicio</a>
 
-                    <input class="form-control col-md-3 light-table-filter" data-table="order-table" ytpe="text" placeholder="Filtrar..">
-                    <button type="submit" onclick="limpiar();">Limpiar</button> 
-                    
-                    
-                    
-                  
-
-                    </form>
-
-                    </form>
-
-                </div>
-            </div>
-        </div>
         <div th:if="${#lists.isEmpty(servicios)}">
-            <p>No hay datos disponibles.</p>
+            <p>No hay servicios disponibles en la empresa!.</p>
         </div>
         <div th:if="${not #lists.isEmpty(servicios)}">
+            <input class="form-control col-md-3 light-table-filter" data-table="order-table" ytpe="text" placeholder="Filtrar..">
+            <button type="submit" onclick="limpiar();">Limpiar</button> 
             <!-- Sección de agrupación -->
             <div class="contAgrupar">
                 <form>
@@ -43,28 +27,30 @@
                 </form>
             </div>
             <br>
-            <table border="1" class="order-table">
-                <tr>
-                    <th>Nombre Servicio</th>
-                    <th>Descripcion</th>
-                    <th>Horario</th>
-                    <th>Precio</th>
-                    <th>Encargado</th>
-                    <th>Acciones</th>
-                </tr>
-                <tr th:each="temp:${servicios}">
-                    <td th:text="${temp.id}" style="display:none;"></td>
-                    <td th:text="${temp.nombreServicio}"></td>
-                    <td th:text="${temp.descripcion}"></td>
-                    <td th:text="${temp.horario}"></td>
-                    <td th:text="${temp.precio}"></td>
-                    <td th:text="${temp.encargado}"></td>
-                    <td>
-                        <a th:href="@{/servicios/actualizarServicio/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
-                        <a th:href="@{/servicios/eliminarServicio?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
-                    </td>
-                </tr>
-            </table>
+            <div class="contLista">
+                <table border="1" class="tbMode">
+                    <tr class="trHead">
+                        <th>Nombre Servicio</th>
+                        <th>Descripcion</th>
+                        <th>Horario</th>
+                        <th>Precio</th>
+                        <th>Encargado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tr class="trLista" th:each="temp:${servicios}">
+                        <td th:text="${temp.id}" style="display:none;"></td>
+                        <td th:text="${temp.nombreServicio}"></td>
+                        <td th:text="${temp.descripcion}"></td>
+                        <td th:text="${temp.horario}"></td>
+                        <td th:text="${temp.precio}"></td>
+                        <td th:text="${temp.encargado}"></td>
+                        <td>
+                            <a th:href="@{/servicios/actualizarServicio/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
+                            <a th:href="@{/servicios/eliminarServicio?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div class="pagination">
                 <ul>
                     <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">

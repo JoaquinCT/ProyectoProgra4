@@ -9,10 +9,12 @@
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <h1>Control de Inventario</h1>
+        
+        
         <div th:if="${#lists.isEmpty(inventario)}">
             <h2>La Empresa no posee inventario actualmente!!</h2>
         </div>
+        <a href="/Inventario/insertarInventario" class="btn btn-primary">Registrar producto</a>
         <div th:if="${!#lists.isEmpty(inventario)}">
             <!-- Sección de agrupación -->
             <div class="contAgrupar">
@@ -23,43 +25,33 @@
                 </form>
             </div>
             <br>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <!--<a href="./"><button type="button">Ir al Menu</button></a>-->
-                        <a href="/Inventario/insertarInventario"><button type="button">Insertar Nuevo Producto</button></a>
+            <div class="contLista">
+                <table class="tbMode" >
+                    <tr class="trHead">
 
+                        <th>Categor&iacute;a</th>
+                        <th>Clasificaci&oacute;n</th>
+                        <th>Nombre Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tr class="trLista" th:each="temp:${inventario}"> 
+                        <td th:text="${temp.id}" style="display:none;"></td>
+                        <td th:text="${temp.categoria}"></td>
+                        <td th:text="${temp.clasificacion}"></td>
+                        <td th:text="${temp.nombreProducto}"></td>
+                        <td th:text="${temp.cantidad}"></td>
+                        <td th:text="${temp.precio}"></td>
+                        <td>
 
-                    </div>
+                            <a th:href="@{/Inventario/actualizarInventario/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
+                            <a th:href="@{/Inventario/eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
 
-                </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
-
-            <table border="2">
-                <tr>
-
-                    <th>Categor&iacute;a</th>
-                    <th>Clasificaci&oacute;n</th>
-                    <th>Nombre Producto</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-                <tr th:each="temp:${inventario}"> 
-                    <td th:text="${temp.id}" style="display:none;"></td>
-                    <td th:text="${temp.categoria}"></td>
-                    <td th:text="${temp.clasificacion}"></td>
-                    <td th:text="${temp.nombreProducto}"></td>
-                    <td th:text="${temp.cantidad}"></td>
-                    <td th:text="${temp.precio}"></td>
-                    <td>
-
-                        <a th:href="@{/Inventario/actualizarInventario/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
-                        <a th:href="@{/Inventario/eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
-
-                    </td>
-                </tr>
-            </table>
             <div class="pagination">
                 <ul>
                     <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
