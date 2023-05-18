@@ -53,9 +53,13 @@
                         <td th:text="${temp.cedula}"></td>
                         <td th:text="${temp.numeroTelefono}"></td>
                         <td th:text="${temp.correo}"></td>
-                        <td><a class ="btn btn-warning" th:onclick="/clientes/eliminar([[${temp.id_cliente}]])">Eliminar</a>
-                            <a class ="btn btn-danger" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}">Editar</a></td>
-
+                        
+                        
+                      
+                           <td><a class="btn btn-danger" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a></td>
+                            <td>
+                            <a th:href="@{/clientes/eliminar/}+${temp.id_cliente}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Eliminar</a> </td>
+                            
 
                     </tr>
                 </table>

@@ -45,10 +45,10 @@
                             <td th:text="${g.fecha}"></td>
                             <td th:text="${g.detalle}"></td>
                             <td>
-                                <a th:href="@{/gastos/editar/}+${g.id}" class="btn btn-warning">Editar</a>
+                                <a th:href="@{/gastos/editar/}+${g.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
                             </td>
                             <td>
-                                <a th:href="@{/gastos/delete/}+${g.id}" class="btn btn-danger">Eliminar</a>
+                                <a th:href="@{/gastos/delete/}+${g.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?')">Eliminar</a>
                             </td>
                         </tr>
                     </tbody>
