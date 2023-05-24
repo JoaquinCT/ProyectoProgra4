@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Insertar Servicio Brindado</title>
-
         <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
@@ -45,7 +45,12 @@
                         </div>
                         <br>
                     </div>
-                    <input class="btn btn-success" type="submit" value="Guardar" />
+                    <div class="card-footer">
+                        <input class="btn btn-success" type="submit" value="Guardar"/>
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
+                    </div>
                 </div>
             </form>
         </div>

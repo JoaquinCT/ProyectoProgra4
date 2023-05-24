@@ -5,6 +5,7 @@
         <title>Guardar Empleado</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
@@ -34,7 +35,7 @@
                         <br>
                         <div class="form-group">
                             <label>NÚMERO DE TELÉFONO</label>
-                            <input th:field="*{numeroTelefono}" type="number" class="form-control" required>
+                            <input th:field="*{numeroTelefono}" type="number" min="10000000" max="99999999" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
@@ -57,7 +58,7 @@
                         <input type="submit" value="Guardar" class="btn btn-success">
                     </div>
                     <div class="card-footer">
-                        <input type="button" value="Cancelar" onclick="window.location.href='./listarEmpleados';" class="btn btn-danger">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
                     </div>
                 </div>
             </form>

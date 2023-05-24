@@ -5,6 +5,7 @@
         <title>Guardar Proveedor</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
@@ -15,11 +16,12 @@
                         <h3>Módulo de Guardar Proveedor</h3>
                         <br>
                     </div>
+                    <input type="hidden" name="paginaAnterior" th:value="${paginaAnterior}" />
                     <input th:field="*{id}" type="number" style="display: none">
                     <div class="card-body">
                         <div class="form-group">
                             <label>NOMBRE</label>
-                            <input th:field="*{nombre}" type="text" class="form-control" required>
+                            <input th:field="*{nombre}" pattern="[A-Za-z]+" placeholder="Ingrese solo letras" type="text" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
@@ -29,12 +31,12 @@
                         <br>
                         <div class="form-group">
                             <label>TELÉFONO</label>
-                            <input th:field="*{telefono}" type="text" class="form-control" required>
+                            <input th:field="*{telefono}" type="number"  min="10000000" max="99999999" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
                             <label>EMAIL</label>
-                            <input th:field="*{email}" type="email" class="form-control" required>
+                            <input th:field="*{email}" type="email" class="form-control" placeholder="ejemplo@gmail.com" required>
                         </div>
                         <br>
                     </div>
@@ -42,7 +44,7 @@
                         <input type="submit" value="Guardar" class="btn btn-success">
                     </div>
                     <div class="card-footer">
-                        <input type="button" value="Cancelar" onclick="window.location.href='./listarProveedores';" class="btn btn-danger">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
                     </div>
                 </div>
             </form>

@@ -40,10 +40,10 @@
                         <td th:text="${temp.clasificacion}"></td>
                         <td th:text="${temp.nombreProducto}"></td>
                         <td th:text="${temp.cantidad}"></td>
-                        <td th:text="${temp.precio}"></td>
+                        <td th:text="'&#8353;'+${temp.precio}"></td>
                         <td>
 
-                            <a th:href="@{/Inventario/actualizarInventario/}+${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
+                            <a th:href="@{/Inventario/actualizarInventario/}+${temp.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
                             <a th:href="@{/Inventario/eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
 
                         </td>

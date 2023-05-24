@@ -35,7 +35,7 @@ body {
 .img{
     border:5px solid transparent;
     border-radius: 1rem;
-    width: 27rem;
+    width: 10rem;
     display: inline-block;
     vertical-align: middle;
 }
@@ -44,7 +44,7 @@ body {
     flex-grow: 1;
     display: inline-block;
     flex-direction: column;
-    margin-top: 1rem;
+    margin-top: 2.5rem;
     text-align: center;
     justify-content: space-between;
 }
@@ -61,7 +61,7 @@ body {
     text-decoration: none;
     font-size: 2rem;
     font-weight: 700;
-    padding: 1rem;
+    padding: 2rem;
 }
 
 .navegacion-principal a:hover {

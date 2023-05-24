@@ -5,9 +5,8 @@
         <title>Módulo Cliente</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
-
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
@@ -24,12 +23,12 @@
 
                         <div class="form-group">
                             <label>NOMBRE</label>
-                            <input th:field="*{nombre}" type="text" class="form-control" required>
+                            <input th:field="*{nombre}" pattern="[A-Za-z]+" placeholder="Ingrese solo letras" type="text" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
                             <label>APELLIDO</label>
-                            <input th:field="*{apellido}" type="text" class="form-control" required>
+                            <input th:field="*{apellido}" pattern="[A-Za-z]+" placeholder="Ingrese solo letras" type="text" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
@@ -39,16 +38,21 @@
                         <br>
                         <div class="form-group">
                             <label>NÚMERO DE TELÉFONO</label>
-                            <input th:field="*{numeroTelefono}" type="text" class="form-control" required>
+                            <input th:field="*{numeroTelefono}" type="number" min="10000000" max="99999999" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
                             <label>CORREO ELECTRÓNICO</label>
-                            <input th:field="*{correo}" type="email" class="form-control" required>
+                            <input th:field="*{correo}" type="email" class="form-control" placeholder="ejemplo@gmail.com" required>
                         </div>
                         <br>
                     </div>
-                    <input type="submit" value="Guardar" class="btn btn-success"/><br />
+                   <div class="card-footer">
+                        <input class="btn btn-success" type="submit" value="Guardar"/>
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
+                    </div>
                 </div>
             </form> 
         </div>

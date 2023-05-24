@@ -122,13 +122,13 @@ public class DataEmpleado extends BaseData {
     public Empleado getEmpleadosPorId(int idEmpleado) {
         Empleado empleado = new Empleado();
 
-        String query = "SELECT " + CEDULA + "," + NOMBRE + "," + APELLIDO + "," + NUMERO_TELEFONO + "," + CONTRASENIA + "," + PUESTO+","+SALARIO + " FROM tbusuario WHERE status = 1 AND " + ID + "=" + idEmpleado + ";";
+        String query = "SELECT id," + CEDULA + "," + NOMBRE + "," + APELLIDO + "," + NUMERO_TELEFONO + "," + CONTRASENIA + "," + PUESTO+","+SALARIO + " FROM tbusuario WHERE status = 1 AND " + ID + "=" + idEmpleado + ";";
 
         try {
             PreparedStatement prepared = getConnection().prepareStatement(query);
             ResultSet rs = prepared.executeQuery();
             while (rs.next()) {
-
+                empleado.setId(rs.getInt(ID));
                 empleado.setCedula(rs.getString(CEDULA));
                 empleado.setNombre(rs.getString(NOMBRE));
                 empleado.setApellido(rs.getString(APELLIDO));

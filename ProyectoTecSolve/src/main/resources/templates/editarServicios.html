@@ -2,6 +2,7 @@
 <html xml:th="http://www.thymeleaf.org">
     <head>
         <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
@@ -13,6 +14,7 @@
                             <h3>Módulo de Edición Servicio</h3>
                             <br>
                         </div>
+                        <input type="hidden" name="paginaAnterior" th:value="${paginaAnterior}" />
                         <input <input type="text" name="id" th:value="${temp.id}" style="display:none;" required/>
                         <div class="card-body">
 
@@ -44,7 +46,12 @@
                         </div>
                     </div>
 
-                    <input class="btn btn-success" type="submit" value="Actualizar" />
+                    <div class="card-footer">
+                        <input class="btn btn-success" type="submit" value="Actualizar"/>
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
+                    </div>
 
                 </div>
             </form>

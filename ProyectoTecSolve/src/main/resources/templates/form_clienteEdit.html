@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
-
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
@@ -17,6 +17,7 @@
                         <h3>Módulo de Edición Cliente</h3>
                         <br>
                     </div>
+                    <input type="hidden" name="paginaAnterior" th:value="${paginaAnterior}" />
                     <div class="card-body">
                         <input th:value="${id}" type="hidden" name="id" class="field" readonly="readonly"/><br />
 
@@ -46,7 +47,12 @@
                         </div>
                         <br>
                     </div>
-                    <input type="submit" value="Editar" class="btn btn-success"/><br />
+                    <div class="card-footer">
+                        <input class="btn btn-success" type="submit" value="Guardar"/>
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
+                    </div>
                 </div>
             </form>
         </div>

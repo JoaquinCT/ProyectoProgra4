@@ -2,6 +2,7 @@ package cr.ac.una.tecsolve.controller;
 
 import cr.ac.una.tecsolve.data.ServiciosData;
 import cr.ac.una.tecsolve.domain.Servicios;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ControllerServicios {
 
     @GetMapping
-    public String Servicios(Model model, @RequestParam(name="pageNumber",defaultValue = "1") int numeroPagina, @RequestParam(name="pageSize", defaultValue = "1") int pageSize) {
+    public String Servicios(Model model, @RequestParam(name="pageNumber",defaultValue = "1") int numeroPagina, @RequestParam(name="pageSize", defaultValue = "2") int pageSize) {
         int numeroTotalGastos = new ServiciosData().getNumeroTotalServicios();
         int numeroTotalPaginas = (int) Math.ceil((double) numeroTotalGastos / pageSize);
         LinkedList<Servicios> espacios = new ServiciosData().getListaServiciosPorPaginacion(numeroPagina, pageSize);
@@ -54,8 +55,9 @@ public class ControllerServicios {
     }
 
     @GetMapping("/actualizarServicio/{id}")
-    public String mostrarDatosSER(@PathVariable int id, Model model) {
-
+    public String mostrarDatosSER(@PathVariable int id, Model model, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
+        model.addAttribute("paginaAnterior", paginaAnterior);
         int numero = id;
         LinkedList<Servicios> con = new LinkedList<Servicios>();
         ServiciosData dc = new ServiciosData();
@@ -66,11 +68,11 @@ public class ControllerServicios {
     }
 
     @GetMapping("/ActualizarSer")
-    public String actualizarServicio(@RequestParam("id") int id, @RequestParam("nombreServicio") String nombreServicio, @RequestParam("descripcion") String descripcion, @RequestParam("horario") String horario, @RequestParam("precio") float precio, @RequestParam("encargado") String encargado) {
+    public String actualizarServicio(HttpServletRequest request, @RequestParam("id") int id, @RequestParam("nombreServicio") String nombreServicio, @RequestParam("descripcion") String descripcion, @RequestParam("horario") String horario, @RequestParam("precio") float precio, @RequestParam("encargado") String encargado) {
+        String paginaAnterior = request.getParameter("paginaAnterior");
         Servicios servicio = new Servicios(nombreServicio, descripcion, horario, precio, encargado);
-
         new ServiciosData().actualizar(servicio, id);
-        return "redirect:/servicios";
+        return "redirect:"+paginaAnterior;
     }
 
 ///FILTRO PRUEBA 

@@ -7,6 +7,7 @@ package cr.ac.una.tecsolve.controller;
 
 import cr.ac.una.tecsolve.domain.Proveedor;
 import cr.ac.una.tecsolve.logic.LogicaProveedor;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,20 +42,22 @@ public class ControllerProveedor {
     }
 
     @PostMapping("/saveProveedor")
-    public String guardarProveedor(@ModelAttribute Proveedor proveedor) {
-        
+    public String guardarProveedor(@ModelAttribute Proveedor proveedor, HttpServletRequest request) {
+        String paginaAnterior = request.getParameter("paginaAnterior");
         if (proveedor.getId() == 0) {
             logicaProveedor.insertarProveedor(proveedor);
             return "redirect:/proveedores/listaProveedores";
         } else {
             logicaProveedor.actualizarProveedor(proveedor);
-            return "redirect:/proveedores/listaProveedores";
+            return "redirect:"+paginaAnterior;
         }
         
     }
 
     @GetMapping("/editar/{id}")
-    public String formEditarProveedor(@PathVariable int id, Model model) {
+    public String formEditarProveedor(@PathVariable int id, Model model, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
+        model.addAttribute("paginaAnterior", paginaAnterior);
         model.addAttribute("proveedor", logicaProveedor.getProveedorPorId(id));
         return "formProveedor";
     }
