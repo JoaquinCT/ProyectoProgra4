@@ -20,7 +20,7 @@
             </form>
         </div>
         <br>
-        
+
         <div th:if="${#lists.isEmpty(gastos)}">
             <h2>La Empresa no posee gastos actualmente!!</h2>
         </div>
@@ -42,7 +42,9 @@
                             <td th:text="${g.descripcion}"></td>
                             <td th:text="${g.categoria}"></td>
                             <td th:text="'&#8353;'+${g.monto}"></td>
-                            <td th:text="${g.fecha}"></td>
+                            <td>
+                                <span th:text="${g.fecha}" id="fecha-${g.id}"></span>
+                            </td>
                             <td th:text="${g.detalle}"></td>
                             <td>
                                 <a th:href="@{/gastos/editar/}+${g.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
@@ -57,7 +59,6 @@
                 <br>
             </div>
         </div>
-        
         <div class="pagination">
             <ul>
                 <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
@@ -77,13 +78,23 @@
                 </li>
             </ul>
             <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
-            
+
         </div>
-                            <!--PIE DE PAGINA-->
+        <!--PIE DE PAGINA-->
 
-                <footer>
-                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
-                </footer>
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
+        <script>
+            // Obtener los elementos <span> con las fechas
+            var fechas = document.querySelectorAll('[id^="fecha-"]');
 
+            // Recorrer cada elemento y formatear la fecha en formato numérico
+            fechas.forEach(function (elemento) {
+                var fecha = new Date(elemento.textContent);
+                var fechaFormateada = fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear();
+                elemento.textContent = fechaFormateada;
+            });
+        </script>
     </body>
 </html>
