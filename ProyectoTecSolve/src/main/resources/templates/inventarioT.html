@@ -6,10 +6,11 @@
         <title>Control de Empresas</title>
         <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <a class="btn btn-primary" href="/Inventario/insertarInventario">Insertar Nuevo Producto</a>
+        <a class="btn btn-primary" href="/Inventario/insertarInventario"><i class="fas fa-plus"></i> Insertar Nuevo Producto</a>
         <div th:if="${#lists.isEmpty(inventario)}">
             <h2>La Empresa no posee inventario actualmente!!</h2>
         </div>
@@ -19,7 +20,7 @@
                 <form>
                     <label class="labelAgrupar">Agrupar de </label>
                     <input type="number" class="inputAgrupar" name="pageSize" min="1" value="1">
-                    <button type="submit" class="buttonAgrupar">Mostrar</button>
+                    <button type="submit" class="buttonAgrupar"><i class="fas fa-eye"></i> Mostrar</button>
                 </form>
             </div>
             <br>
@@ -32,7 +33,7 @@
                         <th>Nombre Producto</th>
                         <th>Cantidad</th>
                         <th>Precio</th>
-                        <th>Acciones</th>
+                        <th colspan="2">Acciones</th>
                     </tr>
                     <tr class="trLista" th:each="temp:${inventario}"> 
                         <td th:text="${temp.id}" style="display:none;"></td>
@@ -43,8 +44,10 @@
                         <td th:text="'&#8353;'+${temp.precio}"></td>
                         <td>
 
-                            <a th:href="@{/Inventario/actualizarInventario/}+${temp.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a>
-                            <a th:href="@{/Inventario/eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')">Eliminar</a>
+                            <a th:href="@{/Inventario/actualizarInventario/}+${temp.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a>
+                        </td>
+                        <td>
+                            <a th:href="@{/Inventario/eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')"><i class="fas fa-trash-alt"></i></a>
 
                         </td>
                     </tr>

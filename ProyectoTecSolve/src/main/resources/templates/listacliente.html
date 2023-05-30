@@ -4,7 +4,8 @@
         <title>Lista Clientes</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="preload" href="css/styles.css" as="style">
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
         <script src="/js/funciones.js"></script>
@@ -13,7 +14,7 @@
         <header th:replace="BarraNavPrincipal.html"></header>
 
        
-        <a class="btn btn-primary" href="/clientes/insertar">Registrar Clientes</a>
+        <a class="btn btn-primary" href="/clientes/insertar"><i class="fas fa-plus"></i> Registrar Clientes</a>
         <form>
             <input class="form-control col-md-3 light-table-filter" data-table="order-table" ytpe="text" placeholder="Filtrar..">
             <button type="submit" onclick="limpiar();">Limpiar</button>
@@ -26,7 +27,7 @@
                 <form>
                     <label class="labelAgrupar">Agrupar de </label>
                     <input type="number" class="inputAgrupar" name="pageSize" min="1" value="1">
-                    <button type="submit" class="buttonAgrupar">Mostrar</button>
+                    <button type="submit" class="buttonAgrupar"><i class="fas fa-eye"></i> Mostrar</button>
                 </form>
             </div>
 
@@ -47,7 +48,7 @@
                     </thead>
 
                     <tr class="trLista" th:each="temp :${lista}"> 
-                        <td th:text="${temp.id_cliente}" type="hidden" name="id" class="field" readonly="readonly"/ style="display: none"></td>
+                        <td th:text="${temp.id_cliente}" type="hidden" name="id" class="field" readonly="readonly" style="display: none"></td>
                         <td th:text="${temp.nombre}"></td>
                         <td th:text="${temp.apellido}"></td>
                         <td th:text="${temp.cedula}"></td>
@@ -56,9 +57,9 @@
                         
                         
                       
-                           <td><a class="btn btn-warning" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Editar</a></td>
+                        <td><a class="btn btn-warning" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a></td>
                             <td>
-                            <a th:href="@{/clientes/eliminar/}+${temp.id_cliente}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')">Eliminar</a> </td>
+                            <a th:href="@{/clientes/eliminar/}+${temp.id_cliente}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-trash-alt"></i></a> </td>
                             
 
                     </tr>
