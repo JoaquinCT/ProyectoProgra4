@@ -46,12 +46,12 @@
                             <br>
                             <div class="form-group">
                                 <label>CANTIDAD</label>
-                                <input type="text" name="cantidad" th:value="${temp.cantidad}" class="form-control" required>
+                                <input type="number" min="0" name="cantidad" th:value="${temp.cantidad}" class="form-control" required>
                             </div>
                             <br>
                             <div class="form-group">
                                 <label>PRECIO</label>
-                                <input type="text" name="precio" th:value="${temp.precio}" class="form-control" required>
+                                <input type="number" name="precio" min="0" th:value="${temp.precio}" class="form-control" required>
                             </div>
                             <br>
                         </div>

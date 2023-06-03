@@ -63,8 +63,9 @@ public class ControllerProveedor {
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminarProveedor(@PathVariable int id) {
+    public String eliminarProveedor(@PathVariable int id, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
         logicaProveedor.eliminarProveedor(id);
-        return "redirect:/proveedores/listaProveedores";
+        return "redirect:"+paginaAnterior;
     }
 }

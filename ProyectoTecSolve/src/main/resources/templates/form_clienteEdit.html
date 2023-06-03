@@ -33,12 +33,12 @@
                         <br>
                         <div class="form-group">
                             <label>CÉDULA</label>
-                            <input th:value="${cedula}" type="number" name="cedula" class="form-control" required>
+                            <input th:value="${cedula}" type="number" min="100000000" max="999999999" name="cedula" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
                             <label>NÚMERO DE TELÉFONO</label>
-                            <input th:value="${telefono}" type="number" name="telefono" class="form-control" required>
+                            <input th:value="${telefono}" type="number" min="10000000" max="999999999" name="telefono" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">

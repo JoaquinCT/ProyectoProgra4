@@ -47,7 +47,7 @@
                             <a th:href="@{/Inventario/actualizarInventario/}+${temp.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a>
                         </td>
                         <td>
-                            <a th:href="@{/Inventario/eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?')"><i class="fas fa-trash-alt"></i></a>
+                            <a th:href="@{/Inventario/eliminarInventario?id=} + ${temp.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a>
 
                         </td>
                     </tr>

@@ -69,12 +69,12 @@ public class ControllerCliente {
     }
 
     @GetMapping("/eliminar/{numero}")
-    public String eliminar(@PathVariable int numero) {
-        
+    public String eliminar(@PathVariable int numero, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
         DataCliente dataC = new DataCliente();
         dataC.eliminarNumero(numero);
 
-        return "redirect:/clientes/listar";
+        return "redirect:"+paginaAnterior;
 
     }
 

@@ -20,7 +20,7 @@
 
                         <div class="form-group">
                             <label>CÉDULA</label>
-                            <input th:field="*{cedula}" type="text" class="form-control" required>
+                            <input th:field="*{cedula}" min="100000000" max="999999999" type="number" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">

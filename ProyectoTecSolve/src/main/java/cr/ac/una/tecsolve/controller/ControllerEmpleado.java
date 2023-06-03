@@ -114,8 +114,9 @@ public class ControllerEmpleado {
     }
     
     @GetMapping("delete/{id}")
-    public String deleteEmpleado(@PathVariable int id){
+    public String deleteEmpleado(@PathVariable int id, HttpServletRequest request){
+        String paginaAnterior = request.getHeader("referer");
         logicE.eliminarEmpleado(id);
-        return "redirect:/empleados/listarEmpleados";
+        return "redirect:"+paginaAnterior;
     }
 }

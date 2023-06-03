@@ -52,11 +52,10 @@ public class ControllerInventario {
     }
 
     @GetMapping("/eliminarInventario")
-    public String eliminar(@RequestParam int id, Model model) {
-        System.out.println("Eliminar id " + id);
-
+    public String eliminar(@RequestParam int id, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
         new InventarioData().eliminar(id);
-        return "redirect:/Inventario";
+        return "redirect:"+paginaAnterior;
     }
 
     @GetMapping("/actualizarInventario/{id}")

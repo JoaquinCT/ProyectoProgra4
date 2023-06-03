@@ -78,6 +78,7 @@ function limpiar() {
 
 }
 
+
 function goBack() {
     window.location.replace(document.referrer);
 }

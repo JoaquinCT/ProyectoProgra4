@@ -48,10 +48,10 @@ public class ControllerServicios {
     }
 
     @GetMapping("/eliminarServicio")
-    public String eliminarServicio(@RequestParam int id, Model model) {
-        
+    public String eliminarServicio(@RequestParam int id, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
         new ServiciosData().eliminar(id);
-        return "redirect:/servicios";
+        return "redirect:"+paginaAnterior;
     }
 
     @GetMapping("/actualizarServicio/{id}")

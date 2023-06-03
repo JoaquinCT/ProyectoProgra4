@@ -48,7 +48,7 @@
                                 <a th:href="@{/proveedores/editar/}+${proveedor.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
-                                <a th:href="@{/proveedores/eliminar/}+${proveedor.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?')"><i class="fas fa-trash-alt"></i></a>
+                                <a th:href="@{/proveedores/eliminar/}+${proveedor.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     </tbody>

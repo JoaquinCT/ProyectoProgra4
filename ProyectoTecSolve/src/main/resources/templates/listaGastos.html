@@ -8,6 +8,7 @@
         <link rel="preload" href="css/styles.css" as="style">
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
@@ -44,15 +45,18 @@
                             <td th:text="${g.categoria}"></td>
                             <td th:text="'&#8353;'+${g.monto}"></td>
                             <td>
-                                <span th:text="${g.fecha}" id="fecha-${g.id}"></span>
+                                <span th:text="${g.fecha}" id="fecha-${
+                                          g.id
+                                      }"></span>
                             </td>
                             <td th:text="${g.detalle}"></td>
                             <td>
                                 <a th:href="@{/gastos/editar/}+${g.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
-                                <a th:href="@{/gastos/delete/}+${g.id}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?')"><i class="fas fa-trash-alt"></i></a>
+                                <a th:href="@{/gastos/delete/{id}(id=${g.id})}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a>
                             </td>
+
                         </tr>
                     </tbody>
 

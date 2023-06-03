@@ -59,7 +59,7 @@
                       
                         <td><a class="btn btn-warning" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a></td>
                             <td>
-                            <a th:href="@{/clientes/eliminar/}+${temp.id_cliente}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-trash-alt"></i></a> </td>
+                            <a th:href="@{/clientes/eliminar/}+${temp.id_cliente}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a> </td>
                             
 
                     </tr>
