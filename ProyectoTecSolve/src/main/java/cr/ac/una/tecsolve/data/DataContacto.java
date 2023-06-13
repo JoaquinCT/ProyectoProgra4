@@ -1,11 +1,9 @@
 package cr.ac.una.tecsolve.data;
-/*
-import cr.ac.una.proyecto.domain.Contacto;
-import java.sql.Connection;
+
+import cr.ac.una.tecsolve.domain.Contacto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,102 +12,178 @@ import java.util.logging.Logger;
  *
  * @author Maizeth Cisneros
  */
-/*
-public class DataContactoextends DataBase {
+public class DataContacto extends BaseData {
 
-    public static final String TBCONTACTO = "tbcontacto";
+    
+    public final static String ID = "id";
+    public final static String NUMEROWHATSAPP = "numeroWhatsapp";
+    public final static String NUMEROTELEFONO = "numeroTelefono";
+    public final static String FACEBOOK = "facebook";
+    public final static String CORREO = "correo";
+    public final static String INSTAGRAM = "instagram";
+    public final static String TBCONTACTOS = "tbcontactos";
 
-    public void insertarContacto(Contacto contacto) {
-        String query = "INSERT INTO " + TBCONTACTO
-                + " (nombre,apellido,cedula,numeroTelefono,correo) VALUES (?,?,?,?,?);";
+    public boolean insertarContacto(Contacto contacto) {
+        boolean inserto = false;
 
-        Connection conexion = getConexion();
+        String query = "INSERT INTO " + TBCONTACTOS + "(" + NUMEROWHATSAPP + "," + NUMEROTELEFONO + "," + FACEBOOK + "," + CORREO + "," + INSTAGRAM + ",status) VALUES(?,?,?,?,?,?);";
+
         try {
-
-            PreparedStatement statement = conexion.prepareStatement(query);
-
-            statement.setString(1, contacto.getNumeroWhatsapp());
-            statement.setString(2, contacto.getNumeroTelefono());
-            statement.setString(3, contacto.getfacebook());
-            statement.setString(4, contacto.getCorreo());
-            statement.setString(5, contacto.getInstagram());
-
-            statement.executeUpdate();
-            statement.close();
-
+            PreparedStatement pr = getConnection().prepareStatement(query);
+            pr.setInt(1, contacto.getNumeroWhatsapp());
+            pr.setInt(2, contacto.getNumeroTelefono());
+            pr.setString(3, contacto.getFacebook());
+            pr.setString(4, contacto.getCorreo());
+            pr.setString(5, contacto.getInstagram());
+            pr.setBoolean(6, true);
+            pr.executeUpdate();
+            inserto = true;
+            pr.close();
         } catch (SQLException ex) {
             Logger.getLogger(DataContacto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return inserto;
     }
 
-    public LinkedList<Contacto> listarContactos() {
-        String sql = "SELECT * FROM " + TBCONTACTO + ";";
-        Connection conexion = getConexion();
-        LinkedList<Contacro> contactos = new LinkedList<>();
-        try {
-            PreparedStatement prepared = conexion.prepareStatement(sql);
-            ResultSet rs = prepared.executeQuery();
+    public LinkedList<Contacto> getListaContactosPorPaginacion(int numPage, int pageSize) {
+        LinkedList<Contacto> lista = new LinkedList<>();
+        int offset = (numPage - 1) * pageSize;
+        String query = "SELECT * FROM " + TBCONTACTOS + " WHERE status = 1 LIMIT ? OFFSET ?;";
 
-            while (rs.next()) {
-                Contacto temp = new Contacto();
-                temp.setId_contacto(rs.getInt("id"));
-                temp.setNumeroWhatsapp(rs.getString("numeroWhatsapp"));
-                temp.setNumeroTelefono(rs.getString("numeroTelefono"));
-                temp.setFacebook(rs.getString("facebook"));
-                temp.setCorreo(rs.getString("correo"));
-                temp.setInstagram(rs.getString("instagram"));
-                contactos.add(temp);
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(query);
+            pr.setInt(1, pageSize);
+            pr.setInt(2, offset);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) { 
+                
+                Contacto c = new Contacto();
+                c.setId(rs.getInt(ID));
+                c.setNumeroWhatsapp(rs.getInt(NUMEROWHATSAPP));
+                c.setNumeroTelefono(rs.getInt(NUMEROTELEFONO));
+                c.setFacebook(rs.getString(FACEBOOK));
+                c.setCorreo(rs.getString(CORREO));
+                c.setInstagram(rs.getString(INSTAGRAM));
+                lista.add(c);
             }
-            prepared.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DataCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return contactos;
-
-    }
-
-    public void editarDatosContactos(Contacto contacto) {
-
-        System.out.println(contacto.getCorreo());
-        String sql = "UPDATE tbcontacto SET numeroWhatsapp=?, numeroTelefono=?, facebook=?, correo=?, instagram=? WHERE id=" + contacto.getId_contacto() + ";";
-        Connection conexion = getConexion();
-
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, contacto.getNumeroWhatsapp());
-            ps.setString(2, contacto.getNumeroTelefono());
-            ps.setString(3, contacto.getFacebook());
-            ps.setString(4, contacto.getCorreo());
-            ps.setString(5, contacto.getInstagram());
-            ps.executeUpdate();
-            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(DataContacto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return lista;
     }
+    
+    public int getNumeroTotalContactos() {
+        int numeroTotal = 0;
 
-    public void eliminarNumero(int codigo) {
-
-        String sql = "DELETE FROM tbcontacto WHERE id=" + codigo + ";";
-        Connection conexion = this.getConexion();
+        String sql = "SELECT COUNT(*) FROM " + TBCONTACTOS + " where status = 1;";
 
         try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.executeUpdate();
-            ps.close();
+            PreparedStatement pr = getConnection().prepareStatement(sql);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                numeroTotal = rs.getInt(1);
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(DataCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataContacto.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        return numeroTotal;
     }
 
-    public static void main(String args[]) {
+    public LinkedList<Contacto> getListaContactos() {
+        LinkedList<Contacto> lista = new LinkedList<>();
 
-        DataContacto data = new DataContacto();
-        data.editarDatosContacto(new Contacto(1, "85749632", "27105468", "tecsolve", "tecsolve@gmail.com", "tec_solve"));
+        String query = "SELECT * FROM " + TBCONTACTOS + " WHERE status = 1;";
 
-
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(query);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                Contacto c = new Contacto();
+                c.setId(rs.getInt(ID));
+                c.setNumeroWhatsapp(rs.getInt(NUMEROWHATSAPP));
+                c.setNumeroTelefono(rs.getInt(NUMEROTELEFONO));
+                c.setFacebook(rs.getString(FACEBOOK));
+                c.setCorreo(rs.getString(CORREO));
+                c.setInstagram(rs.getString(INSTAGRAM));
+                lista.add(c);
+            }
+            pr.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataGasto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
     }
 
+    public Contacto getContactoPorId(int idContacto) {
+        Contacto c = new Contacto();
+
+        String query = "SELECT " + ID + "," + NUMEROWHATSAPP + "," + NUMEROTELEFONO + "," + FACEBOOK + "," + CORREO + "," + INSTAGRAM + " FROM " + TBCONTACTOS + " WHERE status = 1 and id=" + idGasto + ";";
+
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(query);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()) {
+                c.setId(rs.getInt(ID));
+                c.setNumeroWhatsapp(rs.getInt(NUMEROWHATSAPP));
+                c.setNumeroTelefono(rs.getInt(NUMEROTELEFONO));
+                c.setFacebook(rs.getString(FACEBOOK));
+                c.setCorreo(rs.getString(CORREO));
+                c.setInstagram(rs.getString(INSTAGRAM));
+            }
+            pr.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataContacto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return c;
+    }
+
+    public boolean actualizarContacto(Contacto Contacto) {
+        boolean actualizo = false;
+
+        String query = "UPDATE " + TBCONTACTOS + " SET " + NUMEROWHATSAPP + "=?," + NUMEROTELEFONO + "=?," + FACEBOOK + "=?," + CORREO + "=?," + INSTAGRAM + "=? WHERE " + ID + "=" + contacto.getId() + ";";
+
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(query);
+            pr.setInt(1, contacto.getNumeroWhatsapp());
+            pr.setInt(2, contacto.getNumeroTelefono());
+            pr.setString(3, contacto.getFacebook());
+            pr.setString(4, contacto.getCorreo());
+            pr.setString(5, contacto.getInstagram());
+            pr.executeUpdate();
+            actualizo = true;
+            pr.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataContacto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return actualizo;
+    }
+
+    public boolean deshabilitarContacto(int idContacto) {
+        boolean elimino = false;
+        String query = "UPDATE " + TBCONTACTOS + " SET status=? WHERE id=" + idContacto + ";";
+
+        try {
+            PreparedStatement pr = getConnection().prepareStatement(query);
+            pr.setInt(1, 0);
+            pr.executeUpdate();
+            elimino = true;
+            pr.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataContacto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return elimino;
+    }
+
+    public static void main(String[] args) {
+
+        LinkedList<Contacto> lista = new DataContacto().getListaContactosPorPaginacion(1, 2);
+
+        for (Contacto c : lista) {
+            System.out.println(c.getNumeroWhatsapp());
+            System.out.println("\n");
+        }
+        
+    }
+    
 }
-*/

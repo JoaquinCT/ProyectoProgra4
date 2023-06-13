@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xml:th="http://www.thymeleaf.org">
+    <head>
+        <title>Form Contactos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/js/funciones.js"></script>
+    </head>
+    <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
+        <div class="mt-4">
+            <form th:action="@{/contactos/saveContacto}" th:object="${contacto}" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Módulo de Contactos</h3>
+                        <br>
+                    </div>
+                    <input type="hidden" name="paginaAnterior" th:value="${paginaAnterior}" />
+                    <div class="card-body">
+                        <input th:field="*{id}" type="number" style="display: none">
+                        <div class="form-group">
+                            <label>NUMERO WHATSAPP</label>
+                            <input th:field="*{numeroWhatsapp}" type="number" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>NUMERO TELEFONO</label>
+                            <input th:field="*{numeroTelefono}" type="number" class="form-control" required>
+
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>FACEBOOK</label>
+                            <input th:field="*{facebook}" min="0" type="String" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>CORREO</label>
+                            <input th:field="*{correo}" type="email" class="form-control" required>
+                        </div>
+                        <br>
+                    </div>
+                        <div class="form-group">
+                            <label>INSTAGRAM</label>
+                            <input th:field="*{instagram}" type="String" class="form-control" required>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Guardar" class="btn btn-success">
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--PIE DE PAGINA-->
+
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
+        
+    </body>
+</html>
