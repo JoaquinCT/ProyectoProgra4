@@ -118,7 +118,7 @@ public class DataContacto extends BaseData {
     public Contacto getContactoPorId(int idContacto) {
         Contacto c = new Contacto();
 
-        String query = "SELECT " + ID + "," + NUMEROWHATSAPP + "," + NUMEROTELEFONO + "," + FACEBOOK + "," + CORREO + "," + INSTAGRAM + " FROM " + TBCONTACTOS + " WHERE status = 1 and id=" + idGasto + ";";
+        String query = "SELECT " + ID + "," + NUMEROWHATSAPP + "," + NUMEROTELEFONO + "," + FACEBOOK + "," + CORREO + "," + INSTAGRAM + " FROM " + TBCONTACTOS + " WHERE status = 1 and id=" + idContacto + ";";
 
         try {
             PreparedStatement pr = getConnection().prepareStatement(query);

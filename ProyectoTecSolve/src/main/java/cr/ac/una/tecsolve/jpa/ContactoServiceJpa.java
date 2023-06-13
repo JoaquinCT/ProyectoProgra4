@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class ContactoServiceJpa implements IContactoService{
 
     @Autowired
-    GastosRepository gastosRep;
+    ContactosRepository contactosRep;
     
     @Override
     public List<Contacto> listar() {
