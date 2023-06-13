@@ -1,74 +1,66 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Form Cliente</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" th:href="@{/Styles.css}"/>
-
-        <style>
-            body{
-                font-family: Arial;
-
-                box-sizing: border-box;
-            }
-            form{
-                border-color: #212121;
-
-                border-radius: 3px;
-                color: #999;
-                font-size: 12px;
-                padding:10px;
-                margin: 0 auto;
-                width: 300px;
-            }
-            input, textarea{
-                border:0;
-                outline: none;
-            }
-            .field{
-                border: solid 1px #ccc;
-                padding: 10px;
-                width: 280px;
-
-            }
-            .field:focus{
-                border-color: #18A383;
-            }
-            .center-content{
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <!--
-                <div class="nav-bag">
-        
-                    <nav class="navegacionPrincipal contenedor">
-                        <a href="/home">Inicio</a>
-                        <a href="/listar">Clientes</a>
-                        <a href="/insertar">Registrar Clientes</a>
-                    </nav>
+        <div class="mt-4">
+            <form th:action="@{/clientes/guardarEdit}"  method="get">
+                <div class="card">
+
+                    <div class="card-header">
+                        <h3>Módulo de Edición Cliente</h3>
+                        <br>
+                    </div>
+                    <input type="hidden" name="paginaAnterior" th:value="${paginaAnterior}" />
+                    <div class="card-body">
+                        <input th:value="${id}" type="hidden" name="id" class="field" readonly="readonly"/><br />
+
+                        <div class="form-group">
+                            <label>NOMBRE</label>
+                            <input th:value="${nombre}" type="text" name="nombre" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>APELLIDO</label>
+                            <input th:value="${apellido}" type="text" name="apellido" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>CÉDULA</label>
+                            <input th:value="${cedula}" type="number" min="100000000" max="999999999" name="cedula" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>NÚMERO DE TELÉFONO</label>
+                            <input th:value="${telefono}" type="number" min="10000000" max="999999999" name="telefono" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>CORREO ELECTRÓNICO</label>
+                            <input th:value="${correo}" type="email" name="correo" class="form-control" required>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="card-footer">
+                        <input class="btn btn-success" type="submit" value="Guardar"/>
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
+                    </div>
                 </div>
-        -->
-        <h1>Editar Datos del Cliente</h1>
-        <form th:action="@{/guardarEdit}"  method="get">
+            </form>
+        </div>
 
-            <input th:value="${id}" type="hidden" name="id" class="field" readonly="readonly"/><br />
-            <c>Nombre:</p>
-                <input th:value="${nombre}" type="text" name="nombre" class="field" required/><br />
-                <c>Apellido:</p>
-                    <input th:value="${apellido}" type="text" name="apellido" class="field" required/><br />
-                    <c>Cedula:</p>
-                        <input th:value="${cedula}" type="number" name="cedula" class="field" required/><br />
-                        <c>Telefono:</p>
-                            <input th:value="${telefono}" type="number" name="telefono" class="field" required/><br />
-                            <c>Correo</p>
-                                <input th:value="${correo}" type="email" name="correo" class="field" required/><br />
-                                <br />
-                                <input type="submit" value="Editar" class="btn btn-green"/><br />
-                                </form>
+        <!--PIE DE PAGINA-->
 
-
-                                </body>
-                                </html>
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
+    </body>
+</html>

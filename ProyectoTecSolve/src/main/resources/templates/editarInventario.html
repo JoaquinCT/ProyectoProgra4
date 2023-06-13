@@ -6,74 +6,78 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <h1>Actualiar Inventario</h1>
-        
-      <form action="/Inventario/ActualizarInventario" method="get">
-          
-       <div th:each="temp: ${lista}">
-           
-   
-        <table>
-                 <tr>
-                   
-                    <td><input type="text" name="id" th:value="${temp.id}" style="display:none;"/></td>
-                </tr>
-                
-                <tr>
-                    <td>Seleccionar una Categor&iacute;a:</td>
-                    <td>
-                      
-                       <select id="listaInventario" onchange="seleccionarEmpresa()">
-                         
-                       <option value="computadoras">Computadoras</option>
-                       <option value="componentes">Componentes</option>
-                       <option value="celulares">Celulares</option>
-                       <option value="perifericos">Perif&eacute;ricos</option>
-                       <option value="imagen-sonido">Imag&eacute;n y sonido</option>
-                      </select>
+        <div class="mt-4">
+            <form action="/Inventario/ActualizarInventario" method="get">
+                <div class="card">
+                    <div th:each="temp: ${lista}">
+                        <div class="card-header">
+                            <h3>Módulo de Edición Inventario</h3>
+                            <br>
+                        </div>
+                        <input type="hidden" name="paginaAnterior" th:value="${paginaAnterior}" />
+                        <div class="card-body">
+                            <input type="text" name="id" th:value="${temp.id}" style="display:none;"/>
 
-                    </td>
-                </tr>
-               
-                <tr>
-                    
-                    <td><input type="text" name="categoria" id="categoriaId" style="display:none;" th:value="${temp.categoria}"/></td>
-                </tr>
-                <tr>
-                    <td>Clasificaci&oacute;n:</td>
-                    <td><input type="text" name="clasificacion" th:value="${temp.clasificacion}"/></td>
-                </tr>
-                 <tr>
-                    <td>Nombre Producto:</td>
-                    <td><input type="text" name="nombreProducto" th:value="${temp.nombreProducto}"/></td>
-                </tr>
-                <tr>
-                    <td>Cantidad:</td>
-                    <td><input type="text" name="cantidad" th:value="${temp.cantidad}"/></td>
-                </tr>
-                <tr>
-                    <td>Precio:</td>
-                    <td><input type="text" name="precio" th:value="${temp.precio}"/></td>
-                </tr>
-               
-            </table>
-            
-    
-</div>
+                            <div class="form-group">
+                                <select id="listaInventario" onchange="seleccionarEmpresa()">
 
-        <input type="submit" value="Actualizar"/>
-      </form>
-       <script>
-function seleccionarEmpresa() {
-  let listaInventario = document.getElementById('listaInventario');
-  let categoriaId = listaInventario.options[listaInventario.selectedIndex].text;
-           
-  document.getElementById('categoriaId').value = categoriaId;
-}
+                                    <option value="computadoras">Computadoras</option>
+                                    <option value="componentes">Componentes</option>
+                                    <option value="celulares">Celulares</option>
+                                    <option value="perifericos">Perif&eacute;ricos</option>
+                                    <option value="imagen-sonido">Imag&eacute;n y sonido</option>
+                                </select>
+                            </div>
+                            <input type="text" name="categoria" id="categoriaId" style="display:none;" th:value="${temp.categoria}" required/>
+                            <br>
+                            <div class="form-group">
+                                <label>CLASIFICACIÓN</label>
+                                <input type="text" name="clasificacion" th:value="${temp.clasificacion}" class="form-control" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label>PRODUCTO</label>
+                                <input type="text" name="nombreProducto" th:value="${temp.nombreProducto}" class="form-control" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label>CANTIDAD</label>
+                                <input type="number" min="0" name="cantidad" th:value="${temp.cantidad}" class="form-control" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label>PRECIO</label>
+                                <input type="number" name="precio" min="0" th:value="${temp.precio}" class="form-control" required>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="card-footer">
+                            <input class="btn btn-success" type="submit" value="Actualizar"/>
+                        </div>
+                        <div class="card-footer">
+                            <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script>
+            function seleccionarEmpresa() {
+                let listaInventario = document.getElementById('listaInventario');
+                let categoriaId = listaInventario.options[listaInventario.selectedIndex].text;
+
+                document.getElementById('categoriaId').value = categoriaId;
+            }
         </script>
+        <!--PIE DE PAGINA-->
+
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
     </body>
 </html>
 

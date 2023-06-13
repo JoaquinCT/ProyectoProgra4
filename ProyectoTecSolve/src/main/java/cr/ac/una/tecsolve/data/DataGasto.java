@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  */
 public class DataGasto extends BaseData {
 
+    
     public final static String ID = "id";
     public final static String FECHA = "fecha";
     public final static String DESCRIPCION = "descripcion";
@@ -46,7 +47,7 @@ public class DataGasto extends BaseData {
 
     public LinkedList<Gasto> getListaGastosPorPaginacion(int numPage, int pageSize) {
         LinkedList<Gasto> lista = new LinkedList<>();
-        int offset = (numPage-1) * pageSize;
+        int offset = (numPage - 1) * pageSize;
         String query = "SELECT * FROM " + TBGASTOS + " WHERE status = 1 LIMIT ? OFFSET ?;";
 
         try {
@@ -54,7 +55,8 @@ public class DataGasto extends BaseData {
             pr.setInt(1, pageSize);
             pr.setInt(2, offset);
             ResultSet rs = pr.executeQuery();
-            while (rs.next()) {
+            while (rs.next()) { 
+                
                 Gasto g = new Gasto();
                 g.setId(rs.getInt(ID));
                 g.setFecha(rs.getDate(FECHA));
@@ -69,7 +71,7 @@ public class DataGasto extends BaseData {
         }
         return lista;
     }
-
+    
     public int getNumeroTotalGastos() {
         int numeroTotal = 0;
 
@@ -172,16 +174,16 @@ public class DataGasto extends BaseData {
         }
         return elimino;
     }
-    
+
     public static void main(String[] args) {
-        
+
         LinkedList<Gasto> lista = new DataGasto().getListaGastosPorPaginacion(1, 2);
-        
-        for(Gasto g:lista){
+
+        for (Gasto g : lista) {
             System.out.println(g.getDescripcion());
             System.out.println("\n");
         }
         
     }
-
+    
 }

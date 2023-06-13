@@ -1,61 +1,20 @@
 <!DOCTYPE html>
 <html xml:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Lista Clientes</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="preload" href="css/styles.css" as="style">
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
-        <script src="funcionesCliente.js"></script>
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <style>
 
-            .btn{
-                border-radius: 3px;
-                display: inline-block;
-                padding: 5px 5px;
-                text-decoration: none;
-                text-shadow: 0 1px 0 rgba(255,255,255,0.3);
-                box-shadow: 0 1px 1px rgba(0,0,0,0.3);
-            }
-
-            .btn-green{
-                color: white;
-                background-color: #3CC93F;
-            }
-            .btn-green:hover{
-                background-color: #37B839;
-            }
-            .btn-green:active{
-                background-color: #29962A;
-            }
-
-            .btn-red{
-                color: white;
-                background-color: #E34242;
-            }
-            .btn-red:hover{
-                background-color: #C43535;
-            }
-            .btn-red:active{
-                background-color: #A62828;
-            }
-        </style>
-        <!--
-        <div class="nav-bag">
-
-            <nav class="navegacionPrincipal contenedor">
-                <a href="/clientes/menuCliente">Inicio</a>
-                <a href="/clientes/listar">Cliente</a>
-                
-            </nav>
-        </div>
-        -->
-        <h1>Lista de Clientes</h1>
-        <a href="/clientes/insertar">Registrar Clientes</a>
+       
+        <a class="btn btn-primary" href="/clientes/insertar"><i class="fas fa-plus"></i> Registrar Clientes</a>
         <form>
             <input class="form-control col-md-3 light-table-filter" data-table="order-table" ytpe="text" placeholder="Filtrar..">
             <button type="submit" onclick="limpiar();">Limpiar</button>
@@ -68,40 +27,44 @@
                 <form>
                     <label class="labelAgrupar">Agrupar de </label>
                     <input type="number" class="inputAgrupar" name="pageSize" min="1" value="1">
-                    <button type="submit" class="buttonAgrupar">Mostrar</button>
+                    <button type="submit" class="buttonAgrupar"><i class="fas fa-eye"></i> Mostrar</button>
                 </form>
             </div>
 
             <br>
-            <table border="1" class="order-table">
-                <thead>  
-                    <tr> 
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Cedula</th>
-                        <th>Telefono</th>
-                        <th>Correo</th>
-                        <th>Acciones</th>
+            <div class="contLista">
+                <table border="1" class="tbMode">
+                    <thead>  
+                        <tr class="trHead"> 
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Cedula</th>
+                            <th>Telefono</th>
+                            <th>Correo</th>
+                            <th colspan="2">Acciones</th>
 
+
+                        </tr>
+                    </thead>
+
+                    <tr class="trLista" th:each="temp :${lista}"> 
+                        <td th:text="${temp.id_cliente}" type="hidden" name="id" class="field" readonly="readonly" style="display: none"></td>
+                        <td th:text="${temp.nombre}"></td>
+                        <td th:text="${temp.apellido}"></td>
+                        <td th:text="${temp.cedula}"></td>
+                        <td th:text="${temp.numeroTelefono}"></td>
+                        <td th:text="${temp.correo}"></td>
+                        
+                        
+                      
+                        <td><a class="btn btn-warning" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a></td>
+                            <td>
+                            <a th:href="@{/clientes/eliminar/}+${temp.id_cliente}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a> </td>
+                            
 
                     </tr>
-                </thead>
-
-                <tr th:each="temp :${lista}"> 
-                    <td th:text="${temp.id_cliente}" type="hidden" name="id" class="field" readonly="readonly"/></td>
-                    <td th:text="${temp.nombre}"></td>
-                    <td th:text="${temp.apellido}"></td>
-                    <td th:text="${temp.cedula}"></td>
-                    <td th:text="${temp.numeroTelefono}"></td>
-                    <td th:text="${temp.correo}"></td>
-                    <td><a class ="btn btn-red" th:onclick="/clientes/eliminar([[${temp.id_cliente}]])">Eliminar</a>
-                        <a class ="btn btn-green" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}">Editar</a></td>
-
-
-                </tr>
-            </table>
-
+                </table>
+            </div>
             <div class="pagination">
                 <ul>
                     <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
@@ -123,5 +86,11 @@
                 <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
             </div>
         </div>
+                    <!--PIE DE PAGINA-->
+
+                <footer>
+                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+                </footer>
+
     </body>
 </html>

@@ -2,9 +2,9 @@ package cr.ac.una.tecsolve.controller;
 
 import cr.ac.una.tecsolve.domain.Empleado;
 import cr.ac.una.tecsolve.logic.LogicaEmpleado;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.util.LinkedList;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -98,22 +98,25 @@ public class ControllerEmpleado {
     }
 
     @GetMapping("/editar/{id}")
-    public String getEditarRegistro(@PathVariable int id, Model model) {
+    public String getEditarRegistro(@PathVariable int id, Model model, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
+        model.addAttribute("paginaAnterior", paginaAnterior);
         model.addAttribute("empleado", logicE.listarEmpleadoPorID(id));
         return "formEditarEmpleado";
     }
 
-    @PostMapping("/update/{id}")
-    public String update(@PathVariable int id, @ModelAttribute Empleado empleado) {
+    @PostMapping("/update")
+    public String update(@ModelAttribute Empleado empleado, HttpServletRequest request) {
 
-        logicE.updateEmpleado(empleado, id);
-
-        return "redirect:/empleados/listarEmpleados";
+        logicE.updateEmpleado(empleado, empleado.getId());
+        String paginaAnterior = request.getParameter("paginaAnterior");
+        return "redirect:" + paginaAnterior;
     }
     
     @GetMapping("delete/{id}")
-    public String deleteEmpleado(@PathVariable int id){
+    public String deleteEmpleado(@PathVariable int id, HttpServletRequest request){
+        String paginaAnterior = request.getHeader("referer");
         logicE.eliminarEmpleado(id);
-        return "redirect:/empleados/listarEmpleados";
+        return "redirect:"+paginaAnterior;
     }
 }

@@ -46,7 +46,7 @@ public class ServiciosData extends BaseData {
             prepared.close();
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiciosData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return inventario;
     }
@@ -74,7 +74,7 @@ public class ServiciosData extends BaseData {
                 lista.add(i);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DataEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiciosData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }
@@ -121,7 +121,7 @@ public class ServiciosData extends BaseData {
             prepared.close();
             conexion.close();   //Cierra la conexion con la bd.
         } catch (SQLException ex) {
-            Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiciosData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return inserto;
     }
@@ -145,7 +145,7 @@ public class ServiciosData extends BaseData {
             prepared.close();
             //conexion.close();   //Cierra la conexion con la bd.
         } catch (SQLException ex) {
-            Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiciosData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return elimino;
     }
@@ -173,7 +173,7 @@ public class ServiciosData extends BaseData {
             prepared.close();
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiciosData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return inventario;
     }
@@ -200,20 +200,20 @@ public class ServiciosData extends BaseData {
                 actualizado = true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiciosData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (prepared != null) {
                 try {
                     prepared.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ServiciosData.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ServiciosData.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -243,7 +243,7 @@ public class ServiciosData extends BaseData {
             prepared.close();
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiciosData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return inventario;
     }

@@ -2,6 +2,7 @@ package cr.ac.una.tecsolve.controller;
 
 import cr.ac.una.tecsolve.data.InventarioData;
 import cr.ac.una.tecsolve.domain.Inventario;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,16 +52,17 @@ public class ControllerInventario {
     }
 
     @GetMapping("/eliminarInventario")
-    public String eliminar(@RequestParam int id, Model model) {
-        System.out.println("Eliminar id " + id);
-
+    public String eliminar(@RequestParam int id, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
         new InventarioData().eliminar(id);
-        return "redirect:/Inventario";
+        return "redirect:"+paginaAnterior;
     }
 
     @GetMapping("/actualizarInventario/{id}")
-    public String mostrarDatos(@PathVariable int id, Model model) {
-
+    public String mostrarDatos(@PathVariable int id, Model model, HttpServletRequest request) {
+        
+        String paginaAnterior = request.getHeader("referer");
+        model.addAttribute("paginaAnterior", paginaAnterior);
         int numero = id;
         LinkedList<Inventario> con = new LinkedList<Inventario>();
         InventarioData dc = new InventarioData();
@@ -71,11 +73,11 @@ public class ControllerInventario {
     }
 
     @GetMapping("/ActualizarInventario")
-    public String actualizarInventario(@RequestParam("id") int id, @RequestParam("clasificacion") String clasificacion, @RequestParam("categoria") String categoria, @RequestParam("nombreProducto") String nombreProducto, @RequestParam("cantidad") int cantidad, @RequestParam("precio") float precio) {
+    public String actualizarInventario(HttpServletRequest request, @RequestParam("id") int id, @RequestParam("clasificacion") String clasificacion, @RequestParam("categoria") String categoria, @RequestParam("nombreProducto") String nombreProducto, @RequestParam("cantidad") int cantidad, @RequestParam("precio") float precio) {
+        String paginaAnterior = request.getParameter("paginaAnterior");
         Inventario inventario = new Inventario(categoria, clasificacion, nombreProducto, cantidad, precio);
-
         new InventarioData().actualizar(inventario, id);
-        return "redirect:/Inventario";
+        return "redirect:"+paginaAnterior;
     }
 
 }

@@ -4,10 +4,7 @@ package cr.ac.una.tecsolve.controller;
 
 import cr.ac.una.tecsolve.data.DataCliente;
 import cr.ac.una.tecsolve.domain.Cliente;
-import java.sql.Date;
-import java.util.LinkedList;
-import java.util.Map;
-
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,19 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/clientes")
 public class ControllerCliente {
-
-
-    @GetMapping("/menuCliente")
-    public String inicio() {
-
-        return "indexCliente";
-    }
 
     @GetMapping("/listar")
     public String getCliente(Model model, @RequestParam(name="pageNumber",defaultValue = "1") int numeroPagina, @RequestParam(name="pageSize", defaultValue = "1") int pageSize) {
@@ -70,27 +59,29 @@ public class ControllerCliente {
 //      return "redirect:/listar";  
 //    }
     @GetMapping(value = "/guardarEdit", params = {"id", "nombre", "apellido", "cedula", "telefono", "correo"})
-    public String guardarEdit(int id, String nombre, String apellido, String cedula, String telefono, String correo) {
-
+    public String guardarEdit(int id, String nombre, String apellido, String cedula, String telefono, String correo, HttpServletRequest request) {
+        String paginaAnterior = request.getParameter("paginaAnterior");
         DataCliente dataC = new DataCliente();
         Cliente c = new Cliente(id, nombre, apellido, cedula, telefono, correo);
         dataC.editarDatosCliente(c);
 
-        return "redirect:/clientes/listar";
+        return "redirect:"+paginaAnterior;
     }
 
     @GetMapping("/eliminar/{numero}")
-    public String eliminar(@PathVariable int numero) {
-
+    public String eliminar(@PathVariable int numero, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
         DataCliente dataC = new DataCliente();
         dataC.eliminarNumero(numero);
 
-        return "redirect:/clientes/listar";
+        return "redirect:"+paginaAnterior;
 
     }
 
     @GetMapping("/editar/{id}/{nombre}/{apellido}/{cedula}/{telefono}/{correo}")
-    public String editar(@PathVariable int id, @PathVariable String nombre, @PathVariable String apellido, @PathVariable String cedula, @PathVariable String telefono, @PathVariable String correo, Model model) {
+    public String editar(@PathVariable int id, @PathVariable String nombre, @PathVariable String apellido, @PathVariable String cedula, @PathVariable String telefono, @PathVariable String correo, Model model, HttpServletRequest request) {
+        String paginaAnterior = request.getHeader("referer");
+        model.addAttribute("paginaAnterior", paginaAnterior);
         model.addAttribute("id", id);
         model.addAttribute("nombre", nombre);
         model.addAttribute("apellido", apellido);

@@ -5,37 +5,25 @@
         <title>Editar Empleado</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script>
-            window.onload = function () {
-                // Obtener el botón y agregar un evento de clic
-                var boton = document.getElementById('btn-editar');
-                boton.onclick = function () {
-                    // Obtener el número de la URL actual
-                    var url = window.location.href;
-                    var partes = url.split('/');
-                    var id = partes[partes.length - 1];
-                    // Concatenar el número a la URL de th:action
-                    document.getElementById('form').action += id;
-                }
-            }
-        </script>
-
+        <script src="/js/funciones.js"></script>
+        
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
         <div class="mt-4">
             <h1 th:text="${valor}"></h1>
-            <form id="form" th:action="@{/empleados/update/}"  th:object="${empleado}" method="POST">
+            <form id="form" th:action="@{/empleados/update}"  th:object="${empleado}" method="POST">
                 <div class="card">
                     <div class="card-header">
                         <h3>Módulo de Edición Empleado</h3>
                         <br>
                     </div>
                     <div class="card-body">
-
+                        <input type="hidden" name="paginaAnterior" th:value="${paginaAnterior}" />
+                        <input th:field="*{id}" type="number" style="display:none ">
                         <div class="form-group">
                             <label>CÉDULA</label>
-                            <input  th:field="*{cedula}" type="text"  class="form-control" required>
+                            <input  th:field="*{cedula}" type="number" min="100000000" max="999999999"  class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
@@ -50,7 +38,7 @@
                         <br>
                         <div class="form-group">
                             <label>NÚMERO DE TELÉFONO</label>
-                            <input th:field="*{numeroTelefono}" type="text"  class="form-control" required>
+                            <input th:field="*{numeroTelefono}" type="number" min="10000000" max="99999999"  class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
@@ -73,10 +61,15 @@
                         <input type="submit" value="Editar" class="btn btn-success" id="btn-editar">
                     </div>
                     <div class="card-footer">
-                        <input type="button" value="Cancelar" onclick="window.location.href = '../listarEmpleados';" class="btn btn-danger">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
                     </div>
                 </div>
             </form>
         </div>
+                            <!--PIE DE PAGINA-->
+
+                <footer>
+                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+                </footer>
     </body>
 </html>

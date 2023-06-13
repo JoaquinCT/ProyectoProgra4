@@ -7,19 +7,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preload" href="css/styles.css" as="style">
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
+        <a th:href="@{/gastos/formGuardarGasto}" class="btn btn-primary"><i class="fas fa-plus"></i> Registrar Gasto</a>
         <!-- Sección de agrupación -->
         <div class="contAgrupar">
             <form>
                 <label class="labelAgrupar">Agrupar de </label>
                 <input type="number" class="inputAgrupar" name="pageSize" min="1" value="1">
-                <button type="submit" class="buttonAgrupar">Mostrar</button>
+                <button type="submit" class="buttonAgrupar"><i class="fas fa-eye"></i> Mostrar</button>
             </form>
         </div>
         <br>
-        <a th:href="@{/gastos/formGuardarGasto}" class="btn btn-primary">Nuevo Gasto</a>
+
         <div th:if="${#lists.isEmpty(gastos)}">
             <h2>La Empresa no posee gastos actualmente!!</h2>
         </div>
@@ -41,14 +44,19 @@
                             <td th:text="${g.descripcion}"></td>
                             <td th:text="${g.categoria}"></td>
                             <td th:text="'&#8353;'+${g.monto}"></td>
-                            <td th:text="${g.fecha}"></td>
+                            <td>
+                                <span th:text="${g.fecha}" id="fecha-${
+                                          g.id
+                                      }"></span>
+                            </td>
                             <td th:text="${g.detalle}"></td>
                             <td>
-                                <a th:href="@{/gastos/editar/}+${g.id}" class="btn btn-warning">Editar</a>
+                                <a th:href="@{/gastos/editar/}+${g.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
-                                <a th:href="@{/gastos/delete/}+${g.id}" class="btn btn-danger">Eliminar</a>
+                                <a th:href="@{/gastos/delete/{id}(id=${g.id})}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a>
                             </td>
+
                         </tr>
                     </tbody>
 
@@ -56,7 +64,6 @@
                 <br>
             </div>
         </div>
-        
         <div class="pagination">
             <ul>
                 <li th:if="${pageNumber > 1}" th:class="${pageNumber == 1 ? 'disabled' : ''}">
@@ -76,8 +83,23 @@
                 </li>
             </ul>
             <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
-            
+
         </div>
-        
+        <!--PIE DE PAGINA-->
+
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
+        <script>
+            // Obtener los elementos <span> con las fechas
+            var fechas = document.querySelectorAll('[id^="fecha-"]');
+
+            // Recorrer cada elemento y formatear la fecha en formato numérico
+            fechas.forEach(function (elemento) {
+                var fecha = new Date(elemento.textContent);
+                var fechaFormateada = fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear();
+                elemento.textContent = fechaFormateada;
+            });
+        </script>
     </body>
 </html>

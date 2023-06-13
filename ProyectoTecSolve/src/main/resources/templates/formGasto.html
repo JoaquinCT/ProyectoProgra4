@@ -5,6 +5,7 @@
         <title>Form Gastos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
@@ -15,6 +16,7 @@
                         <h3>Módulo de Gastos</h3>
                         <br>
                     </div>
+                    <input type="hidden" name="paginaAnterior" th:value="${paginaAnterior}" />
                     <div class="card-body">
                         <input th:field="*{id}" type="number" style="display: none">
                         <div class="form-group">
@@ -30,13 +32,13 @@
                         <div class="form-group">
                             <select name="categorias" required>
                                 <option value="">Selecciones una categoría</option>
-                                <option value="Servicios básicos">Servicios básicos</option>
-                                <option value="Alimentación">Alimentación</option>
-                                <option value="Gastos de papelería y oficina">Gastos de papelería y oficina</option>
-                                <option value="Marketing y publicidad">Marketing y publicidad</option>
-                                <option value="Impuestos y tasas">Impuestos y tasas</option>
-                                <option value="Beneficios para empleados">Beneficios para empleados</option>
-                                <option value="Gastos de transporte">Gastos de transporte</option>
+                                <option value="Servicios básicos" th:selected="${gasto.categoria == 'Servicios básicos'}">Servicios básicos</option>
+                                <option value="Alimentación" th:selected="${gasto.categoria == 'Alimentación'}">Alimentación</option>
+                                <option value="Gastos de papelería y oficina" th:selected="${gasto.categoria == 'Gastos de papelería y oficina'}">Gastos de papelería y oficina</option>
+                                <option value="Marketing y publicidad" th:selected="${gasto.categoria == 'Marketing y publicidad'}">Marketing y publicidad</option>
+                                <option value="Impuestos y tasas" th:selected="${gasto.categoria == 'Impuestos y tasas'}">Impuestos y tasas</option>
+                                <option value="Beneficios para empleados" th:selected="${gasto.categoria == 'Beneficios para empleados'}">Beneficios para empleados</option>
+                                <option value="Gastos de transporte" th:selected="${gasto.categoria == 'Gastos de transporte'}">Gastos de transporte</option>
                             </select>
 
                         </div>
@@ -56,10 +58,16 @@
                         <input type="submit" value="Guardar" class="btn btn-success">
                     </div>
                     <div class="card-footer">
-                        <input type="button" value="Cancelar" onclick="window.location.href = '/gastos/listaGastos';" class="btn btn-danger">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
                     </div>
                 </div>
             </form>
         </div>
+        <!--PIE DE PAGINA-->
+
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
+        
     </body>
 </html>

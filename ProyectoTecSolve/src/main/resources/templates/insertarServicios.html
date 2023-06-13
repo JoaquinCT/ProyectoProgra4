@@ -3,40 +3,61 @@
     <head>
         <meta charset="UTF-8">
         <title>Insertar Servicio Brindado</title>
-         
-        <link rel="stylesheet" type="text/css" th:href="@{/estilos.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+        <script src="/js/funciones.js"></script>
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <h1>Insertar Servicio Brindado</h1>
-        <a href="./"><button type="button">Ir al Menu</button></a>
-        <form action="/servicios/guardarServicio" method="get"> 
-            <table>
-                <tr>
-                    <td><input type="hidden" name="id" required/></td>
-                </tr>
-                <tr>
-                    <td>Nombre del Servicio:</td>
-                    <td><input type="text" name="nombreServicio" required/></td>
-                </tr>
-                <tr>
-                    <td>Descripcion:</td>
-                    <td><input type="text" name="descripcion" required/></td>
-                </tr>
-                <tr>
-                    <td>Horario:</td>
-                    <td><input type="text" name="horario" required/></td>
-                </tr>
-                <tr>
-                    <td>Precio:</td>
-                    <td><input type="text" name="precio" required/></td>
-                </tr>
-                <tr>
-                    <td>Encargado:</td>
-                    <td><input type="text" name="encargado" required/></td>
-                </tr>
-            </table>
-            <input type="submit" value="Guardar" />
-        </form>
+
+        <div class="mt-4">
+            <form action="/servicios/guardarServicio" method="get">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Módulo de Registro Servicio</h3>
+                        <br>
+                    </div>
+                    <input type="hidden" name="id" required/>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label>NOMBRE DEL SERVICIO</label>
+                            <input type="text" name="nombreServicio" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>DESCRIPCIÓN</label>
+                            <input type="text" name="descripcion" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>HORARIO</label>
+                            <input type="text" name="horario" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>PRECIO</label>
+                            <input type="number" name="precio" min="0" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>ENCARGADO</label>
+                            <input type="text" pattern="[A-Za-z]+" name="encargado" class="form-control" required>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="card-footer">
+                        <input class="btn btn-success" type="submit" value="Guardar"/>
+                    </div>
+                    <div class="card-footer">
+                        <input type="button" value="Cancelar" onclick="goBack()" class="btn btn-danger">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--PIE DE PAGINA-->
+
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
     </body>
 </html>
