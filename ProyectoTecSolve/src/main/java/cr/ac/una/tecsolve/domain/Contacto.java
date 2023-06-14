@@ -1,6 +1,7 @@
 
 package cr.ac.una.tecsolve.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,30 +16,28 @@ import java.sql.Date;
  * @author Maizeth Cisneros
  */
 @Entity
-@Table(name = "tbContactos")
+@Table(name = "tbcontacto")
 public class Contacto {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int numeroWhatsapp;
-    private int numeroTelefono;
+    private int numero_whatsapp;
+    private int numero_telefono;
     private String facebook;
     private String correo;
     private String instagram;
-    private boolean status=true;
 
     public Contacto() {
     }
 
     public Contacto(int id, int numeroWhatsapp, int numeroTelefono, String facebook, String correo, String instagram) {
         this.id = id;
-        this.numeroWhatsapp = numeroWhatsapp;
-        this.numeroTelefono = numeroTelefono;
+        this.numero_whatsapp = numeroWhatsapp;
+        this.numero_telefono = numeroTelefono;
         this.facebook = facebook;
         this.correo = correo;
         this.instagram = instagram;
-        this.status = true;
     }
 
     public int getId() {
@@ -50,19 +49,19 @@ public class Contacto {
     }
     
     public int getNumeroWhatsapp() {
-        return numeroWhatsapp;
+        return numero_whatsapp;
     }
 
     public void setNumeroWhatsapp(int numeroWhatsapp) {
-        this.numeroWhatsapp = numeroWhatsapp;
+        this.numero_whatsapp = numeroWhatsapp;
     }
 
     public int getNumeroTelefono() {
-        return numeroTelefono;
+        return numero_telefono;
     }
 
     public void setNumeroTelefono(int numeroTelefono) {
-        this.numeroTelefono = numeroTelefono;
+        this.numero_telefono = numeroTelefono;
     }
 
     public String getFacebook() {
@@ -88,13 +87,7 @@ public class Contacto {
     public void setInstagram(String instagram) {
         this.instagram = instagram;
     }
-        public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+    
 
     
 }

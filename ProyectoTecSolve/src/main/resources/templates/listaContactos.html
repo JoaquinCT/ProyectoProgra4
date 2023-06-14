@@ -43,7 +43,7 @@
                         <tr class="trLista" th:each="c:${contactos}">
                             <td th:text="${c.numeroWhatsapp}"></td>
                             <td th:text="${c.numeroTelefono}"></td>
-                            <td th:text="'&#8353;'+${c.monto}"></td>
+                            <td th:text="${c.facebook}"></td>
                             <td>
                                 <span th:text="${c.correo}" id="correo-${
                                           c.id
@@ -54,7 +54,7 @@
                                 <a th:href="@{/contactos/editar/}+${c.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
-                                <a th:href="@{/gastos/delete/{id}(id=${g.id})}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a>
+                                <a th:href="@{/contactos/delete/{id}(id=${c.id})}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a>
                             </td>
 
                         </tr>

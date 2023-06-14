@@ -16,17 +16,17 @@ public class DataContacto extends BaseData {
 
     
     public final static String ID = "id";
-    public final static String NUMEROWHATSAPP = "numeroWhatsapp";
-    public final static String NUMEROTELEFONO = "numeroTelefono";
+    public final static String NUMEROWHATSAPP = "numero_whatsapp";
+    public final static String NUMEROTELEFONO = "numero_telefono";
     public final static String FACEBOOK = "facebook";
     public final static String CORREO = "correo";
     public final static String INSTAGRAM = "instagram";
-    public final static String TBCONTACTOS = "tbcontactos";
+    public final static String TBCONTACTOS = "tbcontacto";
 
     public boolean insertarContacto(Contacto contacto) {
         boolean inserto = false;
 
-        String query = "INSERT INTO " + TBCONTACTOS + "(" + NUMEROWHATSAPP + "," + NUMEROTELEFONO + "," + FACEBOOK + "," + CORREO + "," + INSTAGRAM + ",status) VALUES(?,?,?,?,?,?);";
+        String query = "INSERT INTO " + TBCONTACTOS + "(" + NUMEROWHATSAPP + "," + NUMEROTELEFONO + "," + FACEBOOK + "," + CORREO + "," + INSTAGRAM + " VALUES(?,?,?,?,?);";
 
         try {
             PreparedStatement pr = getConnection().prepareStatement(query);
@@ -35,7 +35,6 @@ public class DataContacto extends BaseData {
             pr.setString(3, contacto.getFacebook());
             pr.setString(4, contacto.getCorreo());
             pr.setString(5, contacto.getInstagram());
-            pr.setBoolean(6, true);
             pr.executeUpdate();
             inserto = true;
             pr.close();
@@ -48,7 +47,7 @@ public class DataContacto extends BaseData {
     public LinkedList<Contacto> getListaContactosPorPaginacion(int numPage, int pageSize) {
         LinkedList<Contacto> lista = new LinkedList<>();
         int offset = (numPage - 1) * pageSize;
-        String query = "SELECT * FROM " + TBCONTACTOS + " WHERE status = 1 LIMIT ? OFFSET ?;";
+        String query = "SELECT * FROM " + TBCONTACTOS + " LIMIT ? OFFSET ?;";
 
         try {
             PreparedStatement pr = getConnection().prepareStatement(query);
@@ -75,7 +74,7 @@ public class DataContacto extends BaseData {
     public int getNumeroTotalContactos() {
         int numeroTotal = 0;
 
-        String sql = "SELECT COUNT(*) FROM " + TBCONTACTOS + " where status = 1;";
+        String sql = "SELECT COUNT(*) FROM " + TBCONTACTOS + ";";
 
         try {
             PreparedStatement pr = getConnection().prepareStatement(sql);
@@ -93,7 +92,7 @@ public class DataContacto extends BaseData {
     public LinkedList<Contacto> getListaContactos() {
         LinkedList<Contacto> lista = new LinkedList<>();
 
-        String query = "SELECT * FROM " + TBCONTACTOS + " WHERE status = 1;";
+        String query = "SELECT * FROM " + TBCONTACTOS + ";";
 
         try {
             PreparedStatement pr = getConnection().prepareStatement(query);
@@ -118,7 +117,7 @@ public class DataContacto extends BaseData {
     public Contacto getContactoPorId(int idContacto) {
         Contacto c = new Contacto();
 
-        String query = "SELECT " + ID + "," + NUMEROWHATSAPP + "," + NUMEROTELEFONO + "," + FACEBOOK + "," + CORREO + "," + INSTAGRAM + " FROM " + TBCONTACTOS + " WHERE status = 1 and id=" + idContacto + ";";
+        String query = "SELECT * FROM " + TBCONTACTOS + " WHERE id=" + idContacto + ";";
 
         try {
             PreparedStatement pr = getConnection().prepareStatement(query);
@@ -138,7 +137,7 @@ public class DataContacto extends BaseData {
         return c;
     }
 
-    public boolean actualizarContacto(Contacto Contacto) {
+    public boolean actualizarContacto(Contacto contacto) {
         boolean actualizo = false;
 
         String query = "UPDATE " + TBCONTACTOS + " SET " + NUMEROWHATSAPP + "=?," + NUMEROTELEFONO + "=?," + FACEBOOK + "=?," + CORREO + "=?," + INSTAGRAM + "=? WHERE " + ID + "=" + contacto.getId() + ";";
@@ -161,11 +160,10 @@ public class DataContacto extends BaseData {
 
     public boolean deshabilitarContacto(int idContacto) {
         boolean elimino = false;
-        String query = "UPDATE " + TBCONTACTOS + " SET status=? WHERE id=" + idContacto + ";";
+        String query = "DELETE FROM " + TBCONTACTOS + " WHERE id=" + idContacto + ";";
 
         try {
             PreparedStatement pr = getConnection().prepareStatement(query);
-            pr.setInt(1, 0);
             pr.executeUpdate();
             elimino = true;
             pr.close();

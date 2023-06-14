@@ -77,7 +77,7 @@ public class ControllerGastos {
 
 
     @GetMapping("/delete/{id}")
-    public String deleteEmpleado(@PathVariable int id, HttpServletRequest request) {
+    public String deleteGasto(@PathVariable int id, HttpServletRequest request) {
         String paginaAnterior = request.getHeader("referer");
         logicG.eliminarGasto(id);
         return "redirect:"+paginaAnterior;

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Maizeth Cisneros
  */
 @Controller
-@RequestMapping("/gastos")
+@RequestMapping("/contactos")
 public class ControllerContactos {
 
     LogicaContactos logicG = new LogicaContactos();
@@ -34,7 +34,7 @@ public class ControllerContactos {
     }
 
     @GetMapping("/listaContactos")
-    public String obtenerProductosPaginados(Model model, @RequestParam(name = "pageNumber", defaultValue = "1") int numeroPagina, @RequestParam(name = "pageSize", defaultValue = "1") int pageSize) {
+    public String obtenerContactosPaginados(Model model, @RequestParam(name = "pageNumber", defaultValue = "1") int numeroPagina, @RequestParam(name = "pageSize", defaultValue = "1") int pageSize) {
 
         int numeroTotalContactos = logicG.getTotalContactos();
         int numeroTotalPaginas = (int) Math.ceil((double) numeroTotalContactos / pageSize);
@@ -46,22 +46,22 @@ public class ControllerContactos {
     }
 
     @GetMapping("/formGuardarContacto")
-    public String formGuardarEmpleado(Model model) {
+    public String formGuardarContacto(Model model) {
         model.addAttribute("contacto", new Contacto());
         return "formContacto";
     }
 
     @PostMapping("/saveContacto")
-    public String guardarEmpleado(@ModelAttribute Contacto contacto, @RequestParam("categorias") String categSelected, HttpServletRequest request) {
+    public String guardarContacto(@ModelAttribute Contacto contacto, HttpServletRequest request) {
         String paginaAnterior = request.getParameter("paginaAnterior");
         if (contacto.getId() == 0) {
-            contacto.setNumeroWhatsapp(numeroWhaSelected);
+            //contacto.setNumeroWhatsapp(numeroWhaSelected);
             //logicG.insertarContacto(contacto);
             System.out.println("entro");
             service.save(contacto);
             return "redirect:/contactos/listaContactos";
         } else {
-            contacto.setNumeroTelefono(numeroTelSelected);
+            //contacto.setNumeroTelefono(numeroTelSelected);
             service.save(contacto);
             return "redirect:" + paginaAnterior;
         }
@@ -72,12 +72,13 @@ public class ControllerContactos {
         String paginaAnterior = request.getHeader("referer");
         model.addAttribute("paginaAnterior", paginaAnterior);
         model.addAttribute("contacto", service.findById(id));
-        return "formstoContacto";
+        System.out.println(service.findById(id).getNumeroWhatsapp());
+        return "formContacto";
     }
 
 
     @GetMapping("/delete/{id}")
-    public String deleteEmpleado(@PathVariable int id, HttpServletRequest request) {
+    public String deleteContacto(@PathVariable int id, HttpServletRequest request) {
         String paginaAnterior = request.getHeader("referer");
         logicG.eliminarContacto(id);
         return "redirect:"+paginaAnterior;
