@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xml:th="http://www.thymeleaf.org">
+    <head>
+        <title>Buscar Factura</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+        <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    </head>
+    <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
+        <h1>Buscar Factura</h1>
+        <div class="container">
+            <div class="row">
+                <form action="/facturas/buscar" method="GET">
+                    <label for="producto">Producto:</label>
+                    <input type="text" id="producto" name="producto">
+                    
+                    <label for="cliente">Cliente:</label>
+                    <input type="text" id="cliente" name="cliente">
+                    
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha">
+                    
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        
+        <div th:if="${#lists.isEmpty(facturas)}">
+            <p>No hay facturas disponibles.</p>
+        </div>
+        
+        <div th:if="${not #lists.isEmpty(facturas)}">
+            <table border="1" class="tbMode">
+                <tr class="trHead">
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                </tr>
+                <tr class="trLista" th:each="factura: ${facturas}">
+                    <td th:text="${factura.producto}"></td>
+                    <td th:text="${factura.cantidad}"></td>
+                    <td th:text="${factura.precio}"></td>
+                    <td th:text="${factura.cliente}"></td>
+                    <td th:text="${factura.fecha}"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
