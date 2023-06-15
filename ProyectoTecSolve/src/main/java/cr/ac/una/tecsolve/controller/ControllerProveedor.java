@@ -5,9 +5,11 @@
  */
 package cr.ac.una.tecsolve.controller;
 
+import cr.ac.una.tecsolve.data.DataProveedor;
 import cr.ac.una.tecsolve.domain.Proveedor;
 import cr.ac.una.tecsolve.logic.LogicaProveedor;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,5 +69,17 @@ public class ControllerProveedor {
         String paginaAnterior = request.getHeader("referer");
         logicaProveedor.eliminarProveedor(id);
         return "redirect:"+paginaAnterior;
+    }
+    
+    
+       @GetMapping("/BuscarServicio/{nombre}")
+    public String buscarSER(@PathVariable String nombre, Model model) {
+
+        LinkedList<Proveedor> con = new LinkedList<Proveedor>();
+        DataProveedor dc = new DataProveedor();
+        con = dc.BuscarDatos(nombre);
+        model.addAttribute("proveedores", con);
+
+        return "./BuscarProveedor";
     }
 }

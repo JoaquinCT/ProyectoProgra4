@@ -1,5 +1,6 @@
 package cr.ac.una.tecsolve.controller;
 
+import cr.ac.una.tecsolve.data.DataEmpleado;
 import cr.ac.una.tecsolve.domain.Empleado;
 import cr.ac.una.tecsolve.logic.LogicaEmpleado;
 import jakarta.servlet.http.HttpServletRequest;
@@ -119,4 +120,17 @@ public class ControllerEmpleado {
         logicE.eliminarEmpleado(id);
         return "redirect:"+paginaAnterior;
     }
+    
+       @GetMapping("/BuscarServicio/{nombre}")
+    public String buscarSER(@PathVariable String nombre, Model model) {
+
+        LinkedList<Empleado> con = new LinkedList<Empleado>();
+        DataEmpleado dc = new DataEmpleado();
+        con = dc.BuscarDatos(nombre);
+        model.addAttribute("empleados", con);
+
+        return "./BuscarEmpleados";
+    }
+    
+    
 }

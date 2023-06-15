@@ -1,6 +1,15 @@
 package cr.ac.una.tecsolve.data;
 
+import static cr.ac.una.tecsolve.data.ServiciosData.DESCRIPCION;
+import static cr.ac.una.tecsolve.data.ServiciosData.ENCARGADO;
+import static cr.ac.una.tecsolve.data.ServiciosData.HORARIO;
+import static cr.ac.una.tecsolve.data.ServiciosData.ID;
+import static cr.ac.una.tecsolve.data.ServiciosData.NOMBRE;
+import static cr.ac.una.tecsolve.data.ServiciosData.PRECIO;
+import static cr.ac.una.tecsolve.data.ServiciosData.TBINVENTARIO;
 import cr.ac.una.tecsolve.domain.Gasto;
+import cr.ac.una.tecsolve.domain.Servicios;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -185,5 +194,30 @@ public class DataGasto extends BaseData {
         }
         
     }
-    
+public LinkedList<Gasto> buscarDatos(String descripcion) {
+    LinkedList<Gasto> lista = new LinkedList<Gasto>();
+    String query = "SELECT * FROM " + TBGASTOS + " WHERE descripcion=?";
+    Connection con = getConnection();
+    try {
+        PreparedStatement prepared = con.prepareStatement(query);
+        prepared.setString(1, descripcion);
+        ResultSet rs = prepared.executeQuery();
+        while (rs.next()) {
+            Gasto g = new Gasto();
+            g.setId(rs.getInt(ID));
+            g.setFecha(rs.getDate(FECHA));
+            g.setDescripcion(rs.getString(DESCRIPCION));
+            g.setCategoria(rs.getString(CATEGORIA));
+            g.setMonto(rs.getDouble(MONTO));
+            g.setDetalle(rs.getString(DETALLE));
+            lista.add(g);
+        }
+        prepared.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(DataGasto.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return lista;
+}
+
+
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xml:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista Servicios</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+        <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    </head>
+    <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
+        <h1>Control de Empleados</h1>
+        <div class="container">
+            <div class="row">
+              
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(empleados)}">
+            <p>No hay datos disponibles.</p>
+        </div>
+        <div th:if="${not #lists.isEmpty(empleados)}">
+            <table border="1" class="tbMode">
+                        <tr class="trHead">
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Teléfono</th>
+                            <th>Puesto</th>
+                            <th>Salario</th>
+                            
+                        </tr>
+
+                    <tbody>
+                        <tr class="trLista" th:each="empleado:${empleados}">
+                            <td th:text="${empleado.cedula}"></td>
+                            <td th:text="${empleado.nombre}"></td>
+                            <td th:text="${empleado.apellido}"></td>
+                            <td th:text="${empleado.numeroTelefono}"></td>
+                            <td th:text="${empleado.puesto}"></td>
+                            <td th:text="'&#8353;'+${empleado.salario}"></td>
+               
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

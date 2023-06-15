@@ -1,7 +1,9 @@
 package cr.ac.una.tecsolve.controller;
 
 import cr.ac.una.tecsolve.data.InventarioData;
+import cr.ac.una.tecsolve.data.ServiciosData;
 import cr.ac.una.tecsolve.domain.Inventario;
+import cr.ac.una.tecsolve.domain.Servicios;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
 import org.springframework.stereotype.Controller;
@@ -79,5 +81,16 @@ public class ControllerInventario {
         new InventarioData().actualizar(inventario, id);
         return "redirect:"+paginaAnterior;
     }
+    
+    //Filtro 
+     @GetMapping("/BuscarServicio/{nombre}")
+    public String buscarSER(@PathVariable String nombre, Model model) {
 
+        LinkedList<Inventario> con = new LinkedList<Inventario>();
+        InventarioData dc = new InventarioData();
+        con = dc.BuscarDatos(nombre);
+        model.addAttribute("lista", con);
+
+        return "./BuscarInventario";
+    }
 }

@@ -1,6 +1,14 @@
 package cr.ac.una.tecsolve.data;
 
+import static cr.ac.una.tecsolve.data.ServiciosData.DESCRIPCION;
+import static cr.ac.una.tecsolve.data.ServiciosData.ENCARGADO;
+import static cr.ac.una.tecsolve.data.ServiciosData.HORARIO;
+import static cr.ac.una.tecsolve.data.ServiciosData.ID;
+import static cr.ac.una.tecsolve.data.ServiciosData.NOMBRE;
+import static cr.ac.una.tecsolve.data.ServiciosData.PRECIO;
+import static cr.ac.una.tecsolve.data.ServiciosData.TBINVENTARIO;
 import cr.ac.una.tecsolve.domain.Cliente;
+import cr.ac.una.tecsolve.domain.Servicios;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -153,5 +161,30 @@ public class DataCliente extends BaseData {
 
         //Cliente c = new Cliente("Mauro", "Alvaro", "7065402352", 87654321, "alvaro235@gmail.com");
     }
+public LinkedList<Cliente> buscarDatos(String nombre) {
+    LinkedList<Cliente> clientes = new LinkedList<>();
+    String query = "SELECT * FROM " + TBCLIENTE + " WHERE nombre=?";
+    Connection con = getConnection();
+    try {
+        PreparedStatement prepared = con.prepareStatement(query);
+        prepared.setString(1, nombre);
+        ResultSet result = prepared.executeQuery();
+        while (result.next()) {
+            Cliente temp = new Cliente();
+            temp.setId_cliente(result.getInt("id"));
+            temp.setNombre(result.getString("nombre"));
+            temp.setApellido(result.getString("apellido"));
+            temp.setCedula(result.getString("cedula"));
+            temp.setNumeroTelefono(result.getString("numeroTelefono"));
+            temp.setCorreo(result.getString("correo"));
+            clientes.add(temp);
+        }
+        prepared.close();
+        con.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(DataCliente.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return clientes;
+}
 
 }

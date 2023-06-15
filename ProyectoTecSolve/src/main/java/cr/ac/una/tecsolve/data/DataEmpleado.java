@@ -1,6 +1,15 @@
 package cr.ac.una.tecsolve.data;
 
+import static cr.ac.una.tecsolve.data.ServiciosData.DESCRIPCION;
+import static cr.ac.una.tecsolve.data.ServiciosData.ENCARGADO;
+import static cr.ac.una.tecsolve.data.ServiciosData.HORARIO;
+import static cr.ac.una.tecsolve.data.ServiciosData.ID;
+import static cr.ac.una.tecsolve.data.ServiciosData.NOMBRE;
+import static cr.ac.una.tecsolve.data.ServiciosData.PRECIO;
+import static cr.ac.una.tecsolve.data.ServiciosData.TBINVENTARIO;
 import cr.ac.una.tecsolve.domain.Empleado;
+import cr.ac.una.tecsolve.domain.Servicios;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +31,8 @@ public class DataEmpleado extends BaseData {
     public final static String CONTRASENIA = "contraseña";
     public final static String PUESTO = "puesto";
     public final static String SALARIO = "salario";
+    public final static String TBEMPLEADO = "tbusuario";
+
 
     public String buscarCredenciales(String username, String password, String tipoUser) {
         String typeUserfound = "error";
@@ -213,4 +224,38 @@ public class DataEmpleado extends BaseData {
             System.out.println("\n");
         }
     }
+    
+public LinkedList<Empleado> BuscarDatos(String nombre) {
+    LinkedList<Empleado> empleados = new LinkedList<Empleado>();
+    String query = "SELECT * FROM " + TBEMPLEADO + " WHERE nombre=?";
+    Connection con = getConnection();
+    try {
+        PreparedStatement prepared = con.prepareStatement(query);
+        prepared.setString(1, nombre);
+        ResultSet result = prepared.executeQuery();
+        while (result.next()) {
+            Empleado empleado = new Empleado();
+            empleado.setId(result.getInt(ID));
+            empleado.setCedula(result.getString(CEDULA));
+            empleado.setNombre(result.getString(NOMBRE));
+            empleado.setApellido(result.getString(APELLIDO));
+            empleado.setNumeroTelefono(result.getString(NUMERO_TELEFONO));
+            empleado.setContrasenia(result.getString(CONTRASENIA));
+            empleado.setPuesto(result.getString(PUESTO));
+            empleado.setSalario(result.getDouble(SALARIO));
+            empleados.add(empleado);
+        }
+        prepared.close();
+        con.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(DataEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return empleados;
+}
+
+    
+    
+    
+    
+    
 }

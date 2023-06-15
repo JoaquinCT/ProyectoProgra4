@@ -29,6 +29,34 @@
             <h2>La Empresa no posee empleados actualmente!!</h2>
         </div>
         <div th:if="${!#lists.isEmpty(empleados)}">
+            
+                   <form id="myForm" action="/empleados/BuscarServicio/{nombre}" method="get">
+    <input type="text" name="nombre" id="nombreInput">
+    <button type="submit" id="submitButton">Buscar Por Nombre</button>
+    
+    
+</form>
+
+<script>
+    const form = document.getElementById('myForm');
+    const nombreInput = document.getElementById('nombreInput');
+    const submitButton = document.getElementById('submitButton');
+    
+    submitButton.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const nombre = nombreInput.value;
+
+        form.action = "/empleados/BuscarServicio/" + nombre;
+
+        form.submit();
+    });
+</script>
+            
+    
+            
+            
+            
             <div class="contLista">
                 <table class="tbMode" >
                     <thead>

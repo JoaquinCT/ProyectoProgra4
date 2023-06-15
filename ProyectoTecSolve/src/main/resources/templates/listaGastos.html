@@ -14,6 +14,7 @@
         <header th:replace="BarraNavPrincipal.html"></header>
         <a th:href="@{/gastos/formGuardarGasto}" class="btn btn-primary"><i class="fas fa-plus"></i> Registrar Gasto</a>
         <!-- Sección de agrupación -->
+        
         <div class="contAgrupar">
             <form>
                 <label class="labelAgrupar">Agrupar de </label>
@@ -27,6 +28,32 @@
             <h2>La Empresa no posee gastos actualmente!!</h2>
         </div>
         <div th:if="${!#lists.isEmpty(gastos)}">
+            
+                   <form id="myForm" action="/gastos/BuscarServicio/{nombre}" method="get">
+    <input type="text" name="nombre" id="nombreInput">
+    <button type="submit" id="submitButton">Buscar Por Descripcion</button>
+    
+    
+</form>
+
+<script>
+    const form = document.getElementById('myForm');
+    const nombreInput = document.getElementById('nombreInput');
+    const submitButton = document.getElementById('submitButton');
+    
+    submitButton.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const nombre = nombreInput.value;
+
+        form.action = "/gastos/BuscarServicio/" + nombre;
+
+        form.submit();
+    });
+</script>
+            
+    
+            
             <div class="contLista">
                 <table class="tbMode" >
                     <thead>

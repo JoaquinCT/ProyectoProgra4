@@ -1,6 +1,15 @@
 package cr.ac.una.tecsolve.data;
 
+import static cr.ac.una.tecsolve.data.InventarioData.CANTIDAD;
+import static cr.ac.una.tecsolve.data.InventarioData.CATEGORIA;
+import static cr.ac.una.tecsolve.data.InventarioData.CLASIFICACION;
+import static cr.ac.una.tecsolve.data.InventarioData.ID;
+import static cr.ac.una.tecsolve.data.InventarioData.NOMBRE;
+import static cr.ac.una.tecsolve.data.InventarioData.PRECIO;
+import static cr.ac.una.tecsolve.data.InventarioData.TBINVENTARIO;
+import cr.ac.una.tecsolve.domain.Inventario;
 import cr.ac.una.tecsolve.domain.Proveedor;
+import java.sql.Connection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -174,4 +183,34 @@ public class DataProveedor extends BaseData {
             System.out.println("\n");
         }
     }
+    
+public LinkedList<Proveedor> BuscarDatos(String nombre) {
+    LinkedList<Proveedor> proveedores = new LinkedList<Proveedor>();
+    String query = "SELECT * FROM " + TBPROVEEDORES + " WHERE nombre=?";
+    Connection con = getConnection();
+    try {
+        PreparedStatement prepared = con.prepareStatement(query);
+        prepared.setString(1, nombre);
+        ResultSet result = prepared.executeQuery();
+        Proveedor proveedor = null;
+        while (result.next()) {
+            proveedor = new Proveedor();
+            proveedor.setId(result.getInt(ID));
+            proveedor.setNombre(result.getString(NOMBRE));
+            proveedor.setDireccion(result.getString(DIRECCION));
+            proveedor.setTelefono(result.getString(TELEFONO));
+            proveedor.setEmail(result.getString(EMAIL));
+
+            proveedores.add(proveedor);
+        }
+        prepared.close();
+        con.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(DataProveedor.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return proveedores;
+}
+
+    
+    
 }

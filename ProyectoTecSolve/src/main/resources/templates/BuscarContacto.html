@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xml:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista Servicios</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
+        <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    </head>
+    <body>
+        <header th:replace="BarraNavPrincipal.html"></header>
+        <h1>Control de Contactos</h1>
+        <div class="container">
+            <div class="row">
+              
+            </div>
+        </div>
+<div th:if="${#lists.isEmpty(contactos)}">
+            <h2>La Empresa no posee contactos actualmente!!</h2>
+        </div>
+        <div th:if="${!#lists.isEmpty(contactos)}">
+            <div class="contLista">
+                <table class="tbMode" >
+                    <thead>
+                        <tr class="trHead">
+                            <th>Numero Whatsapp</th>
+                            <th>Numero Telefono</th>
+                            <th>Facebook</th>
+                            <th>Correo</th>
+                            <th>Instagram</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="trLista" th:each="c:${contactos}">
+                            <td th:text="${c.numeroWhatsapp}"></td>
+                            <td th:text="${c.numeroTelefono}"></td>
+                            <td th:text="${c.facebook}"></td>
+                            <td>
+                                <span th:text="${c.correo}" id="correo-${
+                                          c.id
+                                      }"></span>
+                            </td>
+                            <td th:text="${c.instagram}"></td>
+               
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

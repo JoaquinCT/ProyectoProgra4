@@ -1,7 +1,15 @@
 
 package cr.ac.una.tecsolve.data;
 
+import static cr.ac.una.tecsolve.data.ServiciosData.DESCRIPCION;
+import static cr.ac.una.tecsolve.data.ServiciosData.ENCARGADO;
+import static cr.ac.una.tecsolve.data.ServiciosData.HORARIO;
+import static cr.ac.una.tecsolve.data.ServiciosData.ID;
+import static cr.ac.una.tecsolve.data.ServiciosData.NOMBRE;
+import static cr.ac.una.tecsolve.data.ServiciosData.PRECIO;
+import static cr.ac.una.tecsolve.data.ServiciosData.TBINVENTARIO;
 import cr.ac.una.tecsolve.domain.Inventario;
+import cr.ac.una.tecsolve.domain.Servicios;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +35,7 @@ public class InventarioData extends BaseData {
     
     
     
-    public LinkedList<Inventario> getEspacios(){
+    public LinkedList<Inventario> getEspacios(String nombre){
         LinkedList<Inventario> inventario = new LinkedList<Inventario>();
         String query = "SELECT * FROM " +TBINVENTARIO + ";" ;
         Connection con = getConnection();
@@ -229,6 +237,33 @@ public class InventarioData extends BaseData {
         }
     }
     return actualizado;
+}
+  public LinkedList<Inventario> BuscarDatos(String nombre) {
+    LinkedList<Inventario> inventario = new LinkedList<Inventario>();
+    String query = "SELECT * FROM " + TBINVENTARIO + " WHERE nombre=?";
+    Connection con = getConnection();
+    try {
+        PreparedStatement prepared = con.prepareStatement(query);
+        prepared.setString(1, nombre);
+        ResultSet result = prepared.executeQuery();
+        Inventario i = null;
+        while (result.next()) {
+            i = new Inventario();
+            i.setId(result.getInt(ID));
+            i.setCategoria(result.getString(CATEGORIA));
+            i.setClasificacion(result.getString(CLASIFICACION));
+            i.setNombreProducto(result.getString(NOMBRE));
+            i.setCantidad(result.getInt(CANTIDAD));
+            i.setPrecio(result.getFloat(PRECIO));
+
+            inventario.add(i);
+        }
+        prepared.close();
+        con.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(InventarioData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return inventario;
 }
 
 }

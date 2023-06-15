@@ -1,11 +1,12 @@
 package cr.ac.una.tecsolve.controller;
 
+import cr.ac.una.tecsolve.data.DataContacto;
 import cr.ac.una.tecsolve.domain.Contacto;
 import cr.ac.una.tecsolve.logic.LogicaContactos;
 import cr.ac.una.tecsolve.service.IContactoService;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,5 +83,16 @@ public class ControllerContactos {
         String paginaAnterior = request.getHeader("referer");
         logicG.eliminarContacto(id);
         return "redirect:"+paginaAnterior;
+    }
+    
+    @GetMapping("/BuscarServicio/{nombre}")
+    public String buscarSER(@PathVariable int nombre, Model model) {
+
+        LinkedList<Contacto> con = new LinkedList<Contacto>();
+        DataContacto dc = new DataContacto();
+        con = dc.BuscarDatos(nombre);
+        model.addAttribute("contactos", con);
+
+        return "./BuscarContacto";
     }
 }

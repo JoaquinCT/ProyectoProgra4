@@ -76,7 +76,7 @@ public class ControllerServicios {
     }
 
 ///FILTRO PRUEBA 
-    /*@GetMapping("/BuscarServicio/{nombre}")
+    @GetMapping("/BuscarServicio/{nombre}")
     public String buscarSER(@PathVariable String nombre, Model model) {
 
         LinkedList<Servicios> con = new LinkedList<Servicios>();
@@ -86,5 +86,5 @@ public class ControllerServicios {
 
         return "./BuscarServicios";
     }
-*/
+
 }

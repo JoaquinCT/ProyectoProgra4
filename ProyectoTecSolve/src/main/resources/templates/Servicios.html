@@ -19,8 +19,7 @@
             <p>No hay datos disponibles.</p>
         </div>
         <div th:if="${not #lists.isEmpty(servicios)}">
-            <input class="form-control col-md-3 light-table-filter" data-table="order-table" ytpe="text" placeholder="Filtrar..">
-            <button type="submit" onclick="limpiar();">Limpiar</button> 
+         
             <!-- Sección de agrupación -->
             <div class="contAgrupar">
                 <form>
@@ -30,6 +29,35 @@
                 </form>
             </div>
             <br>
+            
+            <form id="myForm" action="/servicios/BuscarServicio/{nombre}" method="get">
+    <input type="text" name="nombre" id="nombreInput">
+    <button type="submit" id="submitButton">Buscar Por Nombre de Servicio</button>
+    
+    
+</form>
+
+<script>
+    const form = document.getElementById('myForm');
+    const nombreInput = document.getElementById('nombreInput');
+    const submitButton = document.getElementById('submitButton');
+    
+    submitButton.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const nombre = nombreInput.value;
+
+        form.action = "/servicios/BuscarServicio/" + nombre;
+
+        form.submit();
+    });
+</script>
+            
+            
+            
+            
+            
+            
             <div class="contLista">
                 <table border="1" class="tbMode">
                     <tr class="trHead">

@@ -183,5 +183,28 @@ public class DataContacto extends BaseData {
         }
         
     }
-    
+   public LinkedList<Contacto> BuscarDatos(int numero_telefono) {
+    LinkedList<Contacto> lista = new LinkedList<Contacto>();
+    String query = "SELECT * FROM " + TBCONTACTOS + " WHERE numero_telefono=?";
+    try {
+        PreparedStatement pr = getConnection().prepareStatement(query);
+        pr.setInt(1, numero_telefono);
+        ResultSet rs = pr.executeQuery();
+        while (rs.next()) {
+            Contacto c = new Contacto();
+            c.setId(rs.getInt(ID));
+            c.setNumeroWhatsapp(rs.getInt(NUMEROWHATSAPP));
+            c.setNumeroTelefono(rs.getInt(NUMEROTELEFONO));
+            c.setFacebook(rs.getString(FACEBOOK));
+            c.setCorreo(rs.getString(CORREO));
+            c.setInstagram(rs.getString(INSTAGRAM));
+            lista.add(c);
+        }
+        pr.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(DataContacto.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return lista;
+}
+
 }

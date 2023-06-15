@@ -1,11 +1,13 @@
 package cr.ac.una.tecsolve.controller;
 
+import cr.ac.una.tecsolve.data.DataGasto;
+import cr.ac.una.tecsolve.data.ServiciosData;
 import cr.ac.una.tecsolve.domain.Gasto;
 import cr.ac.una.tecsolve.logic.LogicaGastos;
 import cr.ac.una.tecsolve.service.IGastoService;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,4 +84,17 @@ public class ControllerGastos {
         logicG.eliminarGasto(id);
         return "redirect:"+paginaAnterior;
     }
+    
+    
+       @GetMapping("/BuscarServicio/{nombre}")
+    public String buscarSER(@PathVariable String nombre, Model model) {
+
+        LinkedList<Gasto> con = new LinkedList<Gasto>();
+        DataGasto dc = new DataGasto();
+        con = dc.buscarDatos(nombre);
+        model.addAttribute("gastos", con);
+
+        return "./BuscarGasto";
+    }
+    
 }

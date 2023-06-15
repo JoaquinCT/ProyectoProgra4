@@ -10,7 +10,7 @@
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <h1>Control de Servicios Brindados</h1>
+        <h1>Control de Inventario</h1>
         <div class="container">
             <div class="row">
               
@@ -22,21 +22,20 @@
         <div th:if="${not #lists.isEmpty(lista)}">
             <table border="1" class="tbMode">
                     <tr class="trHead">
-                    <th>Nombre Servicio</th>
-                    <th>Descripcion</th>
-                    <th>Horario</th>
+                    <th>Categoria</th>
+                    <th>Clasificacion</th>
+                    <th>Nombre Producto</th>
+                    <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Encargado</th>
                     
                 </tr>
                 <tr class="trLista"  th:each="temp:${lista}">
-                    <td th:text="${temp.id}" style="display:none;"></td>
-                    <td th:text="${temp.nombreServicio}"></td>
-                    <td th:text="${temp.descripcion}"></td>
-                    <td th:text="${temp.horario}"></td>
-                    <td th:text="${temp.precio}"></td>
-                    <td th:text="${temp.encargado}"></td>
-                 
+                        <td th:text="${temp.id}" style="display:none;"></td>
+                        <td th:text="${temp.categoria}"></td>
+                        <td th:text="${temp.clasificacion}"></td>
+                        <td th:text="${temp.nombreProducto}"></td>
+                        <td th:text="${temp.cantidad}"></td>
+                        <td th:text="'&#8353;'+${temp.precio}"></td>
                
                 </tr>
             </table>

@@ -5,6 +5,7 @@ package cr.ac.una.tecsolve.controller;
 import cr.ac.una.tecsolve.data.DataCliente;
 import cr.ac.una.tecsolve.domain.Cliente;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -90,5 +91,14 @@ public class ControllerCliente {
         model.addAttribute("correo", correo);
         return "form_clienteEdit";
     }
+    @GetMapping("/BuscarServicio/{nombre}")
+    public String buscarSER(@PathVariable String nombre, Model model) {
+        
+        LinkedList <Cliente> con = new LinkedList<Cliente>();
+        DataCliente dc = new DataCliente();
+        con = dc.buscarDatos(nombre);
+        model.addAttribute("lista", con);
 
+        return "./BuscarCliente";
+    }
 }

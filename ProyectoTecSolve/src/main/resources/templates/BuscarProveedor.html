@@ -10,34 +10,32 @@
     </head>
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
-        <h1>Control de Servicios Brindados</h1>
+        <h1>Control de Proveedores</h1>
         <div class="container">
             <div class="row">
               
             </div>
         </div>
-        <div th:if="${#lists.isEmpty(lista)}">
+        <div th:if="${#lists.isEmpty(proveedores)}">
             <p>No hay datos disponibles.</p>
         </div>
-        <div th:if="${not #lists.isEmpty(lista)}">
+        
+        <div th:if="${not #lists.isEmpty(proveedores)}">
             <table border="1" class="tbMode">
                     <tr class="trHead">
-                    <th>Nombre Servicio</th>
-                    <th>Descripcion</th>
-                    <th>Horario</th>
-                    <th>Precio</th>
-                    <th>Encargado</th>
+                    <th>Nombre Proveedor</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    
                     
                 </tr>
-                <tr class="trLista"  th:each="temp:${lista}">
-                    <td th:text="${temp.id}" style="display:none;"></td>
-                    <td th:text="${temp.nombreServicio}"></td>
-                    <td th:text="${temp.descripcion}"></td>
-                    <td th:text="${temp.horario}"></td>
-                    <td th:text="${temp.precio}"></td>
-                    <td th:text="${temp.encargado}"></td>
-                 
-               
+                 <tr class="trLista" th:each="proveedor:${proveedores}">
+                          <td th:text="${proveedor.nombre}"></td>
+                            <td th:text="${proveedor.direccion}"></td>
+                            <td th:text="${proveedor.telefono}"></td>
+                            <td th:text="${proveedor.email}"></td>
+                            <td>
                 </tr>
             </table>
         </div>
