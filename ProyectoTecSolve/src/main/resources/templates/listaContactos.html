@@ -27,33 +27,35 @@
             <h2>La Empresa no posee contactos actualmente!!</h2>
         </div>
         <div th:if="${!#lists.isEmpty(contactos)}">
-            
-                   <form id="myForm" action="/contactos/BuscarServicio/{nombre}" method="get">
-    <input type="text" name="nombre" id="nombreInput">
-    <button type="submit" id="submitButton">Buscar Por Numero de Telefono</button>
-    
-    
-</form>
 
-<script>
-    const form = document.getElementById('myForm');
-    const nombreInput = document.getElementById('nombreInput');
-    const submitButton = document.getElementById('submitButton');
-    
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault();
+            <div class="contenedor-formulario">
+                <form id="myForm" action="/contactos/BuscarServicio/{nombre}" method="get">
+                    <div class="contFiltro">
+                        <input class="inputAgrupar" type="text" name="nombre" id="nombreInput" placeholder="Buscar por teléfono" required>
+                        <button class="buttonAgrupar" type="submit" id="submitButton"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
 
-        const nombre = nombreInput.value;
+            <script>
+                const form = document.getElementById('myForm');
+                const nombreInput = document.getElementById('nombreInput');
+                const submitButton = document.getElementById('submitButton');
 
-        form.action = "/contactos/BuscarServicio/" + nombre;
+                submitButton.addEventListener('click', function (event) {
+                    event.preventDefault();
 
-        form.submit();
-    });
-</script>
-            
-    
-            
-            
+                    const nombre = nombreInput.value;
+
+                    form.action = "/contactos/BuscarServicio/" + nombre;
+
+                    form.submit();
+                });
+            </script>
+
+
+
+
             <div class="contLista">
                 <table class="tbMode" >
                     <thead>

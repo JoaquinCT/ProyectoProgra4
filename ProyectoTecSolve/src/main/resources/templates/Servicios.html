@@ -19,7 +19,7 @@
             <p>No hay datos disponibles.</p>
         </div>
         <div th:if="${not #lists.isEmpty(servicios)}">
-         
+
             <!-- Sección de agrupación -->
             <div class="contAgrupar">
                 <form>
@@ -30,34 +30,36 @@
             </div>
             <br>
             
-            <form id="myForm" action="/servicios/BuscarServicio/{nombre}" method="get">
-    <input type="text" name="nombre" id="nombreInput">
-    <button type="submit" id="submitButton">Buscar Por Nombre de Servicio</button>
-    
-    
-</form>
+            <div class="contenedor-formulario">
+                <form id="myForm" action="/servicios/BuscarServicio/{nombre}" method="get">
+                    <div class="contFiltro">
+                        <input class="inputAgrupar" type="text" name="nombre" id="nombreInput" placeholder="Buscar por servicio" required>
+                        <button class="buttonAgrupar" type="submit" id="submitButton"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
 
-<script>
-    const form = document.getElementById('myForm');
-    const nombreInput = document.getElementById('nombreInput');
-    const submitButton = document.getElementById('submitButton');
-    
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault();
+            <script>
+                const form = document.getElementById('myForm');
+                const nombreInput = document.getElementById('nombreInput');
+                const submitButton = document.getElementById('submitButton');
 
-        const nombre = nombreInput.value;
+                submitButton.addEventListener('click', function (event) {
+                    event.preventDefault();
 
-        form.action = "/servicios/BuscarServicio/" + nombre;
+                    const nombre = nombreInput.value;
 
-        form.submit();
-    });
-</script>
-            
-            
-            
-            
-            
-            
+                    form.action = "/servicios/BuscarServicio/" + nombre;
+
+                    form.submit();
+                });
+            </script>
+
+
+
+
+
+
             <div class="contLista">
                 <table border="1" class="tbMode">
                     <tr class="trHead">

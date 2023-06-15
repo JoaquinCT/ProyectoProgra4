@@ -77,16 +77,14 @@ public class ControllerGastos {
         return "formGasto";
     }
 
-
     @GetMapping("/delete/{id}")
     public String deleteGasto(@PathVariable int id, HttpServletRequest request) {
         String paginaAnterior = request.getHeader("referer");
         logicG.eliminarGasto(id);
-        return "redirect:"+paginaAnterior;
+        return "redirect:" + paginaAnterior;
     }
-    
-    
-       @GetMapping("/BuscarServicio/{nombre}")
+
+    @GetMapping("/BuscarServicio/{nombre}")
     public String buscarSER(@PathVariable String nombre, Model model) {
 
         LinkedList<Gasto> con = new LinkedList<Gasto>();
@@ -96,5 +94,5 @@ public class ControllerGastos {
 
         return "./BuscarGasto";
     }
-    
+
 }

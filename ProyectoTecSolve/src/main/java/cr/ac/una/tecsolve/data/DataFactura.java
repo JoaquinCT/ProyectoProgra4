@@ -1,12 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cr.ac.una.tecsolve.data;
+
 import cr.ac.una.tecsolve.domain.Factura;
+import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +15,6 @@ import java.util.logging.Logger;
  *
  * @author kinco
  */
-
 public class DataFactura extends BaseData {
 
     public final static String ID = "id";
@@ -29,7 +28,7 @@ public class DataFactura extends BaseData {
     public boolean insertarFactura(Factura factura) {
         boolean inserto = false;
 
-        String query = "INSERT INTO " + TBFACTURAS + "(" + PRODUCTO + "," + CANTIDAD + "," + PRECIO + "," + CLIENTE + "," + FECHA + ") VALUES(?,?,?,?,?,?);";
+        String query = "INSERT INTO " + TBFACTURAS + "(" + PRODUCTO + "," + CANTIDAD + "," + PRECIO + "," + CLIENTE + "," + FECHA + ") VALUES(?,?,?,?,?);";
 
         try {
             PreparedStatement pr = getConnection().prepareStatement(query);
@@ -37,7 +36,8 @@ public class DataFactura extends BaseData {
             pr.setInt(2, factura.getCantidad());
             pr.setDouble(3, factura.getPrecio());
             pr.setString(4, factura.getCliente());
-            pr.setDate(5, new java.sql.Date(factura.getFecha().getTime()));
+            java.sql.Date sqlDate = new java.sql.Date(factura.getFecha().getTime());
+            pr.setDate(5, sqlDate);
             pr.executeUpdate();
             inserto = true;
             pr.close();
@@ -150,7 +150,8 @@ public class DataFactura extends BaseData {
             pr.setInt(2, factura.getCantidad());
             pr.setDouble(3, factura.getPrecio());
             pr.setString(4, factura.getCliente());
-            pr.setDate(5, new java.sql.Date(factura.getFecha().getTime()));
+            java.sql.Date sqlDate = new java.sql.Date(factura.getFecha().getTime());
+            pr.setDate(5, sqlDate);
             pr.executeUpdate();
             actualizo = true;
             pr.close();
@@ -175,13 +176,28 @@ public class DataFactura extends BaseData {
         return elimino;
     }
 
-    public static void main(String[] args) {
-
-        LinkedList<Factura> lista = new DataFactura().getListaFacturasPorPaginacion(1, 2);
-
-        for (Factura f : lista) {
-            System.out.println(f.getId());
-            System.out.println("\n");
+    public LinkedList<Factura> buscarDatos(String descripcion) {
+        LinkedList<Factura> lista = new LinkedList<Factura>();
+        String query = "SELECT * FROM " + TBFACTURAS + " WHERE producto=?";
+        Connection con = getConnection();
+        try {
+            PreparedStatement prepared = con.prepareStatement(query);
+            prepared.setString(1, descripcion);
+            ResultSet rs = prepared.executeQuery();
+            while (rs.next()) {
+                Factura f = new Factura();
+                f.setId(rs.getInt(ID));
+                f.setFecha(rs.getDate(FECHA));
+                f.setProducto(rs.getString(PRODUCTO));
+                f.setCliente(rs.getString(CLIENTE));
+                f.setCantidad(rs.getInt(CANTIDAD));
+                f.setPrecio(rs.getDouble(PRECIO));
+                lista.add(f);
+            }
+            prepared.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return lista;
     }
 }

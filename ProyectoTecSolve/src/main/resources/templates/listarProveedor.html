@@ -28,34 +28,35 @@
             </div>
             <br>
             
-            
-                   <form id="myForm" action="/proveedores/BuscarServicio/{nombre}" method="get">
-    <input type="text" name="nombre" id="nombreInput">
-    <button type="submit" id="submitButton">Buscar Por Nombre de Proveedor</button>
-    
-    
-</form>
+            <div class="contenedor-formulario">
+                <form id="myForm" action="/proveedores/BuscarServicio/{nombre}" method="get">
+                    <div class="contFiltro">
+                        <input class="inputAgrupar" type="text" name="nombre" id="nombreInput" placeholder="Buscar por proveedor" required>
+                        <button class="buttonAgrupar" type="submit" id="submitButton"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
 
-<script>
-    const form = document.getElementById('myForm');
-    const nombreInput = document.getElementById('nombreInput');
-    const submitButton = document.getElementById('submitButton');
-    
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault();
+            <script>
+                const form = document.getElementById('myForm');
+                const nombreInput = document.getElementById('nombreInput');
+                const submitButton = document.getElementById('submitButton');
 
-        const nombre = nombreInput.value;
+                submitButton.addEventListener('click', function (event) {
+                    event.preventDefault();
 
-        form.action = "/proveedores/BuscarServicio/" + nombre;
+                    const nombre = nombreInput.value;
 
-        form.submit();
-    });
-</script>
-            
-    
-            
-                    
-            
+                    form.action = "/proveedores/BuscarServicio/" + nombre;
+
+                    form.submit();
+                });
+            </script>
+
+
+
+
+
             <div class="contLista">
                 <table class="tbMode" >
                     <thead>
@@ -105,11 +106,11 @@
                 <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
             </div>
         </div>
-                            <!--PIE DE PAGINA-->
+        <!--PIE DE PAGINA-->
 
-                <footer>
-                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
-                </footer>
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
 
     </body>
 </html>

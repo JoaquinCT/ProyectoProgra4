@@ -19,18 +19,23 @@
                     <input th:field="*{id}" type="number" style="display: none">
                     <div class="card-body">
                         <div class="form-group">
+                            <label>Nombre del producto</label>
+                            <input th:field="*{producto}" type="text" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>Cantidad</label>
+                            <input th:field="*{cantidad}" min="0" type="number" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input th:field="*{precio}" min="0" type="number" class="form-control" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
                             <label>Nombre del cliente</label>
-                            <input th:field="*{nombreCliente}" type="text" class="form-control" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label>Descripción</label>
-                            <textarea th:field="*{descripcion}" class="form-control" required></textarea>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label>Monto</label>
-                            <input th:field="*{monto}" type="number" class="form-control" required>
+                            <input th:field="*{cliente}" type="text" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">

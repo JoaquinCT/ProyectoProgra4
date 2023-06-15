@@ -23,7 +23,6 @@ import java.util.logging.Logger;
  */
 public class DataGasto extends BaseData {
 
-    
     public final static String ID = "id";
     public final static String FECHA = "fecha";
     public final static String DESCRIPCION = "descripcion";
@@ -64,8 +63,8 @@ public class DataGasto extends BaseData {
             pr.setInt(1, pageSize);
             pr.setInt(2, offset);
             ResultSet rs = pr.executeQuery();
-            while (rs.next()) { 
-                
+            while (rs.next()) {
+
                 Gasto g = new Gasto();
                 g.setId(rs.getInt(ID));
                 g.setFecha(rs.getDate(FECHA));
@@ -80,7 +79,7 @@ public class DataGasto extends BaseData {
         }
         return lista;
     }
-    
+
     public int getNumeroTotalGastos() {
         int numeroTotal = 0;
 
@@ -192,32 +191,32 @@ public class DataGasto extends BaseData {
             System.out.println(g.getDescripcion());
             System.out.println("\n");
         }
-        
-    }
-public LinkedList<Gasto> buscarDatos(String descripcion) {
-    LinkedList<Gasto> lista = new LinkedList<Gasto>();
-    String query = "SELECT * FROM " + TBGASTOS + " WHERE descripcion=?";
-    Connection con = getConnection();
-    try {
-        PreparedStatement prepared = con.prepareStatement(query);
-        prepared.setString(1, descripcion);
-        ResultSet rs = prepared.executeQuery();
-        while (rs.next()) {
-            Gasto g = new Gasto();
-            g.setId(rs.getInt(ID));
-            g.setFecha(rs.getDate(FECHA));
-            g.setDescripcion(rs.getString(DESCRIPCION));
-            g.setCategoria(rs.getString(CATEGORIA));
-            g.setMonto(rs.getDouble(MONTO));
-            g.setDetalle(rs.getString(DETALLE));
-            lista.add(g);
-        }
-        prepared.close();
-    } catch (SQLException ex) {
-        Logger.getLogger(DataGasto.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return lista;
-}
 
+    }
+
+    public LinkedList<Gasto> buscarDatos(String descripcion) {
+        LinkedList<Gasto> lista = new LinkedList<Gasto>();
+        String query = "SELECT * FROM " + TBGASTOS + " WHERE descripcion=?";
+        Connection con = getConnection();
+        try {
+            PreparedStatement prepared = con.prepareStatement(query);
+            prepared.setString(1, descripcion);
+            ResultSet rs = prepared.executeQuery();
+            while (rs.next()) {
+                Gasto g = new Gasto();
+                g.setId(rs.getInt(ID));
+                g.setFecha(rs.getDate(FECHA));
+                g.setDescripcion(rs.getString(DESCRIPCION));
+                g.setCategoria(rs.getString(CATEGORIA));
+                g.setMonto(rs.getDouble(MONTO));
+                g.setDetalle(rs.getString(DETALLE));
+                lista.add(g);
+            }
+            prepared.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataGasto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
 
 }

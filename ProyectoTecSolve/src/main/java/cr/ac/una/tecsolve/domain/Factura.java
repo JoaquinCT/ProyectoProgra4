@@ -1,19 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package cr.ac.una.tecsolve.domain;
 
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 /**
  *
  * @author kinco
  */
 public class Factura {
+    private int id;
     private String producto;
     private int cantidad;
     private double precio;
     private String cliente;
+    @DateTimeFormat(pattern = "dd-MM-YYYY")
     private Date fecha;
 
     public Factura(String producto, int cantidad, double precio, String cliente, Date fecha) {
@@ -25,7 +25,7 @@ public class Factura {
     }
 
     public Factura() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     public String getProducto() {
@@ -68,11 +68,11 @@ public class Factura {
         this.fecha = fecha;
     }
 
-    public void setId(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getId() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int getId() {
+        return id;
     }
 }

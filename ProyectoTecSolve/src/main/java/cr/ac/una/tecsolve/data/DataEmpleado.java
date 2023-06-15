@@ -28,7 +28,7 @@ public class DataEmpleado extends BaseData {
     public final static String NOMBRE = "nombre";
     public final static String APELLIDO = "apellido";
     public final static String NUMERO_TELEFONO = "numeroTelefono";
-    public final static String CONTRASENIA = "contraseña";
+    public final static String CONTRASENIA = "contrasenia";
     public final static String PUESTO = "puesto";
     public final static String SALARIO = "salario";
     public final static String TBEMPLEADO = "tbusuario";
@@ -181,7 +181,7 @@ public class DataEmpleado extends BaseData {
     public boolean actualizarEmpleado(Empleado empleado, int idEmpleado) {
         boolean actualizo = false;
 
-        String query = "UPDATE tbusuario SET " + CEDULA + "=?," + NOMBRE + "=?," + APELLIDO + "=?," + NUMERO_TELEFONO + "=?," + CONTRASENIA + "=?," + PUESTO+"=?,"+SALARIO + "=? WHERE " + ID + "=" + idEmpleado + ";";
+        String query = "UPDATE tbusuario SET " + CEDULA + "=?," + NOMBRE + "=?," + APELLIDO + "=?," + NUMERO_TELEFONO + "=?," + PUESTO+"=?,"+SALARIO + "=? WHERE " + ID + "=" + idEmpleado + ";";
 
         try {
             PreparedStatement prepared = getConnection().prepareStatement(query);
@@ -189,9 +189,8 @@ public class DataEmpleado extends BaseData {
             prepared.setString(2, empleado.getNombre());
             prepared.setString(3, empleado.getApellido());
             prepared.setString(4, empleado.getNumeroTelefono());
-            prepared.setString(5, empleado.getContrasenia());
-            prepared.setString(6, empleado.getPuesto());
-            prepared.setDouble(7, empleado.getSalario());
+            prepared.setString(5, empleado.getPuesto());
+            prepared.setDouble(6, empleado.getSalario());
             prepared.executeUpdate();
             actualizo = true;
         } catch (SQLException ex) {

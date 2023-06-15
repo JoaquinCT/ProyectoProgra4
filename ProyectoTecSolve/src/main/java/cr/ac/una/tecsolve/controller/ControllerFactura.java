@@ -1,10 +1,14 @@
 package cr.ac.una.tecsolve.controller;
 
+import cr.ac.una.tecsolve.data.DataFactura;
 import cr.ac.una.tecsolve.domain.Factura;
 import cr.ac.una.tecsolve.logic.LogicaFactura;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.LinkedList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,12 +40,18 @@ public class ControllerFactura {
         return "formFactura";
     }
 
-@PostMapping("/saveFactura")
-public String guardarFactura(@ModelAttribute Factura factura, HttpServletRequest request) {
-    String paginaAnterior = request.getParameter("paginaAnterior");
-    logicaFactura.actualizarFactura(factura);
-    return "redirect:" + paginaAnterior;
-}
+    @PostMapping("/saveFactura")
+    public String guardarFactura(@Validated @ModelAttribute Factura factura, HttpServletRequest request) {
+        String paginaAnterior = request.getParameter("paginaAnterior");
+        if (factura.getId() == 0) {
+            logicaFactura.insertarFactura(factura);
+            return "redirect:/facturas/listaFacturas";
+        } else {
+            logicaFactura.actualizarFactura(factura);
+            return "redirect:" + paginaAnterior;
+        }
+
+    }
 
     @GetMapping("/editar/{id}")
     public String formEditarFactura(@PathVariable int id, Model model, HttpServletRequest request) {
@@ -56,5 +66,16 @@ public String guardarFactura(@ModelAttribute Factura factura, HttpServletRequest
         String paginaAnterior = request.getHeader("referer");
         logicaFactura.eliminarFactura(id);
         return "redirect:" + paginaAnterior;
+    }
+    
+     @GetMapping("/BuscarFactura/{nombre}")
+    public String buscarFactura(@PathVariable String nombre, Model model) {
+
+        LinkedList<Factura> con = new LinkedList<Factura>();
+         DataFactura dc = new DataFactura();
+        con = dc.buscarDatos(nombre);
+        model.addAttribute("facturas", con);
+
+        return "./BuscarFactura";
     }
 }

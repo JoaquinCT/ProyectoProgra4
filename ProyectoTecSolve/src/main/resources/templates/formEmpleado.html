@@ -40,7 +40,7 @@
                         <br>
                         <div class="form-group">
                             <label>CONTRASEÑA</label>
-                            <input th:field="*{contrasenia}" type="password" class="form-control" required>
+                            <input th:field="*{contrasenia}" pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres" placeholder="Ingrese la contraseña" type="password" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">

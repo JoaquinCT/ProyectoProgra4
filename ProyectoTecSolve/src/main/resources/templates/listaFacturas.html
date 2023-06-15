@@ -13,7 +13,7 @@
         <header th:replace="BarraNavPrincipal.html"></header>
 
 
-        <a th:href="@{/facturas/saveFactura}" class="btn btn-primary"><i class="fas fa-plus"></i> Registrar factura</a>
+        <a th:href="@{/facturas/guardarFactura}" class="btn btn-primary"><i class="fas fa-plus"></i> Registrar factura</a>
         <div th:if="${#lists.isEmpty(facturas)}">
             <h2>No hay facturas registradas actualmente.</h2>
         </div>
@@ -24,43 +24,43 @@
                     <label class="labelAgrupar">Agrupar de </label>
                     <input type="number" class="inputAgrupar" name="pageSize" min="1" value="1">
                     <button type="submit" class="buttonAgrupar"><i class="fas fa-eye"></i> Mostrar</button>
+                    <br><br>
                 </form>
             </div>
-            <br>
-            
-            
-                   <form id="myForm" action="/facturas/BuscarFactura/{nombre}" method="get">
-    <input type="text" name="nombre" id="nombreInput">
-    <button type="submit" id="submitButton">Buscar Por Nombre de Proveedor</button>
-    
-    
-</form>
 
-<script>
-    const form = document.getElementById('myForm');
-    const nombreInput = document.getElementById('nombreInput');
-    const submitButton = document.getElementById('submitButton');
-    
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault();
+            <div class="contenedor-formulario">
+                <form id="myForm" action="/facturas/BuscarFactura/{nombre}" method="get">
+                    <div class="contFiltro">
+                        <input class="inputAgrupar" type="text" name="nombre" id="nombreInput" placeholder="Buscar por producto" required>
+                        <button class="buttonAgrupar" type="submit" id="submitButton"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
 
-        const nombre = nombreInput.value;
+            <script>
+                const form = document.getElementById('myForm');
+                const nombreInput = document.getElementById('nombreInput');
+                const submitButton = document.getElementById('submitButton');
 
-        form.action = "/facturas/BuscarFactura/" + nombre;
+                submitButton.addEventListener('click', function (event) {
+                    event.preventDefault();
 
-        form.submit();
-    });
-</script>
-            
-    
-            
-                    
-            
+                    const nombre = nombreInput.value;
+
+                    form.action = "/facturas/BuscarFactura/" + nombre;
+
+                    form.submit();
+                });
+            </script>
+
+
+
+
+
             <div class="contLista">
                 <table class="tbMode" >
                     <thead>
                         <tr class="trHead">
-                            <th>Proveedor</th>
                             <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio</th>
@@ -71,12 +71,16 @@
                     </thead>
                     <tbody>
                         <tr class="trLista" th:each="factura:${facturas}">
-                            <td th:text="${factura.proveedor}"></td>
+                            <td th:text="${factura.id}" type="hidden" name="id" class="field" readonly="readonly" style="display: none"></td>
                             <td th:text="${factura.producto}"></td>
                             <td th:text="${factura.cantidad}"></td>
-                            <td th:text="${factura.precio}"></td>
+                            <td th:text="'&#8353;'+${factura.precio}"></td>
                             <td th:text="${factura.cliente}"></td>
-                            <td th:text="${factura.fecha}"></td>
+                            <td>
+                                <span th:text="${factura.fecha}" id="fecha-${
+                                          g.id
+                                      }"></span>
+                            </td>
                             <td>
                                 <a th:href="@{/facturas/editar/}+${factura.id}" class="btn btn-warning" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a>
                             </td>
@@ -109,11 +113,23 @@
                 <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
             </div>
         </div>
-                            <!--PIE DE PAGINA-->
+        <!--PIE DE PAGINA-->
 
-                <footer>
-                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
-                </footer>
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
+
+        <script>
+            // Obtener los elementos <span> con las fechas
+            var fechas = document.querySelectorAll('[id^="fecha-"]');
+
+            // Recorrer cada elemento y formatear la fecha en formato numérico
+            fechas.forEach(function (elemento) {
+                var fecha = new Date(elemento.textContent);
+                var fechaFormateada = fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear();
+                elemento.textContent = fechaFormateada;
+            });
+        </script>
 
     </body>
 </html>

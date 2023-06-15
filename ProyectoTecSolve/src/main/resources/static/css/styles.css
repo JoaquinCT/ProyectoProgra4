@@ -284,7 +284,7 @@ td{
 }
 
 .inputAgrupar {
-    width: 50px;
+    width: 90px;
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -309,6 +309,18 @@ footer{
     text-align: center;
     padding: 20px;
     background-color: black;
-    color: white; 
-    
-} 
+    color: white;
+
+}
+
+.contenedor-formulario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contFiltro {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}

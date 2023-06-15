@@ -4,7 +4,7 @@
         <title>Lista Clientes</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="preload" href="css/styles.css" as="style">
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
@@ -13,41 +13,15 @@
     <body>
         <header th:replace="BarraNavPrincipal.html"></header>
 
-       
+
         <a class="btn btn-primary" href="/clientes/insertar"><i class="fas fa-plus"></i> Registrar Clientes</a>
-     
-        
+
+
         <div th:if="${#lists.isEmpty(lista)}">
             <h2>La Empresa no posee Clientes actualmente!!</h2>
         </div>
         <div th:if="${!#lists.isEmpty(lista)}">
-            
-                   <form id="myForm" action="/clientes/BuscarServicio/{nombre}" method="get">
-    <input type="text" name="nombre" id="nombreInput">
-    <button type="submit" id="submitButton">Buscar Por Nombre de Cliente</button>
-    
-    
-</form>
 
-<script>
-    const form = document.getElementById('myForm');
-    const nombreInput = document.getElementById('nombreInput');
-    const submitButton = document.getElementById('submitButton');
-    
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault();
-
-        const nombre = nombreInput.value;
-
-        form.action = "/clientes/BuscarServicio/" + nombre;
-
-        form.submit();
-    });
-</script>
-            
-    
-            
-            
             <div class="contAgrupar">
                 <form>
                     <label class="labelAgrupar">Agrupar de </label>
@@ -55,6 +29,31 @@
                     <button type="submit" class="buttonAgrupar"><i class="fas fa-eye"></i> Mostrar</button>
                 </form>
             </div>
+            <br>
+             <div class="contenedor-formulario">
+                <form id="myForm" action="/clientes/BuscarServicio/{nombre}" method="get">
+                    <div class="contFiltro">
+                        <input class="inputAgrupar" type="text" name="nombre" id="nombreInput" placeholder="Buscar por cliente" required>
+                        <button class="buttonAgrupar" type="submit" id="submitButton"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+
+            <script>
+                const form = document.getElementById('myForm');
+                const nombreInput = document.getElementById('nombreInput');
+                const submitButton = document.getElementById('submitButton');
+
+                submitButton.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    const nombre = nombreInput.value;
+
+                    form.action = "/clientes/BuscarServicio/" + nombre;
+
+                    form.submit();
+                });
+            </script>
 
             <br>
             <div class="contLista">
@@ -79,13 +78,13 @@
                         <td th:text="${temp.cedula}"></td>
                         <td th:text="${temp.numeroTelefono}"></td>
                         <td th:text="${temp.correo}"></td>
-                        
-                        
-                      
+
+
+
                         <td><a class="btn btn-warning" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a></td>
-                            <td>
+                        <td>
                             <a th:href="@{/clientes/eliminar/}+${temp.id_cliente}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a> </td>
-                            
+
 
                     </tr>
                 </table>
@@ -111,11 +110,11 @@
                 <div>Page <span th:text="${pageNumber}"></span> of <span th:text="${totalPages}"></span></div>
             </div>
         </div>
-                    <!--PIE DE PAGINA-->
+        <!--PIE DE PAGINA-->
 
-                <footer>
-                Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
-                </footer>
+        <footer>
+            Maizeth Cisneros-Pablo Espinoza-Juan Dolmus-Joaquin Cortes_Programacion IV-UNA
+        </footer>
 
     </body>
 </html>
