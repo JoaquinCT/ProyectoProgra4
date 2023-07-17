@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="preload" href="css/styles.css" as="style">
         <link th:href="@{/css/pagination.css}" type="text/css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css">
         <script src="/js/funciones.js"></script>
     </head>
     <body>
@@ -30,7 +32,7 @@
                 </form>
             </div>
             <br>
-             <div class="contenedor-formulario">
+            <div class="contenedor-formulario">
                 <form id="myForm" action="/clientes/BuscarServicio/{nombre}" method="get">
                     <div class="contFiltro">
                         <input class="inputAgrupar" type="text" name="nombre" id="nombreInput" placeholder="Buscar por cliente" required>
@@ -43,14 +45,10 @@
                 const form = document.getElementById('myForm');
                 const nombreInput = document.getElementById('nombreInput');
                 const submitButton = document.getElementById('submitButton');
-
                 submitButton.addEventListener('click', function (event) {
                     event.preventDefault();
-
                     const nombre = nombreInput.value;
-
                     form.action = "/clientes/BuscarServicio/" + nombre;
-
                     form.submit();
                 });
             </script>
@@ -81,9 +79,16 @@
 
 
 
-                        <td><a class="btn btn-warning" th:href="@{/clientes/editar/}+${temp.id_cliente}+@{/}+${temp.nombre}+@{/}+${temp.apellido}+@{/}+${temp.cedula}+@{/}+${temp.numeroTelefono}+@{/}+${temp.correo}" onclick="return confirm('¿Está seguro de que desea editar el registro?')"><i class="fas fa-edit"></i></a></td>
                         <td>
-                            <a th:href="@{/clientes/eliminar/}+${temp.id_cliente}" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar el registro?'); goBack()"><i class="fas fa-trash-alt"></i></a> </td>
+                            <a class="btn btn-warning" href="#" th:if="${temp.id_cliente != null}" th:attr="onclick='editarCliente(parseInt(\'' + ${temp.id_cliente} + '\'), \'' + ${temp.nombre} + '\', \'' + ${temp.apellido} + '\', \'' + ${temp.cedula} + '\', \'' + ${temp.numeroTelefono} + '\', \'' + ${temp.correo} + '\')'"><i class="fas fa-edit"></i></a>
+                        </td>
+
+                        <td>
+                            <a class="btn btn-danger" href="#" th:if="${temp.id_cliente != null}" th:attr="onclick='eliminarCliente(parseInt(\'' + ${temp.id_cliente} + '\'))'"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+
+
+
 
 
                     </tr>

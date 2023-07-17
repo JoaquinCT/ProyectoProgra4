@@ -82,3 +82,37 @@ function limpiar() {
 function goBack() {
     window.location.replace(document.referrer);
 }
+
+function editarCliente(id_cliente, nombre, apellido, cedula, numeroTelefono, correo) {
+    Swal.fire({
+        title: '¿Está seguro?',
+        text: '¿Desea editar el registro?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, editar',
+        cancelButtonText: 'Cancelar'
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            var url = '/clientes/editar/' + id_cliente + '/' + encodeURIComponent(nombre) + '/' + encodeURIComponent(apellido) + '/' + encodeURIComponent(cedula) + '/' + encodeURIComponent(numeroTelefono) + '/' + encodeURIComponent(correo);
+            window.location.href = url;
+        }
+    });
+}
+
+function eliminarCliente(id_cliente) {
+    Swal.fire({
+        title: '¿Está seguro?',
+        text: '¿Desea eliminar el registro?',
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then(function(result) {
+        if (result.isConfirmed) {
+            var url = '/clientes/eliminar/' + id_cliente;
+            window.location.href = url;
+        }
+    });
+}
+
+

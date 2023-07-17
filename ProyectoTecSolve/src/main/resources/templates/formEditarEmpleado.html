@@ -43,7 +43,7 @@
                         <br>
                         <div class="form-group">
                             <label>PUESTO</label>
-                            <input th:field="*{puesto}" type="text"  class="form-control" required>
+                            <input th:field="*{puesto}" pattern="[A-Za-z]+" placeholder="Ingrese solo letras" type="text"  class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">

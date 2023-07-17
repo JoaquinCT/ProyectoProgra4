@@ -26,7 +26,7 @@
                         <br>
                         <div class="form-group">
                             <label>DESCRIPCIÓN</label>
-                            <input th:field="*{descripcion}" type="text" class="form-control" required>
+                            <input th:field="*{descripcion}" pattern="[A-Za-z0-9]+" placeholder="Ingrese solo letras o números" type="text" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-group">
